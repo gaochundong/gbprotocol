@@ -74,12 +74,9 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
         int splitCount = (buffer.length / splitByLength) + (buffer.length % splitByLength > 0 ? 1 : 0);
         List<JT808MessageContent> splitContents = new ArrayList<>(splitCount);
         for (int i = 0; i < splitCount; i++) {
-            JT808MessageSplitContent child = new JT808MessageSplitContent(this, splitByLength, i);
-            child.setSplitContent(
-                    ByteBuffer.wrap(
-                            buffer,
-                            (i * splitByLength),
-                            (i < splitCount - 1) ? splitByLength : (buffer.length % splitByLength)));
+            int contentLength = (i < splitCount - 1) ? splitByLength : (buffer.length % splitByLength);
+            JT808MessageSplitContent child = new JT808MessageSplitContent(this, splitCount, i, contentLength);
+            child.setSplitContent(ByteBuffer.wrap(buffer, (i * splitByLength), contentLength));
             splitContents.add(child);
         }
         return splitContents;
