@@ -1,5 +1,7 @@
 package ai.sangmado.jt808.protocol.message.codec;
 
+import java.nio.ByteBuffer;
+
 /**
  * JT808 消息Buffer写入器
  */
@@ -45,10 +47,26 @@ public interface IJT808MessageBufferWriter {
      * 写入 n 字节数据
      *
      * @param data   写入数据
-     * @param start  开始位置
+     * @param offset 开始位置
      * @param length 写入长度
      */
-    void writeBytes(byte[] data, int start, int length);
+    void writeBytes(byte[] data, int offset, int length);
+
+    /**
+     * 写入 n 字节数据
+     *
+     * @param data 写入数据
+     */
+    void writeBytes(ByteBuffer data);
+
+    /**
+     * 写入 n 字节数据
+     *
+     * @param data   写入数据
+     * @param offset 开始位置
+     * @param length 写入长度
+     */
+    void writeBytes(ByteBuffer data, int offset, int length);
 
     /**
      * 写入 8421 码，n 字节

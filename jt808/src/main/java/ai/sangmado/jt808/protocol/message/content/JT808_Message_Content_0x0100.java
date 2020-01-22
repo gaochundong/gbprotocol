@@ -3,7 +3,6 @@ package ai.sangmado.jt808.protocol.message.content;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
-import ai.sangmado.jt808.protocol.message.IJT808MessageFormatter;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
 import lombok.*;
@@ -18,9 +17,7 @@ import static com.google.common.base.Strings.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class JT808_Message_Content_0x0100
-        extends JT808MessageContent
-        implements IJT808MessageFormatter {
+public class JT808_Message_Content_0x0100 extends JT808MessageContent {
 
     @Override
     public JT808MessageId getMessageId() {
