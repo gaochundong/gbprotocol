@@ -22,44 +22,64 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
     public abstract JT808MessageId getMessageId();
 
     /**
+     * 获取消息体长度
+     *
+     * @param ctx 协议规范上下文
+     * @return 消息体长度
+     */
+    public int getContentLength(ISpecificationContext ctx) {
+//        IJT808MessageBufferWriter writer = null;
+//        this.serialize(ctx, writer);
+//        writer.Flush();
+        return 0;
+    }
+
+    /**
      * 是否能够按条件进行分包
      *
+     * @param ctx 协议规范上下文
      * @return 是否能够按条件进行分包
      */
-    public boolean canSplitAccordingly() {
+    public boolean couldSplitAccordingly(ISpecificationContext ctx) {
         return false;
     }
 
     /**
      * 获取分包长度
      *
+     * @param ctx 协议规范上下文
      * @return 分包长度
      */
-    public int getSplitByLength() {
+    public int getSplitByLength(ISpecificationContext ctx) {
         throw new UnsupportedJT808OperationException("未设置分包长度");
     }
 
     /**
-     * 按照条件进行分包
+     * 分包函数
      *
      * @param ctx 协议规范上下文
      * @return 分包列表
      */
     public List<JT808MessageContent> split(ISpecificationContext ctx) {
+        if (!couldSplitAccordingly(ctx)) {
+            throw new UnsupportedJT808OperationException("不适当的分包函数调用");
+        }
+
 //        IJT808MessageBufferWriter writer = null;
 //        this.serialize(ctx, writer);
 //        writer.Flush();
         byte[] buffer = new byte[10];
 
-        int splitCount = (buffer.length / getSplitByLength()) + (buffer.length % getSplitByLength() > 0 ? 1 : 0);
+        int splitByLength = getSplitByLength(ctx);
+        int splitCount = (buffer.length / splitByLength) + (buffer.length % splitByLength > 0 ? 1 : 0);
         List<JT808MessageContent> splitContents = new ArrayList<>(splitCount);
         for (int i = 0; i < splitCount; i++) {
-            JT808MessageSplitContent child = new JT808MessageSplitContent(this, getSplitByLength(), i);
+            JT808MessageSplitContent child = new JT808MessageSplitContent(this, splitByLength, i);
             child.setSplitContent(
                     ByteBuffer.wrap(
                             buffer,
-                            (i * getSplitByLength()),
-                            (i < splitCount - 1) ? getSplitByLength() : (buffer.length % getSplitByLength())));
+                            (i * splitByLength),
+                            (i < splitCount - 1) ? splitByLength : (buffer.length % splitByLength)));
             splitContents.add(child);
         }
         return splitContents;

@@ -36,4 +36,8 @@ public abstract class JT808MessageHeader implements IJT808MessageFormatter {
      * 如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项。
      */
     private JT808MessageHeaderMessagePacketProperty messagePacketProperty;
+
+    public JT808MessageHeader cloneHeader() {
+        return null;
+    }
 }

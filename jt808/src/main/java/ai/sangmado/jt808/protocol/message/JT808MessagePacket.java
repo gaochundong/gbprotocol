@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JT808MessagePackage implements IJT808MessageFormatter {
+public class JT808MessagePacket implements IJT808MessageFormatter {
 
     /**
      * 头标识

@@ -38,6 +38,11 @@ public class JT808MessageSplitContent extends JT808MessageContent {
     private ByteBuffer splitContent;
 
     @Override
+    public int getContentLength(ISpecificationContext ctx) {
+        return splitContent.remaining();
+    }
+
+    @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeBytes(splitContent);
     }
