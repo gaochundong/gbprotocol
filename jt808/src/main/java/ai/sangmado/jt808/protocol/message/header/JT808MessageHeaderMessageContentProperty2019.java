@@ -36,6 +36,17 @@ public class JT808MessageHeaderMessageContentProperty2019 extends JT808MessageHe
         this.reserved15 = reserved15;
     }
 
+    @Override
+    public JT808MessageHeaderMessageContentProperty clone() {
+        return JT808MessageHeaderMessageContentProperty2019.builder()
+                .isMultiplePackets(this.getIsMultiplePackets())
+                .encryptionMode(this.getEncryptionMode())
+                .contentLength(this.getContentLength())
+                .versionIdentifier(this.getVersionIdentifier())
+                .reserved15(this.getReserved15())
+                .build();
+    }
+
     /**
      * 将当前对象序列化至包装整型值
      *

@@ -27,7 +27,7 @@ public class JT808MessagePacketBuilder {
                 List<JT808MessagePacket> packets = new ArrayList<>(splitContents.size());
 
                 for (JT808MessageContent splitContent : splitContents) {
-                    JT808MessageHeader childHeader = header.cloneHeader();
+                    JT808MessageHeader childHeader = header.clone();
                     childHeader.getMessageContentProperty().setIsMultiplePackets(true);
                     childHeader.getMessageContentProperty().setContentLength(splitContent.getContentLength(ctx));
                     JT808MessagePacket packet = new JT808MessagePacket();

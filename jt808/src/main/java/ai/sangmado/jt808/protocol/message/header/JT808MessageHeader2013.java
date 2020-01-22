@@ -2,6 +2,7 @@ package ai.sangmado.jt808.protocol.message.header;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
@@ -31,6 +32,21 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
             String phoneNumber) {
         super(messageId, messageContentProperty, serialNumber, messagePacketProperty);
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public JT808MessageHeader clone() {
+        try {
+            return JT808MessageHeader2013.builder()
+                    .messageId(this.getMessageId())
+                    .messageContentProperty(this.getMessageContentProperty().clone())
+                    .serialNumber(this.getSerialNumber())
+                    .messagePacketProperty(this.getMessagePacketProperty().clone())
+                    .phoneNumber(this.getPhoneNumber())
+                    .build();
+        } catch (CloneNotSupportedException ex) {
+            throw new UnsupportedJT808OperationException("克隆对象失败", ex);
+        }
     }
 
     @SuppressWarnings("SwitchStatementWithTooFewBranches")

@@ -34,6 +34,17 @@ public class JT808MessageHeaderMessageContentProperty2011 extends JT808MessageHe
         this.reserved15 = reserved15;
     }
 
+    @Override
+    public JT808MessageHeaderMessageContentProperty clone() {
+        return JT808MessageHeaderMessageContentProperty2011.builder()
+                .isMultiplePackets(this.getIsMultiplePackets())
+                .encryptionMode(this.getEncryptionMode())
+                .contentLength(this.getContentLength())
+                .reserved14(this.getReserved14())
+                .reserved15(this.getReserved15())
+                .build();
+    }
+
     /**
      * 将当前对象序列化至包装整型值
      *
@@ -62,5 +73,15 @@ public class JT808MessageHeaderMessageContentProperty2011 extends JT808MessageHe
         }
 
         return packetSplitting | encryption | getContentLength();
+    }
+
+    /**
+     * 将包装整型值解构为当前对象
+     *
+     * @param value 包装整型值
+     */
+    @Override
+    public void release(Integer value) {
+
     }
 }

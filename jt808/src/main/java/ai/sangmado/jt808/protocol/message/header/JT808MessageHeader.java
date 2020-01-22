@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class JT808MessageHeader implements IJT808MessageFormatter {
+public abstract class JT808MessageHeader implements IJT808MessageFormatter, Cloneable {
 
     /**
      * 消息ID
@@ -37,7 +37,11 @@ public abstract class JT808MessageHeader implements IJT808MessageFormatter {
      */
     private JT808MessageHeaderMessagePacketProperty messagePacketProperty;
 
-    public JT808MessageHeader cloneHeader() {
-        return null;
-    }
+    /**
+     * 克隆对象
+     *
+     * @return 克隆对象
+     */
+    @Override
+    public abstract JT808MessageHeader clone();
 }

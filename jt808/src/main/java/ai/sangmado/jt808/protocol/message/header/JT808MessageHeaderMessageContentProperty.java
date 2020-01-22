@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class JT808MessageHeaderMessageContentProperty {
+public abstract class JT808MessageHeaderMessageContentProperty implements Cloneable {
 
     /**
      * 是否分包
@@ -26,6 +26,14 @@ public abstract class JT808MessageHeaderMessageContentProperty {
      * 消息体长度
      */
     private Integer contentLength;
+
+    /**
+     * 克隆对象
+     *
+     * @return 克隆对象
+     */
+    @Override
+    public abstract JT808MessageHeaderMessageContentProperty clone();
 
     /**
      * 将当前对象序列化至包装整型值
