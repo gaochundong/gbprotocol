@@ -20,8 +20,9 @@ public class JT808MessagePacketBuilder {
             // 此处需要获取到消息体的总长度，然后通过分包长度判断是否满足分包条件，进而进行分包操作
             int contentLength = content.getContentLength(ctx);
             int splitByLength = content.getSplitByLength(ctx);
+
+            // 总消息体长度大于分包长度，则进行分包
             if (contentLength > splitByLength) {
-                // 总消息体长度大于分包长度，则进行分包
                 List<JT808MessageContent> splitContents = content.split(ctx);
                 List<JT808MessagePacket> packets = new ArrayList<>(splitContents.size());
 
