@@ -1,6 +1,7 @@
 package ai.sangmado.jt808.protocol.message.header;
 
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.message.IJT808MessageFormatter;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class JT808Header {
+public abstract class JT808MessageHeader implements IJT808MessageFormatter {
 
     /**
      * 消息ID
@@ -22,7 +23,7 @@ public abstract class JT808Header {
     /**
      * 消息体属性
      */
-    private JT808HeaderMessageContentProperty messageContentProperty;
+    private JT808MessageHeaderMessageContentProperty messageContentProperty;
 
     /**
      * 消息流水号
@@ -34,5 +35,5 @@ public abstract class JT808Header {
      * 消息包封装项
      * 如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项。
      */
-    private JT808HeaderMessagePacketProperty messagePacketProperty;
+    private JT808MessageHeaderMessagePacketProperty messagePacketProperty;
 }

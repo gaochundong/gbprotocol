@@ -8,16 +8,17 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Builder
-public class JT808HeaderMessagePacketProperty {
+public class JT808MessageHeaderMessagePacketProperty {
 
     /**
      * 消息总包数
      */
-    private int totalPackets;
+    private Integer totalPackets;
 
     /**
      * 包序号
      */
-    private int sequence;
+    private Integer packetSequence;
 }
