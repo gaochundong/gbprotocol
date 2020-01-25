@@ -74,18 +74,19 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
         writer.writeWord(getProvinceId());
         writer.writeWord(getCityId());
 
+        final char padChar = '0';
         switch (ctx.getJT808ProtocolVersion()) {
             case V2011:
             case V2013: {
-                writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, '0'), 5);
-                writer.writeString(padEnd(nullToEmpty(getDeviceModel()), 20, '0'), 20);
-                writer.writeString(padEnd(nullToEmpty(getDeviceId()), 7, '0'), 7);
+                writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, padChar));
+                writer.writeString(padEnd(nullToEmpty(getDeviceModel()), 20, padChar));
+                writer.writeString(padEnd(nullToEmpty(getDeviceId()), 7, padChar));
                 break;
             }
             case V2019: {
-                writer.writeString(padStart(nullToEmpty(getManufacturerId()), 11, '0'), 11);
-                writer.writeString(padStart(nullToEmpty(getDeviceModel()), 30, '0'), 30);
-                writer.writeString(padStart(nullToEmpty(getDeviceId()), 30, '0'), 30);
+                writer.writeString(padStart(nullToEmpty(getManufacturerId()), 11, padChar));
+                writer.writeString(padStart(nullToEmpty(getDeviceModel()), 30, padChar));
+                writer.writeString(padStart(nullToEmpty(getDeviceId()), 30, padChar));
                 break;
             }
             default:

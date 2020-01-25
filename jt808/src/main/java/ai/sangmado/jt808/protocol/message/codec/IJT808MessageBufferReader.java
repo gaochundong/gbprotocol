@@ -8,17 +8,17 @@ public interface IJT808MessageBufferReader {
     /**
      * 读取 BYTE 无符号单字节整型 (字节，8位)
      */
-    Byte readByte();
+    byte readByte();
 
     /**
      * 读取 WORD 无符号双字节整型 (字节，16位)
      */
-    Integer readWord();
+    int readWord();
 
     /**
      * 读取 DWORD 无符号四字节整型 (字节，32位)
      */
-    Long readDWord();
+    long readDWord();
 
     /**
      * 读取 n 字节数据

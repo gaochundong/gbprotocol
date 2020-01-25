@@ -49,7 +49,7 @@ public class JT808MessageSplitContent extends JT808MessageContent {
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
-        writer.writeBytes(splitContent, 0, contentLength);
+        writer.writeBytes(splitContent);
     }
 
     @Override

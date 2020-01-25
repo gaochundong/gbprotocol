@@ -63,11 +63,12 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getMessageId().getValue());
 
+        final char padChar = '0';
         switch (ctx.getJT808ProtocolVersion()) {
             case V2019: {
                 writer.writeWord(getMessageContentProperty().marshal());
                 writer.writeByte(getProtocolVersion());
-                writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 10, '0'), 10);
+                writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 10, padChar));
                 break;
             }
             default:

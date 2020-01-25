@@ -54,10 +54,11 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getMessageId().getValue());
 
+        final char padChar = '0';
         switch (ctx.getJT808ProtocolVersion()) {
             case V2013: {
                 writer.writeWord(getMessageContentProperty().marshal());
-                writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 6, '0'), 6);
+                writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 6, padChar));
                 break;
             }
             default:
