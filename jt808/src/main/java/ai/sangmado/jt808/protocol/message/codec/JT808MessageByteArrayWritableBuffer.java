@@ -1,11 +1,12 @@
 package ai.sangmado.jt808.protocol.message.codec;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.utils.BCD;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import static ai.sangmado.jt808.protocol.message.codec.Bits.*;
+import static ai.sangmado.jt808.protocol.utils.Bits.*;
 
 public class JT808MessageByteArrayWritableBuffer extends JT808MessageWritableBuffer {
     private ISpecificationContext ctx;
@@ -74,7 +75,7 @@ public class JT808MessageByteArrayWritableBuffer extends JT808MessageWritableBuf
 
     @Override
     public void writeBCD(String x) {
-
+        writeBytes(BCD.bcdString2BCD(x));
     }
 
     @Override

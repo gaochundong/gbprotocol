@@ -1,4 +1,4 @@
-package ai.sangmado.jt808.protocol.message.codec;
+package ai.sangmado.jt808.protocol.utils;
 
 /**
  * Bit位工具类
