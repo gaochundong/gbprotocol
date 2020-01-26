@@ -75,11 +75,15 @@ public class JT808MessageByteArrayWritableBuffer extends JT808MessageWritableBuf
 
     @Override
     public void writeBCD(String x) {
+        if (x == null)
+            throw new IllegalArgumentException("input string cannot be null.");
         writeBytes(BCD.bcdString2BCD(x));
     }
 
     @Override
     public void writeString(String x) {
+        if (x == null)
+            throw new IllegalArgumentException("input string cannot be null.");
         writeBytes(x.getBytes(ctx.getCharset()));
     }
 }
