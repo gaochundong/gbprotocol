@@ -1,6 +1,7 @@
 package ai.sangmado.jt808.protocol.message;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
@@ -31,6 +32,7 @@ public class JT808MessagePacketBuilderTest {
         when(ctx.getJT808ProtocolVersion()).thenReturn(JT808ProtocolVersion.V2019);
         when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
         when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
+        when(ctx.getMessageContentEncryptionMode()).thenReturn(JT808MessageContentEncryptionMode.None);
         assertEquals("GBK", ctx.getCharset().name());
     }
 

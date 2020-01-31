@@ -32,9 +32,9 @@ public class JT808MessageHeader2011 extends JT808MessageHeader {
         try {
             return JT808MessageHeader2011.builder()
                     .messageId(this.getMessageId())
-                    .messageContentProperty(this.getMessageContentProperty().clone())
+                    .messageContentProperty(this.getMessageContentProperty() == null ? null : this.getMessageContentProperty().clone())
                     .serialNumber(this.getSerialNumber())
-                    .messagePacketProperty(this.getMessagePacketProperty().clone())
+                    .messagePacketProperty(this.getMessagePacketProperty() == null ? null : this.getMessagePacketProperty().clone())
                     .phoneNumber(this.getPhoneNumber())
                     .build();
         } catch (CloneNotSupportedException ex) {

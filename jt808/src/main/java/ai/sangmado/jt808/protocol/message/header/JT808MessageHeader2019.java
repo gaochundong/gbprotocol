@@ -32,7 +32,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
             String phoneNumber,
             Byte protocolVersion) {
         super(messageId, messageContentProperty, serialNumber, messagePacketProperty, phoneNumber);
-        this.protocolVersion = protocolVersion;
+        setProtocolVersion(protocolVersion);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
         try {
             return JT808MessageHeader2019.builder()
                     .messageId(this.getMessageId())
-                    .messageContentProperty(this.getMessageContentProperty().clone())
+                    .messageContentProperty(this.getMessageContentProperty() == null ? null : this.getMessageContentProperty().clone())
                     .serialNumber(this.getSerialNumber())
-                    .messagePacketProperty(this.getMessagePacketProperty().clone())
+                    .messagePacketProperty(this.getMessagePacketProperty() == null ? null : this.getMessagePacketProperty().clone())
                     .phoneNumber(this.getPhoneNumber())
                     .protocolVersion(this.getProtocolVersion())
                     .build();

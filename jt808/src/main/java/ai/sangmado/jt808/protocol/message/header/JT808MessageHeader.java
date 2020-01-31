@@ -2,16 +2,14 @@ package ai.sangmado.jt808.protocol.message.header;
 
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.message.IJT808MessageFormatter;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * JT808 消息头
  */
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class JT808MessageHeader implements IJT808MessageFormatter, Cloneable {
 
@@ -29,7 +27,7 @@ public abstract class JT808MessageHeader implements IJT808MessageFormatter, Clon
      * 消息流水号
      * 按发送顺序从0开始循环累加。
      */
-    private int serialNumber;
+    private Integer serialNumber;
 
     /**
      * 消息包封装项
