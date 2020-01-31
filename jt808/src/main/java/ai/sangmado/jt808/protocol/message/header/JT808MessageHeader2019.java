@@ -23,12 +23,6 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
      */
     private Byte protocolVersion;
 
-    /**
-     * 终端手机号
-     * 2019：根据安装后终端自身的手机号转换。手机号不足位的，则在前补充数字 0。
-     */
-    private String phoneNumber;
-
     @Builder
     public JT808MessageHeader2019(
             JT808MessageId messageId,
@@ -37,9 +31,8 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
             JT808MessageHeaderMessagePacketProperty messagePacketProperty,
             String phoneNumber,
             Byte protocolVersion) {
-        super(messageId, messageContentProperty, serialNumber, messagePacketProperty);
+        super(messageId, messageContentProperty, serialNumber, messagePacketProperty, phoneNumber);
         this.protocolVersion = protocolVersion;
-        this.phoneNumber = phoneNumber;
     }
 
     @Override

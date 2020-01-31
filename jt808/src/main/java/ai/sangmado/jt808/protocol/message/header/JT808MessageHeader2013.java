@@ -17,12 +17,6 @@ import static com.google.common.base.Strings.padStart;
 @Setter
 public class JT808MessageHeader2013 extends JT808MessageHeader {
 
-    /**
-     * 终端手机号
-     * 2011：根据安装后终端自身的手机号转换。手机号不足12位，则在前补充数字，大陆手机号补充数字0，港澳台则根据其区号进行位数补充。
-     */
-    private String phoneNumber;
-
     @Builder
     public JT808MessageHeader2013(
             JT808MessageId messageId,
@@ -30,8 +24,7 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
             Integer serialNumber,
             JT808MessageHeaderMessagePacketProperty messagePacketProperty,
             String phoneNumber) {
-        super(messageId, messageContentProperty, serialNumber, messagePacketProperty);
-        this.phoneNumber = phoneNumber;
+        super(messageId, messageContentProperty, serialNumber, messagePacketProperty, phoneNumber);
     }
 
     @Override
