@@ -1,4 +1,4 @@
 package ai.sangmado.jt808.protocol.message.codec;
 
-public class JT808MessageReadableBuffer {
+public abstract class JT808MessageReadableBuffer implements IJT808MessageBufferReader {
 }

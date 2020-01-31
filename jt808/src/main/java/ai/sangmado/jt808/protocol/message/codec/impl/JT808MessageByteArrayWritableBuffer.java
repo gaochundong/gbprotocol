@@ -1,6 +1,7 @@
-package ai.sangmado.jt808.protocol.message.codec;
+package ai.sangmado.jt808.protocol.message.codec.impl;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.message.codec.JT808MessageWritableBuffer;
 import ai.sangmado.jt808.protocol.utils.BCD;
 
 import java.nio.ByteBuffer;
@@ -8,18 +9,20 @@ import java.nio.ByteOrder;
 
 import static ai.sangmado.jt808.protocol.utils.Bits.*;
 
+/**
+ * 基于 ByteBuffer 的写入层实现 (尝试设计，目前没实际意义)
+ */
 public class JT808MessageByteArrayWritableBuffer extends JT808MessageWritableBuffer {
     private ISpecificationContext ctx;
     private ByteBuffer buf;
 
-    public JT808MessageByteArrayWritableBuffer(ISpecificationContext ctx) {
+    public JT808MessageByteArrayWritableBuffer(ISpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
-        this.buf = ByteBuffer.allocate(2048);
-        this.buf.order(this.ctx.getByteOrder());
+        this.buf = buf;
     }
 
     private boolean isBigEndian() {
-        return this.ctx.getByteOrder() == ByteOrder.BIG_ENDIAN;
+        return this.buf.order() == ByteOrder.BIG_ENDIAN;
     }
 
     @Override
