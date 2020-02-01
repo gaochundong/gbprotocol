@@ -65,8 +65,7 @@ public class JT808MessagePacketBuilderTest {
                 .plateColor(plateColor)
                 .build();
 
-        JT808MessagePacketBuilder builder = new JT808MessagePacketBuilder();
-        List<JT808MessagePacket> packets = builder.buildPackets(ctx, header, content);
+        List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
 
         assertEquals(1, packets.size());
     }
