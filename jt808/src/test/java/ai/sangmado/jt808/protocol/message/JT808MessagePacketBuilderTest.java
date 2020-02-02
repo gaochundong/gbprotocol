@@ -71,7 +71,8 @@ public class JT808MessagePacketBuilderTest {
         List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
         assertEquals(1, packets.size());
 
-        ByteBuffer buf = ByteBuffer.allocate(128);
+        byte[] bufArray = new byte[512];
+        ByteBuffer buf = ByteBuffer.wrap(bufArray);
         IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter(ctx, buf);
         JT808MessagePacket packet = packets.get(0);
         packet.serialize(ctx, writer);

@@ -4,6 +4,8 @@ import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.jt808.protocol.message.IJT808MessageFormatter;
+import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferWriter;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -28,10 +30,12 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @return 消息体长度
      */
     public int getContentLength(ISpecificationContext ctx) {
-//        IJT808MessageBufferWriter writer = null;
-//        this.serialize(ctx, writer);
-//        writer.Flush();
-        return 0;
+        byte[] bufArray = new byte[256];
+        ByteBuffer buf = ByteBuffer.wrap(bufArray);
+        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
+        this.serialize(ctx, bufWriter);
+        buf.flip();
+        return buf.remaining();
     }
 
     /**
@@ -65,18 +69,16 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
             throw new UnsupportedJT808OperationException("不适当的分包函数调用");
         }
 
-//        IJT808MessageBufferWriter writer = null;
-//        this.serialize(ctx, writer);
-//        writer.Flush();
-        byte[] buffer = new byte[10];
+        int contentLength = getContentLength(ctx);
+        byte[] bufArray = new byte[contentLength];
 
         int splitByLength = getSplitByLength(ctx);
-        int splitCount = (buffer.length / splitByLength) + (buffer.length % splitByLength > 0 ? 1 : 0);
+        int splitCount = (bufArray.length / splitByLength) + (bufArray.length % splitByLength > 0 ? 1 : 0);
         List<JT808MessageContent> splitContents = new ArrayList<>(splitCount);
         for (int i = 0; i < splitCount; i++) {
-            int contentLength = (i < splitCount - 1) ? splitByLength : (buffer.length % splitByLength);
-            JT808MessageSplitContent child = new JT808MessageSplitContent(this, splitCount, i, contentLength);
-            child.setSplitContent(ByteBuffer.wrap(buffer, (i * splitByLength), contentLength));
+            int splitContentLength = (i < splitCount - 1) ? splitByLength : (bufArray.length % splitByLength);
+            JT808MessageSplitContent child = new JT808MessageSplitContent(this, splitCount, i, splitContentLength);
+            child.setSplitContent(ByteBuffer.wrap(bufArray, (i * splitByLength), splitContentLength));
             splitContents.add(child);
         }
         return splitContents;

@@ -49,7 +49,9 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         // 求出消息数据
-        ByteBuffer buf = ByteBuffer.allocate(1024);
+        final int possibleHeaderLength = 20;
+        byte[] bufArray = new byte[possibleHeaderLength + content.getContentLength(ctx)];
+        ByteBuffer buf = ByteBuffer.wrap(bufArray);
         IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
         header.serialize(ctx, bufWriter);
         content.serialize(ctx, bufWriter);
