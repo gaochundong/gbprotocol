@@ -22,18 +22,18 @@ public class JT808MessageHeaderMessageContentProperty2019 extends JT808MessageHe
      * 0: 2011版本；
      * 1: 2019起已经引入版本标识功能，并且在终端鉴权报文的鉴权码后跟随着协议版本号，初始版本号为1，后续每次关键性修订版本号都会递增；
      */
-    private Boolean versionIdentifier;
+    private Byte versionIdentifier = 1;
 
     @Builder
     public JT808MessageHeaderMessageContentProperty2019(
             Boolean isMultiplePackets,
             JT808MessageContentEncryptionMode encryptionMode,
             Integer contentLength,
-            Boolean versionIdentifier,
+            Byte versionIdentifier,
             Byte reserved15) {
         super(isMultiplePackets, encryptionMode, contentLength);
-        this.versionIdentifier = versionIdentifier;
-        this.reserved15 = reserved15;
+        if (versionIdentifier != null) this.versionIdentifier = versionIdentifier;
+        if (reserved15 != null) this.reserved15 = reserved15;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class JT808MessageHeaderMessageContentProperty2019 extends JT808MessageHe
     @Override
     public Integer marshal() {
         int versioning = 0;
-        if (getVersionIdentifier()) {
+        if (getVersionIdentifier() == 1) {
             versioning = 1 << 14;
         }
 

@@ -4,6 +4,8 @@ import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0100;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -66,7 +69,13 @@ public class JT808MessagePacketBuilderTest {
                 .build();
 
         List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
-
         assertEquals(1, packets.size());
+
+        ByteBuffer buf = ByteBuffer.allocate(128);
+        IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter(ctx, buf);
+        JT808MessagePacket packet = packets.get(0);
+        packet.serialize(ctx, writer);
+        buf.flip();
+        assertEquals(102, buf.limit());
     }
 }

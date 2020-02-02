@@ -1,7 +1,7 @@
 package ai.sangmado.jt808.protocol.message.codec.impl;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
-import ai.sangmado.jt808.protocol.message.codec.JT808MessageReadableBuffer;
+import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.utils.BCD;
 
 import java.nio.ByteBuffer;
@@ -10,11 +10,11 @@ import java.nio.ByteOrder;
 /**
  * 基于 ByteBuffer 的读取层实现 (尝试设计，目前没实际意义)
  */
-public class JT808MessageByteArrayReadableBuffer extends JT808MessageReadableBuffer {
+public class JT808MessageByteBufferReader implements IJT808MessageBufferReader {
     private ISpecificationContext ctx;
     private ByteBuffer buf;
 
-    public JT808MessageByteArrayReadableBuffer(ISpecificationContext ctx, ByteBuffer buf) {
+    public JT808MessageByteBufferReader(ISpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

@@ -1,7 +1,7 @@
 package ai.sangmado.jt808.protocol.message.codec.impl;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
-import ai.sangmado.jt808.protocol.message.codec.JT808MessageWritableBuffer;
+import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.utils.BCD;
 
 import java.nio.ByteBuffer;
@@ -12,11 +12,11 @@ import static ai.sangmado.jt808.protocol.utils.Bits.*;
 /**
  * 基于 ByteBuffer 的写入层实现 (尝试设计，目前没实际意义)
  */
-public class JT808MessageByteArrayWritableBuffer extends JT808MessageWritableBuffer {
+public class JT808MessageByteBufferWriter implements IJT808MessageBufferWriter {
     private ISpecificationContext ctx;
     private ByteBuffer buf;
 
-    public JT808MessageByteArrayWritableBuffer(ISpecificationContext ctx, ByteBuffer buf) {
+    public JT808MessageByteBufferWriter(ISpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

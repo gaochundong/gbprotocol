@@ -21,7 +21,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
      * 协议版本号
      * 每次关键修订递增，初始版本为1。
      */
-    private Byte protocolVersion;
+    private Byte protocolVersion = 1;
 
     @Builder
     public JT808MessageHeader2019(
@@ -32,7 +32,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
             String phoneNumber,
             Byte protocolVersion) {
         super(messageId, messageContentProperty, serialNumber, messagePacketProperty, phoneNumber);
-        setProtocolVersion(protocolVersion);
+        if (protocolVersion != null) this.protocolVersion = protocolVersion;
     }
 
     @Override

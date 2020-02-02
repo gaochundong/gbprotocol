@@ -30,8 +30,8 @@ public class JT808MessageHeaderMessageContentProperty2011 extends JT808MessageHe
             Byte reserved14,
             Byte reserved15) {
         super(isMultiplePackets, encryptionMode, contentLength);
-        this.reserved14 = reserved14;
-        this.reserved15 = reserved15;
+        if (reserved14 != null) this.reserved14 = reserved14;
+        if (reserved15 != null) this.reserved15 = reserved15;
     }
 
     @Override
