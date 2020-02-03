@@ -4,7 +4,9 @@ import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0100;
@@ -78,5 +80,11 @@ public class JT808MessagePacketBuilderTest {
         packet.serialize(ctx, writer);
         buf.flip();
         assertEquals(102, buf.limit());
+
+        IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
+        JT808MessagePacket dePacket = new JT808MessagePacket();
+        dePacket.deserialize(ctx, reader);
+        assertEquals(messageId, dePacket.getHeader().getMessageId());
+        assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());
     }
 }

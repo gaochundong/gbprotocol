@@ -6,6 +6,20 @@ package ai.sangmado.jt808.protocol.message.codec;
 public interface IJT808MessageBufferReader {
 
     /**
+     * 是否还有可读数据
+     *
+     * @return 是否还有可读数据
+     */
+    boolean isReadable();
+
+    /**
+     * 可读数据长度
+     *
+     * @return 可读数据长度
+     */
+    int readableBytes();
+
+    /**
      * 读取 BYTE 无符号单字节整型 (字节，8位)
      */
     byte readByte();

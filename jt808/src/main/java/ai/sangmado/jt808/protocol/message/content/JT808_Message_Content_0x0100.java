@@ -14,8 +14,8 @@ import static com.google.common.base.Strings.*;
  */
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class JT808_Message_Content_0x0100 extends JT808MessageContent {
 

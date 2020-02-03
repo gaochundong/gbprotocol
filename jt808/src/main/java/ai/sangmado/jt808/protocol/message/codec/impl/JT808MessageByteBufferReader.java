@@ -24,6 +24,16 @@ public class JT808MessageByteBufferReader implements IJT808MessageBufferReader {
     }
 
     @Override
+    public boolean isReadable() {
+        return buf.hasRemaining();
+    }
+
+    @Override
+    public int readableBytes() {
+        return buf.remaining();
+    }
+
+    @Override
     public byte readByte() {
         return buf.get();
     }
@@ -32,18 +42,18 @@ public class JT808MessageByteBufferReader implements IJT808MessageBufferReader {
     @Override
     public int readWord() {
         if (isBigEndian()) {
-            return (buf.get() << 8) & (buf.get());
+            return (buf.get() << 8) | (buf.get());
         } else {
-            return (buf.get()) & (buf.get() << 8);
+            return (buf.get()) | (buf.get() << 8);
         }
     }
 
     @Override
     public long readDWord() {
         if (isBigEndian()) {
-            return (buf.get() << 24) & (buf.get() << 16) & (buf.get() << 8) & (buf.get());
+            return (buf.get() << 24) | (buf.get() << 16) | (buf.get() << 8) | (buf.get());
         } else {
-            return (buf.get()) & (buf.get() << 8) & (buf.get() << 16) & (buf.get() << 24);
+            return (buf.get()) | (buf.get() << 8) | (buf.get() << 16) | (buf.get() << 24);
         }
     }
 

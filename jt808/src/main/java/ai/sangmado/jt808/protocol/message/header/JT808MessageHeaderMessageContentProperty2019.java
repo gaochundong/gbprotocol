@@ -89,6 +89,29 @@ public class JT808MessageHeaderMessageContentProperty2019 extends JT808MessageHe
      */
     @Override
     public void release(Integer value) {
+        if ((value >> 14 & 0x01) == 1) {
+            setVersionIdentifier((byte) 1);
+        } else {
+            setVersionIdentifier((byte) 0);
+        }
 
+        if ((value >> 13 & 0x01) == 1) {
+            setIsMultiplePackets(true);
+        } else {
+            setIsMultiplePackets(false);
+        }
+
+        switch ((value & 0x400) >> 10) {
+            case 0:
+                setEncryptionMode(JT808MessageContentEncryptionMode.None);
+                break;
+            case 1:
+                setEncryptionMode(JT808MessageContentEncryptionMode.RSA);
+                break;
+            default:
+                throw new UnsupportedJT808OperationException("暂不支持该类型数据加密方式: " + ((value & 0x400) >> 10));
+        }
+
+        setContentLength(value & 0x3FF);
     }
 }

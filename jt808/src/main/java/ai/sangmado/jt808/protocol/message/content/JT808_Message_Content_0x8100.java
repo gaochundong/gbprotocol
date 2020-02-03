@@ -12,8 +12,8 @@ import lombok.*;
  */
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class JT808_Message_Content_0x8100 extends JT808MessageContent {
 

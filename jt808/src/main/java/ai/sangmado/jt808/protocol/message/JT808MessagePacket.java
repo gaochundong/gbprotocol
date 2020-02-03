@@ -1,11 +1,17 @@
 package ai.sangmado.jt808.protocol.message;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0100;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8100;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
+import ai.sangmado.jt808.protocol.message.header.JT808MessageHeaderFactory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -51,28 +57,75 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         // 求出消息数据
         final int possibleHeaderLength = 20;
         byte[] bufArray = new byte[possibleHeaderLength + content.getContentLength(ctx)];
-        ByteBuffer buf = ByteBuffer.wrap(bufArray);
-        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
+        ByteBuffer messageBuf = ByteBuffer.wrap(bufArray);
+        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, messageBuf);
         header.serialize(ctx, bufWriter);
         content.serialize(ctx, bufWriter);
+        messageBuf.flip();
 
         // 计算校验码
-        buf.flip();
-        byte checksum = checksum(buf);
-        buf.flip();
+        byte checksum = checksum(messageBuf);
+        messageBuf.flip();
 
         // 按顺序写入标识位和数据
         writer.writeByte(beginMarker);
-        while (buf.hasRemaining()) {
-            writeEscapeByte(buf.get(), writer);
+        while (messageBuf.hasRemaining()) {
+            writeEscapedByte(messageBuf.get(), writer);
         }
-        writeEscapeByte(checksum, writer);
+        writeEscapedByte(checksum, writer);
         writer.writeByte(endMarker);
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        // 将数据进行转义
+        byte[] bufArray = new byte[reader.readableBytes()];
+        ByteBuffer messageBuf = ByteBuffer.wrap(bufArray);
+        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, messageBuf);
+        while (reader.isReadable()) {
+            readUnescapedByte(reader, bufWriter);
+        }
+        messageBuf.flip();
 
+        // 记录数组长度
+        int bufArrayLength = messageBuf.limit();
+        messageBuf.limit(bufArrayLength - 2);
+
+        // 读取头标识
+        IJT808MessageBufferReader bufReader = new JT808MessageByteBufferReader(ctx, messageBuf);
+        this.beginMarker = bufReader.readByte();
+
+        // 读取消息头
+        this.header = JT808MessageHeaderFactory.deserialize(ctx, bufReader);
+
+        // 读取消息体
+        switch (header.getMessageId()) {
+            case JT808_Message_0x0100:
+                this.content = new JT808_Message_Content_0x0100();
+                this.content.deserialize(ctx, bufReader);
+                break;
+            case JT808_Message_0x8100:
+                this.content = new JT808_Message_Content_0x8100();
+                this.content.deserialize(ctx, bufReader);
+                break;
+            default:
+                throw new UnsupportedJT808MessageException(header.getMessageId());
+        }
+
+        // 读取校验码
+        messageBuf.limit(bufArrayLength);
+        this.checksum = bufReader.readByte();
+
+        // 读取尾标识
+        this.endMarker = bufReader.readByte();
+
+        // 验证校验码
+        messageBuf.flip();
+        messageBuf.position(1);
+        messageBuf.limit(bufArrayLength - 2);
+        byte reChecksum = checksum(messageBuf);
+        if (checksum != reChecksum)
+            throw new InvalidJT808MessageChecksumException();
     }
 
     private static byte checksum(ByteBuffer buf) {
@@ -83,13 +136,30 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         return (byte) checksum;
     }
 
-    private static void writeEscapeByte(byte x, IJT808MessageBufferWriter writer) {
+    private static void writeEscapedByte(byte x, IJT808MessageBufferWriter writer) {
         if (x == (byte) 0x7d) {
             writer.writeByte(0x7d);
             writer.writeByte(0x01);
         } else if (x == (byte) 0x7e) {
             writer.writeByte(0x7d);
             writer.writeByte(0x02);
+        } else {
+            writer.writeByte(x);
+        }
+    }
+
+    private void readUnescapedByte(IJT808MessageBufferReader reader, IJT808MessageBufferWriter writer) {
+        byte x = reader.readByte();
+        if (x == (byte) 0x7d) {
+            byte x2 = reader.readByte();
+            if (x2 == (byte) 0x01) {
+                writer.writeByte(0x7d);
+            } else if (x2 == (byte) 0x02) {
+                writer.writeByte(0x7e);
+            } else {
+                writer.writeByte(x);
+                writer.writeByte(x2);
+            }
         } else {
             writer.writeByte(x);
         }

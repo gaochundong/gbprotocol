@@ -8,6 +8,7 @@ import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import static com.google.common.base.Strings.nullToEmpty;
@@ -15,6 +16,7 @@ import static com.google.common.base.Strings.padStart;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class JT808MessageHeader2011 extends JT808MessageHeader {
 
     @Builder

@@ -2,6 +2,7 @@ package ai.sangmado.jt808.protocol.message.header;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
+import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 
 /**
  * JT808消息头工厂
@@ -47,5 +48,29 @@ public final class JT808MessageHeaderFactory {
             default:
                 throw new UnsupportedJT808ProtocolVersionException();
         }
+    }
+
+    public static JT808MessageHeader deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808MessageHeader header;
+        switch (ctx.getJT808ProtocolVersion()) {
+            case V2011: {
+                header = new JT808MessageHeader2011();
+                header.deserialize(ctx, reader);
+                break;
+            }
+            case V2013: {
+                header = new JT808MessageHeader2013();
+                header.deserialize(ctx, reader);
+                break;
+            }
+            case V2019: {
+                header = new JT808MessageHeader2019();
+                header.deserialize(ctx, reader);
+                break;
+            }
+            default:
+                throw new UnsupportedJT808ProtocolVersionException();
+        }
+        return header;
     }
 }
