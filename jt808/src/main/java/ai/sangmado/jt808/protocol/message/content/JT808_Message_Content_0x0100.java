@@ -5,6 +5,7 @@ import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
+import com.google.common.base.CharMatcher;
 import lombok.*;
 
 import static com.google.common.base.Strings.*;
@@ -102,18 +103,19 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
         setProvinceId(reader.readWord());
         setCityId(reader.readWord());
 
+        final String padChar = "0";
         switch (ctx.getJT808ProtocolVersion()) {
             case V2011:
             case V2013: {
-                setManufacturerId(reader.readString(5));
-                setDeviceModel(reader.readString(20));
-                setDeviceId(reader.readString(7));
+                setManufacturerId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(5)));
+                setDeviceModel(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(20)));
+                setDeviceId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(7)));
                 break;
             }
             case V2019: {
-                setManufacturerId(reader.readString(11));
-                setDeviceModel(reader.readString(30));
-                setDeviceId(reader.readString(30));
+                setManufacturerId(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(11)));
+                setDeviceModel(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(30)));
+                setDeviceId(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(30)));
                 break;
             }
             default:
