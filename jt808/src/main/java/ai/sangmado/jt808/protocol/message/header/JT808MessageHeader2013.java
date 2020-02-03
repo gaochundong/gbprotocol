@@ -6,6 +6,7 @@ import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
+import com.google.common.base.CharMatcher;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,13 +74,14 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         setMessageId(JT808MessageId.cast(reader.readWord()));
 
+        final String padChar = "0";
         int contentPropertyValue = reader.readWord();
         switch (ctx.getJT808ProtocolVersion()) {
             case V2013: {
                 JT808MessageHeaderMessageContentProperty2013 property = new JT808MessageHeaderMessageContentProperty2013();
                 property.release(contentPropertyValue);
                 setMessageContentProperty(property);
-                setPhoneNumber(reader.readBCD(6));
+                setPhoneNumber(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(6 / 2)));
                 break;
             }
             default:

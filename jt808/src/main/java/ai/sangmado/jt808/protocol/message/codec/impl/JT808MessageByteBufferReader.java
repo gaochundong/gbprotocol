@@ -67,7 +67,7 @@ public class JT808MessageByteBufferReader implements IJT808MessageBufferReader {
     @Override
     public String readBCD(int length) {
         byte[] x = readBytes(length);
-        return BCD.bcd2BCDString(x);
+        return BCD.bcd2String(x);
     }
 
     @Override

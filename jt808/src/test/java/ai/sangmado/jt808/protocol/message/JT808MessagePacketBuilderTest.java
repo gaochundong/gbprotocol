@@ -44,7 +44,7 @@ public class JT808MessagePacketBuilderTest {
     @Test
     public void whenBuildMessageWithHeaderAndContent_thenShouldGeneratePacketList() {
         JT808MessageId messageId = JT808MessageId.JT808_Message_0x0100;
-        String phoneNumber = "18888888888";
+        String phoneNumber = "123456789";
 
         int provinceId = 999;
         int cityId = 888;

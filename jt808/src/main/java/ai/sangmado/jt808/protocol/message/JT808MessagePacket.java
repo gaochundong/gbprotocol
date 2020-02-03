@@ -124,8 +124,9 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         messageBuf.position(1);
         messageBuf.limit(bufArrayLength - 2);
         byte reChecksum = checksum(messageBuf);
-        if (checksum != reChecksum)
+        if (this.checksum != reChecksum) {
             throw new InvalidJT808MessageChecksumException();
+        }
     }
 
     private static byte checksum(ByteBuffer buf) {

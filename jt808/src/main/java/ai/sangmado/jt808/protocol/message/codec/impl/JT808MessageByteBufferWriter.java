@@ -80,7 +80,7 @@ public class JT808MessageByteBufferWriter implements IJT808MessageBufferWriter {
     public void writeBCD(String x) {
         if (x == null)
             throw new IllegalArgumentException("input string cannot be null.");
-        writeBytes(BCD.bcdString2BCD(x));
+        writeBytes(BCD.string2BCD(x));
     }
 
     @Override
