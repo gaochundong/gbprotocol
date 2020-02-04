@@ -1,8 +1,8 @@
 package ai.sangmado.jt808.protocol.message.content;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
-import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
 
 /**

@@ -38,7 +38,6 @@ public final class JT808MessagePacketBuilder {
                     JT808MessagePacket childPacket = new JT808MessagePacket();
                     childPacket.setHeader(childHeader);
                     childPacket.setContent(splitContent);
-                    //childPacket.setChecksum(childPacket.calculateChecksum());
 
                     packets.add(childPacket);
                 }
@@ -55,7 +54,6 @@ public final class JT808MessagePacketBuilder {
         JT808MessagePacket packet = new JT808MessagePacket();
         packet.setHeader(header);
         packet.setContent(content);
-        //packet.setChecksum(packet.calculateChecksum());
 
         List<JT808MessagePacket> packets = new ArrayList<>(1);
         packets.add(packet);

@@ -1,8 +1,6 @@
-package ai.sangmado.jt808.protocol.message;
+package ai.sangmado.jt808.protocol.encoding;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
-import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferReader;
-import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferWriter;
 
 /**
  * JT808 消息序列化器

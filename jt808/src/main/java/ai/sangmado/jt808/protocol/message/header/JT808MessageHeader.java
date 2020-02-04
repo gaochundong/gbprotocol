@@ -1,7 +1,7 @@
 package ai.sangmado.jt808.protocol.message.header;
 
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
-import ai.sangmado.jt808.protocol.message.IJT808MessageFormatter;
 import lombok.*;
 
 /**

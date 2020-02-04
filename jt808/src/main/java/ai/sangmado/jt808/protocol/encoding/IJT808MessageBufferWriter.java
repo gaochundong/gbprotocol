@@ -1,4 +1,4 @@
-package ai.sangmado.jt808.protocol.message.encoding;
+package ai.sangmado.jt808.protocol.encoding;
 
 import java.nio.ByteBuffer;
 

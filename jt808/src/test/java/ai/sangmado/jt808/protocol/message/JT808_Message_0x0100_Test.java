@@ -1,6 +1,10 @@
 package ai.sangmado.jt808.protocol.message;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferReader;
+import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
@@ -8,10 +12,6 @@ import ai.sangmado.jt808.protocol.memory.IByteArrayPool;
 import ai.sangmado.jt808.protocol.memory.PooledByteArrayFactory;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0100;
-import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferReader;
-import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferWriter;
-import ai.sangmado.jt808.protocol.message.encoding.impl.JT808MessageByteBufferReader;
-import ai.sangmado.jt808.protocol.message.encoding.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeaderFactory;
 import org.junit.jupiter.api.BeforeEach;

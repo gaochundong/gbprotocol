@@ -1,12 +1,12 @@
 package ai.sangmado.jt808.protocol.message.content;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
+import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.jt808.protocol.memory.PooledByteArray;
-import ai.sangmado.jt808.protocol.message.IJT808MessageFormatter;
-import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferWriter;
-import ai.sangmado.jt808.protocol.message.encoding.impl.JT808MessageByteBufferWriter;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;

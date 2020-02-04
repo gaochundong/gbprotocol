@@ -1,13 +1,14 @@
 package ai.sangmado.jt808.protocol.message;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
+import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferReader;
+import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContentFactory;
-import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferReader;
-import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferWriter;
-import ai.sangmado.jt808.protocol.message.encoding.impl.JT808MessageByteBufferReader;
-import ai.sangmado.jt808.protocol.message.encoding.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeaderFactory;
 import lombok.Getter;
@@ -62,7 +63,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         messageBuf.flip();
 
         // 计算校验码
-        byte checksum = checksum(messageBuf);
+        this.checksum = checksum(messageBuf);
         messageBuf.flip();
 
         // 按顺序写入标识位和数据
@@ -70,7 +71,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         while (messageBuf.hasRemaining()) {
             writeEscapedByte(messageBuf.get(), writer);
         }
-        writeEscapedByte(checksum, writer);
+        writeEscapedByte(this.checksum, writer);
         writer.writeByte(endMarker);
     }
 
