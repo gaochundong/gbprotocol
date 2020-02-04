@@ -2,6 +2,7 @@ package ai.sangmado.jt808.protocol;
 
 import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.jt808.protocol.memory.IByteArrayPool;
 
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
@@ -41,4 +42,11 @@ public interface ISpecificationContext {
      * @return 消息体加密方式
      */
     JT808MessageContentEncryptionMode getMessageContentEncryptionMode();
+
+    /**
+     * 获取数组池
+     *
+     * @return 数组池
+     */
+    IByteArrayPool getByteArrayPool();
 }

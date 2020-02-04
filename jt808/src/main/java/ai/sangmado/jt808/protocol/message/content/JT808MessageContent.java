@@ -3,6 +3,7 @@ package ai.sangmado.jt808.protocol.message.content;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
+import ai.sangmado.jt808.protocol.memory.PooledByteArray;
 import ai.sangmado.jt808.protocol.message.IJT808MessageFormatter;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferWriter;
@@ -30,12 +31,16 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @return 消息体长度
      */
     public int getContentLength(ISpecificationContext ctx) {
-        byte[] bufArray = new byte[256];
-        ByteBuffer buf = ByteBuffer.wrap(bufArray);
-        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
-        this.serialize(ctx, bufWriter);
-        buf.flip();
-        return buf.remaining();
+        PooledByteArray pba = ctx.getByteArrayPool().borrow();
+        try {
+            ByteBuffer buf = ByteBuffer.wrap(pba.array());
+            IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
+            this.serialize(ctx, bufWriter);
+            buf.flip();
+            return buf.remaining();
+        } finally {
+            ctx.getByteArrayPool().recycle(pba);
+        }
     }
 
     /**

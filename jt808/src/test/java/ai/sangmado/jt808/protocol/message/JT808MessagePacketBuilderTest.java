@@ -4,6 +4,8 @@ import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.jt808.protocol.memory.IByteArrayPool;
+import ai.sangmado.jt808.protocol.memory.PooledByteArrayFactory;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferReader;
@@ -30,6 +32,8 @@ public class JT808MessagePacketBuilderTest {
     @Mock
     private ISpecificationContext ctx;
 
+    private IByteArrayPool byteArrayPool = new PooledByteArrayFactory(512, 10);
+
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -38,6 +42,7 @@ public class JT808MessagePacketBuilderTest {
         when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
         when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
         when(ctx.getMessageContentEncryptionMode()).thenReturn(JT808MessageContentEncryptionMode.None);
+        when(ctx.getByteArrayPool()).thenReturn(byteArrayPool);
         assertEquals("GBK", ctx.getCharset().name());
     }
 
