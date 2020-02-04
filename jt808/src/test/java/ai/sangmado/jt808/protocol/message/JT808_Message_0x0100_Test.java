@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class JT808MessagePacketBuilderTest {
+public class JT808_Message_0x0100_Test {
 
     @Mock
     private ISpecificationContext ctx;
@@ -47,18 +47,18 @@ public class JT808MessagePacketBuilderTest {
     }
 
     @Test
-    public void whenBuildMessageWithHeaderAndContent_thenShouldGeneratePacketList() {
+    public void when_JT808_Message_0x0100_thenShouldPassSerializationAndDeserialization() {
         JT808MessageId messageId = JT808MessageId.JT808_Message_0x0100;
         String phoneNumber = "123456789";
 
-        int provinceId = 999;
-        int cityId = 888;
+        int provinceId = 19;
+        int cityId = 18;
         String manufacturerId = "777";
         String deviceId = "111";
         String deviceModel = "Made in China";
         String plateNumber = "AAA-BBB-CCC";
         byte plateColor = (byte) 8;
-        int serialNumber = 44444444;
+        int serialNumber = 123;
 
         JT808MessageHeader header = JT808MessageHeaderFactory
                 .buildWith(ctx)
@@ -91,5 +91,13 @@ public class JT808MessagePacketBuilderTest {
         dePacket.deserialize(ctx, reader);
         assertEquals(messageId, dePacket.getHeader().getMessageId());
         assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());
+        assertEquals(serialNumber, dePacket.getHeader().getSerialNumber());
+        assertEquals(provinceId, ((JT808_Message_Content_0x0100) (dePacket.getContent())).getProvinceId());
+        assertEquals(cityId, ((JT808_Message_Content_0x0100) (dePacket.getContent())).getCityId());
+        assertEquals(manufacturerId, ((JT808_Message_Content_0x0100) (dePacket.getContent())).getManufacturerId());
+        assertEquals(deviceId, ((JT808_Message_Content_0x0100) (dePacket.getContent())).getDeviceId());
+        assertEquals(deviceModel, ((JT808_Message_Content_0x0100) (dePacket.getContent())).getDeviceModel());
+        assertEquals(plateNumber, ((JT808_Message_Content_0x0100) (dePacket.getContent())).getPlateNumber());
+        assertEquals(plateColor, ((JT808_Message_Content_0x0100) (dePacket.getContent())).getPlateColor());
     }
 }
