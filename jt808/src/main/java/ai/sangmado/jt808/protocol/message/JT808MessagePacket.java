@@ -2,14 +2,12 @@ package ai.sangmado.jt808.protocol.message;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
-import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
-import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
-import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
-import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferReader;
-import ai.sangmado.jt808.protocol.message.codec.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
-import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0100;
-import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8100;
+import ai.sangmado.jt808.protocol.message.content.JT808MessageContentFactory;
+import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferReader;
+import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.message.encoding.impl.JT808MessageByteBufferReader;
+import ai.sangmado.jt808.protocol.message.encoding.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeaderFactory;
 import lombok.Getter;
@@ -99,18 +97,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         this.header = JT808MessageHeaderFactory.deserialize(ctx, bufReader);
 
         // 读取消息体
-        switch (header.getMessageId()) {
-            case JT808_Message_0x0100:
-                this.content = new JT808_Message_Content_0x0100();
-                this.content.deserialize(ctx, bufReader);
-                break;
-            case JT808_Message_0x8100:
-                this.content = new JT808_Message_Content_0x8100();
-                this.content.deserialize(ctx, bufReader);
-                break;
-            default:
-                throw new UnsupportedJT808MessageException(header.getMessageId());
-        }
+        this.content = JT808MessageContentFactory.deserialize(ctx, bufReader, header);
 
         // 读取校验码
         messageBuf.limit(bufArrayLength);

@@ -1,4 +1,4 @@
-package ai.sangmado.jt808.protocol.message.codec;
+package ai.sangmado.jt808.protocol.message.encoding;
 
 /**
  * JT808 消息Buffer读取器

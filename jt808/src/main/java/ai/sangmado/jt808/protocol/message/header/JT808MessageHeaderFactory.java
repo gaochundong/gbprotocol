@@ -2,7 +2,7 @@ package ai.sangmado.jt808.protocol.message.header;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
-import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
+import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferReader;
 
 /**
  * JT808消息头工厂

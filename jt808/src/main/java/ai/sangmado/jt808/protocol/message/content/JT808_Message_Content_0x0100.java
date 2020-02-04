@@ -3,8 +3,8 @@ package ai.sangmado.jt808.protocol.message.content;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
-import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferReader;
-import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferReader;
+import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferWriter;
 import com.google.common.base.CharMatcher;
 import lombok.*;
 

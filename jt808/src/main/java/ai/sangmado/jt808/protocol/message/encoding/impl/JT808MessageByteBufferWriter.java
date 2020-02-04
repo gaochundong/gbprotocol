@@ -1,7 +1,7 @@
-package ai.sangmado.jt808.protocol.message.codec.impl;
+package ai.sangmado.jt808.protocol.message.encoding.impl;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
-import ai.sangmado.jt808.protocol.message.codec.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.message.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.utils.BCD;
 
 import java.nio.ByteBuffer;
