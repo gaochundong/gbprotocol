@@ -81,8 +81,8 @@ public class JT808_Message_0x0100_Test {
         byte[] bufArray = new byte[512];
         ByteBuffer buf = ByteBuffer.wrap(bufArray);
         IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter(ctx, buf);
-        JT808MessagePacket packet = packets.get(0);
-        packet.serialize(ctx, writer);
+        JT808MessagePacket sePacket = packets.get(0);
+        sePacket.serialize(ctx, writer);
         buf.flip();
         assertEquals(102, buf.limit());
 
