@@ -8,7 +8,7 @@ import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 
 /**
- * 协议版本规范定义
+ * 协议上下文
  */
 public interface ISpecificationContext {
 
