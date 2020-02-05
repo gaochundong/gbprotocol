@@ -19,13 +19,13 @@
 
 消息包封装项：如果消息体属性中相关标识位确定消息分包处理，则该项有内容，否则无该项。
 
-### 消息头中消息体属性 JT808MessageHeaderMessageContentProperty
+#### 消息头中消息体属性 JT808MessageHeaderMessageContentProperty
 
 |  保留位  |     版本标识      |     是否分包      |    加密方式    |  消息体长度   |
 | :------: | :---------------: | :---------------: | :------------: | :-----------: |
 | Reserved | VersionIdentifier | IsMultiplePackets | EncryptionMode | ContentLength |
 
-## 消息头中消息包封装项 JT808MessageHeaderMessagePacketProperty
+#### 消息头中消息包封装项 JT808MessageHeaderMessagePacketProperty
 
 |  消息总包数  |     包序号     |
 | :----------: | :------------: |
