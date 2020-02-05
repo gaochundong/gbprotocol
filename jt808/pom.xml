@@ -30,6 +30,12 @@
             <artifactId>guava</artifactId>
         </dependency>
 
+        <!--netty-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+        </dependency>
+
         <!--junit-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

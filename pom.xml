@@ -28,6 +28,7 @@
         <!--dependencies-->
         <lombok.version>1.18.8</lombok.version>
         <guava.version>28.1-jre</guava.version>
+        <netty.version>4.1.45.Final</netty.version>
 
         <!--test-->
         <junit.version>5.6.0</junit.version>
@@ -57,6 +58,13 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <!--netty-->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
             </dependency>
 
             <!--junit-->
