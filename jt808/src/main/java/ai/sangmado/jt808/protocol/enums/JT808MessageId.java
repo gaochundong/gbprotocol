@@ -1,5 +1,6 @@
 package ai.sangmado.jt808.protocol.enums;
 
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -207,10 +208,14 @@ public class JT808MessageId {
     public static JT808MessageId cast(int value) {
         JT808MessageId item = mapping.get(value);
         if (item == null) {
-            throw new IllegalArgumentException(String.format(
+            throw new UnsupportedJT808MessageException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
                     value, JT808MessageId.class.getSimpleName()));
         }
         return item;
+    }
+
+    public static JT808MessageId tryCast(int value) {
+        return mapping.get(value);
     }
 }

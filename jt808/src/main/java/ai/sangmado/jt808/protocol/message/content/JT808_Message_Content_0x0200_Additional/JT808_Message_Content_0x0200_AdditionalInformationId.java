@@ -1,7 +1,11 @@
 package ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional;
 
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
 
@@ -69,5 +73,43 @@ public class JT808_Message_Content_0x0200_AdditionalInformationId {
             return false;
         }
         return ((JT808_Message_Content_0x0200_AdditionalInformationId) obj).getValue().equals(this.getValue());
+    }
+
+    private static final Map<Integer, JT808_Message_Content_0x0200_AdditionalInformationId> mapping = new HashMap<>();
+
+    static {
+        mapping.put(JT808_0x0200_0x01.getValue(), JT808_0x0200_0x01);
+        mapping.put(JT808_0x0200_0x02.getValue(), JT808_0x0200_0x02);
+        mapping.put(JT808_0x0200_0x03.getValue(), JT808_0x0200_0x03);
+        mapping.put(JT808_0x0200_0x04.getValue(), JT808_0x0200_0x04);
+        mapping.put(JT808_0x0200_0x05.getValue(), JT808_0x0200_0x05);
+        mapping.put(JT808_0x0200_0x06.getValue(), JT808_0x0200_0x06);
+
+        mapping.put(JT808_0x0200_0x11.getValue(), JT808_0x0200_0x11);
+        mapping.put(JT808_0x0200_0x12.getValue(), JT808_0x0200_0x12);
+        mapping.put(JT808_0x0200_0x13.getValue(), JT808_0x0200_0x13);
+
+        mapping.put(JT808_0x0200_0x25.getValue(), JT808_0x0200_0x25);
+        mapping.put(JT808_0x0200_0x2A.getValue(), JT808_0x0200_0x2A);
+        mapping.put(JT808_0x0200_0x2B.getValue(), JT808_0x0200_0x2B);
+
+        mapping.put(JT808_0x0200_0x30.getValue(), JT808_0x0200_0x30);
+        mapping.put(JT808_0x0200_0x31.getValue(), JT808_0x0200_0x31);
+
+        mapping.put(JT808_0x0200_0xE0.getValue(), JT808_0x0200_0xE0);
+    }
+
+    public static JT808_Message_Content_0x0200_AdditionalInformationId cast(int value) {
+        JT808_Message_Content_0x0200_AdditionalInformationId item = mapping.get(value);
+        if (item == null) {
+            throw new UnsupportedJT808MessageException(String.format(
+                    "Cannot cast integer [%s] to [%s] enum.",
+                    value, JT808_Message_Content_0x0200_AdditionalInformationId.class.getSimpleName()));
+        }
+        return item;
+    }
+
+    public static JT808_Message_Content_0x0200_AdditionalInformationId tryCast(int value) {
+        return mapping.get(value);
     }
 }

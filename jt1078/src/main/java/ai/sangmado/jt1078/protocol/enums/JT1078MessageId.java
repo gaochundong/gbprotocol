@@ -1,8 +1,12 @@
 package ai.sangmado.jt1078.protocol.enums;
 
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * JT/T 1078 消息ID
@@ -33,5 +37,44 @@ public class JT1078MessageId extends JT808MessageId {
 
     public JT1078MessageId(String name, int value, Object since, String description) {
         super(name, value, since, description);
+    }
+
+    private static final Map<Integer, JT1078MessageId> mapping = new HashMap<>();
+
+    static {
+        mapping.put(JT1078_Message_0x1003.getValue(), JT1078_Message_0x1003);
+        mapping.put(JT1078_Message_0x1005.getValue(), JT1078_Message_0x1005);
+        mapping.put(JT1078_Message_0x1205.getValue(), JT1078_Message_0x1205);
+        mapping.put(JT1078_Message_0x1206.getValue(), JT1078_Message_0x1206);
+
+        mapping.put(JT1078_Message_0x9003.getValue(), JT1078_Message_0x9003);
+        mapping.put(JT1078_Message_0x9101.getValue(), JT1078_Message_0x9101);
+        mapping.put(JT1078_Message_0x9102.getValue(), JT1078_Message_0x9102);
+        mapping.put(JT1078_Message_0x9105.getValue(), JT1078_Message_0x9105);
+        mapping.put(JT1078_Message_0x9201.getValue(), JT1078_Message_0x9201);
+        mapping.put(JT1078_Message_0x9202.getValue(), JT1078_Message_0x9202);
+        mapping.put(JT1078_Message_0x9205.getValue(), JT1078_Message_0x9205);
+        mapping.put(JT1078_Message_0x9206.getValue(), JT1078_Message_0x9206);
+        mapping.put(JT1078_Message_0x9207.getValue(), JT1078_Message_0x9207);
+        mapping.put(JT1078_Message_0x9301.getValue(), JT1078_Message_0x9301);
+        mapping.put(JT1078_Message_0x9302.getValue(), JT1078_Message_0x9302);
+        mapping.put(JT1078_Message_0x9303.getValue(), JT1078_Message_0x9303);
+        mapping.put(JT1078_Message_0x9304.getValue(), JT1078_Message_0x9304);
+        mapping.put(JT1078_Message_0x9305.getValue(), JT1078_Message_0x9305);
+        mapping.put(JT1078_Message_0x9306.getValue(), JT1078_Message_0x9306);
+    }
+
+    public static JT1078MessageId cast(int value) {
+        JT1078MessageId item = mapping.get(value);
+        if (item == null) {
+            throw new UnsupportedJT808MessageException(String.format(
+                    "Cannot cast integer [%s] to [%s] enum.",
+                    value, JT1078MessageId.class.getSimpleName()));
+        }
+        return item;
+    }
+
+    public static JT1078MessageId tryCast(int value) {
+        return mapping.get(value);
     }
 }
