@@ -4,6 +4,7 @@ import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import com.google.common.base.CharMatcher;
@@ -18,7 +19,7 @@ import static com.google.common.base.Strings.padStart;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JT808MessageHeader2019 extends JT808MessageHeader {
+public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, JT808ProtocolVersion> {
 
     /**
      * 协议版本号
@@ -39,7 +40,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
     }
 
     @Override
-    public JT808MessageHeader clone() {
+    public JT808MessageHeader<JT808MessageId, JT808ProtocolVersion> clone() {
         try {
             return JT808MessageHeader2019.builder()
                     .messageId(this.getMessageId())
@@ -56,11 +57,11 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
 
     @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getMessageId().getValue());
 
         final char padChar = '0';
-        switch (ctx.getJT808ProtocolVersion()) {
+        switch (ctx.getProtocolVersion()) {
             case V2019: {
                 writer.writeWord(getMessageContentProperty().marshal());
                 writer.writeByte(getProtocolVersion());
@@ -68,7 +69,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
                 break;
             }
             default:
-                throw new UnsupportedJT808ProtocolVersionException(ctx.getJT808ProtocolVersion());
+                throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
         writer.writeWord(getSerialNumber());
@@ -81,12 +82,12 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
 
     @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
         setMessageId(JT808MessageId.cast(reader.readWord()));
 
         final String padChar = "0";
         int contentPropertyValue = reader.readWord();
-        switch (ctx.getJT808ProtocolVersion()) {
+        switch (ctx.getProtocolVersion()) {
             case V2019: {
                 JT808MessageHeaderMessageContentProperty2019 property = new JT808MessageHeaderMessageContentProperty2019();
                 property.release(contentPropertyValue);
@@ -96,7 +97,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
                 break;
             }
             default:
-                throw new UnsupportedJT808ProtocolVersionException(ctx.getJT808ProtocolVersion());
+                throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
         setSerialNumber(reader.readWord());

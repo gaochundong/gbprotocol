@@ -13,12 +13,13 @@ import java.nio.ByteBuffer;
 /**
  * JT808 已分片消息体
  */
-public class JT808MessageSplitContent extends JT808MessageContent {
+public class JT808MessageSplitContent<TMessageId extends JT808MessageId, TProtocolVersion>
+        extends JT808MessageContent<TMessageId, TProtocolVersion> {
 
-    private JT808MessageContent originContent;
+    private JT808MessageContent<TMessageId, TProtocolVersion> originContent;
 
     @Override
-    public JT808MessageId getMessageId() {
+    public TMessageId getMessageId() {
         return this.originContent.getMessageId();
     }
 
@@ -35,7 +36,9 @@ public class JT808MessageSplitContent extends JT808MessageContent {
     @Setter
     private ByteBuffer splitContent;
 
-    public JT808MessageSplitContent(JT808MessageContent originContent, int totalSplits, int splitIndex, int contentLength) {
+    public JT808MessageSplitContent(
+            JT808MessageContent<TMessageId, TProtocolVersion> originContent,
+            int totalSplits, int splitIndex, int contentLength) {
         this.originContent = originContent;
         this.totalSplits = totalSplits;
         this.splitIndex = splitIndex;
@@ -43,17 +46,17 @@ public class JT808MessageSplitContent extends JT808MessageContent {
     }
 
     @Override
-    public int getContentLength(ISpecificationContext ctx) {
+    public int getContentLength(ISpecificationContext<TProtocolVersion> ctx) {
         return contentLength;
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
         writer.writeBytes(splitContent);
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
         byte[] buffer = reader.readBytes(contentLength);
         setSplitContent(ByteBuffer.wrap(buffer));
     }

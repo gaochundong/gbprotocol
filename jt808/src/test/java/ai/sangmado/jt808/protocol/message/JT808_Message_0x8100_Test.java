@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
 public class JT808_Message_0x8100_Test {
 
     @Mock
-    private ISpecificationContext ctx;
+    private ISpecificationContext<JT808ProtocolVersion> ctx;
 
     private IByteArrayPool byteArrayPool = new PooledByteArrayFactory(512, 10);
 
@@ -39,7 +39,7 @@ public class JT808_Message_0x8100_Test {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        when(ctx.getJT808ProtocolVersion()).thenReturn(JT808ProtocolVersion.V2019);
+        when(ctx.getProtocolVersion()).thenReturn(JT808ProtocolVersion.V2019);
         when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
         when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
         when(ctx.getMessageContentEncryptionMode()).thenReturn(JT808MessageContentEncryptionMode.None);
@@ -57,12 +57,12 @@ public class JT808_Message_0x8100_Test {
         int serialNumber = 124;
         int ackSerialNumber = 123;
 
-        JT808MessageHeader header = JT808MessageHeaderFactory
+        JT808MessageHeader<JT808MessageId, JT808ProtocolVersion> header = JT808MessageHeaderFactory
                 .buildWith(ctx)
                 .withMessageId(messageId)
                 .withPhoneNumber(phoneNumber)
                 .withSerialNumber(serialNumber);
-        JT808MessageContent content = JT808_Message_Content_0x8100.builder()
+        JT808MessageContent<JT808MessageId, JT808ProtocolVersion> content = JT808_Message_Content_0x8100.builder()
                 .registrationResult(registrationResult)
                 .authCode(authCode)
                 .ackSerialNumber(ackSerialNumber)

@@ -11,12 +11,13 @@ import lombok.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class JT808MessageHeader implements IJT808MessageFormatter, Cloneable {
+public abstract class JT808MessageHeader<TMessageId extends JT808MessageId, TProtocolVersion>
+        implements IJT808MessageFormatter<TProtocolVersion>, Cloneable {
 
     /**
      * 消息ID
      */
-    private JT808MessageId messageId;
+    private TMessageId messageId;
 
     /**
      * 消息体属性
@@ -42,27 +43,27 @@ public abstract class JT808MessageHeader implements IJT808MessageFormatter, Clon
      */
     private String phoneNumber;
 
-    public JT808MessageHeader withMessageId(JT808MessageId messageId) {
+    public JT808MessageHeader<TMessageId, TProtocolVersion> withMessageId(TMessageId messageId) {
         this.setMessageId(messageId);
         return this;
     }
 
-    public JT808MessageHeader withMessageContentProperty(JT808MessageHeaderMessageContentProperty messageContentProperty) {
+    public JT808MessageHeader<TMessageId, TProtocolVersion> withMessageContentProperty(JT808MessageHeaderMessageContentProperty messageContentProperty) {
         this.setMessageContentProperty(messageContentProperty);
         return this;
     }
 
-    public JT808MessageHeader withSerialNumber(int serialNumber) {
+    public JT808MessageHeader<TMessageId, TProtocolVersion> withSerialNumber(int serialNumber) {
         this.setSerialNumber(serialNumber);
         return this;
     }
 
-    public JT808MessageHeader withMessagePacketProperty(JT808MessageHeaderMessagePacketProperty messagePacketProperty) {
+    public JT808MessageHeader<TMessageId, TProtocolVersion> withMessagePacketProperty(JT808MessageHeaderMessagePacketProperty messagePacketProperty) {
         this.setMessagePacketProperty(messagePacketProperty);
         return this;
     }
 
-    public JT808MessageHeader withPhoneNumber(String phoneNumber) {
+    public JT808MessageHeader<TMessageId, TProtocolVersion> withPhoneNumber(String phoneNumber) {
         this.setPhoneNumber(phoneNumber);
         return this;
     }
@@ -73,5 +74,5 @@ public abstract class JT808MessageHeader implements IJT808MessageFormatter, Clon
      * @return 克隆对象
      */
     @Override
-    public abstract JT808MessageHeader clone();
+    public abstract JT808MessageHeader<TMessageId, TProtocolVersion> clone();
 }

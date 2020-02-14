@@ -4,6 +4,7 @@ import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import com.google.common.base.CharMatcher;
 import lombok.*;
@@ -18,7 +19,7 @@ import static com.google.common.base.Strings.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JT808_Message_Content_0x0100 extends JT808MessageContent {
+public class JT808_Message_Content_0x0100 extends JT808MessageContent<JT808MessageId, JT808ProtocolVersion> {
 
     @Override
     public JT808MessageId getMessageId() {
@@ -71,12 +72,12 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
     private String plateNumber;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getProvinceId());
         writer.writeWord(getCityId());
 
         final char padChar = '0';
-        switch (ctx.getJT808ProtocolVersion()) {
+        switch (ctx.getProtocolVersion()) {
             case V2011:
             case V2013: {
                 writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, padChar));
@@ -91,7 +92,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
                 break;
             }
             default:
-                throw new UnsupportedJT808ProtocolVersionException(ctx.getJT808ProtocolVersion());
+                throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
         writer.writeByte(getPlateColor());
@@ -99,12 +100,12 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
         setProvinceId(reader.readWord());
         setCityId(reader.readWord());
 
         final String padChar = "0";
-        switch (ctx.getJT808ProtocolVersion()) {
+        switch (ctx.getProtocolVersion()) {
             case V2011:
             case V2013: {
                 setManufacturerId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(5)));
@@ -119,7 +120,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
                 break;
             }
             default:
-                throw new UnsupportedJT808ProtocolVersionException(ctx.getJT808ProtocolVersion());
+                throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
         setPlateColor(reader.readByte());

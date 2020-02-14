@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JT808_Message_Content_0x0200 extends JT808MessageContent {
+public class JT808_Message_Content_0x0200<TProtocolVersion> extends JT808MessageContent<JT808MessageId, TProtocolVersion> {
 
     @Override
     public JT808MessageId getMessageId() {
@@ -71,13 +71,13 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
     /**
      * 位置附加信息列表
      */
-    private List<JT808_Message_Content_0x0200_AdditionalInformation> additionalInformationList;
+    private List<JT808_Message_Content_0x0200_AdditionalInformation<TProtocolVersion>> additionalInformationList;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
     }
 }

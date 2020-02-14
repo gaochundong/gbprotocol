@@ -5,6 +5,7 @@ import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.enums.JT808DeviceRegistrationResult;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
 import lombok.*;
 
 /**
@@ -15,7 +16,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JT808_Message_Content_0x8100 extends JT808MessageContent {
+public class JT808_Message_Content_0x8100 extends JT808MessageContent<JT808MessageId, JT808ProtocolVersion> {
 
     @Override
     public JT808MessageId getMessageId() {
@@ -38,7 +39,7 @@ public class JT808_Message_Content_0x8100 extends JT808MessageContent {
     private String authCode;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getAckSerialNumber());
         writer.writeByte(getRegistrationResult().getValue());
 
@@ -49,7 +50,7 @@ public class JT808_Message_Content_0x8100 extends JT808MessageContent {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
         setAckSerialNumber(reader.readWord());
 
         JT808DeviceRegistrationResult registrationResult = JT808DeviceRegistrationResult.cast(reader.readByte());

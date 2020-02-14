@@ -11,7 +11,8 @@ import lombok.Setter;
  * 􏰢􏰣格式：附加信息ID+附加信息长度+附加信息
  */
 @NoArgsConstructor
-public abstract class JT808_Message_Content_0x0200_AdditionalInformation implements IJT808MessageFormatter {
+public abstract class JT808_Message_Content_0x0200_AdditionalInformation<TProtocolVersion>
+        implements IJT808MessageFormatter<TProtocolVersion> {
 
     /**
      * 获取位置附加信息ID

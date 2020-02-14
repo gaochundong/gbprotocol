@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JT808_Message_Content_0x8103 extends JT808MessageContent {
+public class JT808_Message_Content_0x8103<TProtocolVersion> extends JT808MessageContent<JT808MessageId, TProtocolVersion> {
 
     @Override
     public JT808MessageId getMessageId() {
@@ -31,13 +31,13 @@ public class JT808_Message_Content_0x8103 extends JT808MessageContent {
     /**
      * 参数项列表
      */
-    private List<JT808_Message_Content_0x8103_ParameterItem> itemList;
+    private List<JT808_Message_Content_0x8103_ParameterItem<TProtocolVersion>> itemList;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
     }
 }

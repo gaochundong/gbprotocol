@@ -6,6 +6,7 @@ import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
 import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferReader;
 import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferWriter;
+import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContentFactory;
@@ -23,7 +24,8 @@ import java.nio.ByteBuffer;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JT808MessagePacket implements IJT808MessageFormatter {
+public class JT808MessagePacket<TMessageId extends JT808MessageId, TProtocolVersion>
+        implements IJT808MessageFormatter<TProtocolVersion> {
 
     /**
      * 头标识
@@ -33,12 +35,12 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
     /**
      * 消息头
      */
-    private JT808MessageHeader header;
+    private JT808MessageHeader<TMessageId, TProtocolVersion> header;
 
     /**
      * 消息体
      */
-    private JT808MessageContent content;
+    private JT808MessageContent<TMessageId, TProtocolVersion> content;
 
     /**
      * 校验码
@@ -52,7 +54,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
     private Byte endMarker = 0x7e;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
         // 求出消息数据
         final int possibleHeaderLength = 20;
         byte[] bufArray = new byte[possibleHeaderLength + content.getContentLength(ctx)];
@@ -76,7 +78,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
         // 将数据进行转义
         byte[] bufArray = new byte[reader.readableBytes()];
         ByteBuffer messageBuf = ByteBuffer.wrap(bufArray);

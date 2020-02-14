@@ -1,6 +1,7 @@
 package ai.sangmado.jt1078.protocol.message.content;
 
 import ai.sangmado.jt1078.protocol.enums.JT1078MessageId;
+import ai.sangmado.jt1078.protocol.enums.JT1078ProtocolVersion;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class JT1078_Message_Content_0x9003 extends JT808MessageContent {
+public class JT1078_Message_Content_0x9003 extends JT808MessageContent<JT1078MessageId, JT1078ProtocolVersion> {
 
     @Override
     public JT1078MessageId getMessageId() {
@@ -25,10 +26,10 @@ public class JT1078_Message_Content_0x9003 extends JT808MessageContent {
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext<JT1078ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext<JT1078ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
     }
 }

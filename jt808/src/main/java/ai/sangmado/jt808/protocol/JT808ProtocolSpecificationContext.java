@@ -12,15 +12,15 @@ import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 
 /**
- * 协议上下文
+ * JT808 协议上下文
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SpecificationContext implements ISpecificationContext {
+public class JT808ProtocolSpecificationContext implements ISpecificationContext<JT808ProtocolVersion> {
     @Setter
     @Builder.Default
-    private JT808ProtocolVersion jT808ProtocolVersion = JT808ProtocolVersion.V2019;
+    private JT808ProtocolVersion protocolVersion = JT808ProtocolVersion.V2019;
     @Setter
     @Builder.Default
     private ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;
@@ -39,8 +39,8 @@ public class SpecificationContext implements ISpecificationContext {
      * @return 协议版本
      */
     @Override
-    public JT808ProtocolVersion getJT808ProtocolVersion() {
-        return this.jT808ProtocolVersion;
+    public JT808ProtocolVersion getProtocolVersion() {
+        return this.protocolVersion;
     }
 
     /**
