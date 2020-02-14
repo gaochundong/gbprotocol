@@ -12,7 +12,8 @@
 
     <modules>
         <module>jt808</module>
-        <module>gbutils</module>
+        <module>jt1078</module>
+        <module>gbcommon</module>
     </modules>
 
     <properties>
@@ -51,6 +52,27 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!--gbcommon-->
+            <dependency>
+                <groupId>ai.sangmado</groupId>
+                <artifactId>gbcommon</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--jt808-->
+            <dependency>
+                <groupId>ai.sangmado</groupId>
+                <artifactId>jt808</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--jt1078-->
+            <dependency>
+                <groupId>ai.sangmado</groupId>
+                <artifactId>jt1078</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <!--guava-->

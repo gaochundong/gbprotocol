@@ -13,7 +13,7 @@ public class UnsupportedJT808MessageException extends RuntimeException {
     }
 
     public UnsupportedJT808MessageException(JT808MessageId messageId) {
-        this("暂不支持该协议消息: " + messageId.name());
+        this("暂不支持该协议消息: " + messageId.getName());
     }
 
     public UnsupportedJT808MessageException(String message) {

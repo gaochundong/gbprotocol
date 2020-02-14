@@ -1,4 +1,4 @@
-package ai.sangmado.jt808.protocol.utils;
+package ai.sangmado.gbcommon.utils;
 
 /**
  * BCD Code 工具类

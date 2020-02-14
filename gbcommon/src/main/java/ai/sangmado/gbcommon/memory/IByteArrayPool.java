@@ -1,4 +1,4 @@
-package ai.sangmado.jt808.protocol.memory;
+package ai.sangmado.gbcommon.memory;
 
 /**
  * 池化数组接口

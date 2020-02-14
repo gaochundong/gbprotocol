@@ -1,4 +1,4 @@
-package ai.sangmado.jt808.protocol.utils;
+package ai.sangmado.gbcommon.utils;
 
 /**
  * Bit位工具类

@@ -1,8 +1,8 @@
 package ai.sangmado.jt808.protocol;
 
+import ai.sangmado.gbcommon.memory.IByteArrayPool;
 import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
-import ai.sangmado.jt808.protocol.memory.IByteArrayPool;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

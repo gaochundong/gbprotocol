@@ -8,11 +8,10 @@
         <groupId>ai.sangmado</groupId>
         <version>1378.0-SNAPSHOT</version>
     </parent>
-    <artifactId>jt808</artifactId>
-    <name>jt808</name>
+    <artifactId>jt1078</artifactId>
+    <name>jt1078</name>
     <description>
-        JT/T808 Global navigation satellite system for vehicle engaged in road transport -
-        General specifications for vehicle terminal communication protocol and data format.
+        JT/T1078 Global navigation satellite system for operating vehicles - Video communication protocol
     </description>
 
     <dependencies>
@@ -28,6 +27,12 @@
         <dependency>
             <groupId>ai.sangmado</groupId>
             <artifactId>gbcommon</artifactId>
+        </dependency>
+
+        <!--jt808-->
+        <dependency>
+            <groupId>ai.sangmado</groupId>
+            <artifactId>jt808</artifactId>
         </dependency>
 
         <!--guava-->

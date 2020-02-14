@@ -8,8 +8,8 @@
         <groupId>ai.sangmado</groupId>
         <version>1378.0-SNAPSHOT</version>
     </parent>
-    <artifactId>gbutils</artifactId>
-    <name>gbutils</name>
-    <description>A library for standard utils.</description>
+    <artifactId>gbcommon</artifactId>
+    <name>gbcommon</name>
+    <description>A library for standard common utils.</description>
 
 </project>

@@ -1,13 +1,13 @@
 package ai.sangmado.jt808.protocol.encoding.impl;
 
+import ai.sangmado.gbcommon.utils.BCD;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
-import ai.sangmado.jt808.protocol.utils.BCD;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import static ai.sangmado.jt808.protocol.utils.Bits.*;
+import static ai.sangmado.gbcommon.utils.Bits.*;
 
 /**
  * 基于 ByteBuffer 的写入层实现
