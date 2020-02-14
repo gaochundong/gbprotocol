@@ -49,4 +49,8 @@ public class JT1078_Message_Content_0x0200_AdditionalInformationId extends JT808
     public static JT1078_Message_Content_0x0200_AdditionalInformationId tryCast(int value) {
         return mapping.get(value);
     }
+
+    public static boolean isInstanceOf(int value) {
+        return tryCast(value) != null;
+    }
 }

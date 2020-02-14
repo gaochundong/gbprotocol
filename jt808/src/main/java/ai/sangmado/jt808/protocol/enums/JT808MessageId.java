@@ -218,4 +218,8 @@ public class JT808MessageId {
     public static JT808MessageId tryCast(int value) {
         return mapping.get(value);
     }
+
+    public static boolean isInstanceOf(int value) {
+        return tryCast(value) != null;
+    }
 }

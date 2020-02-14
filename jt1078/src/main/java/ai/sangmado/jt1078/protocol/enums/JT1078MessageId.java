@@ -77,4 +77,8 @@ public class JT1078MessageId extends JT808MessageId {
     public static JT1078MessageId tryCast(int value) {
         return mapping.get(value);
     }
+
+    public static boolean isInstanceOf(int value) {
+        return tryCast(value) != null;
+    }
 }
