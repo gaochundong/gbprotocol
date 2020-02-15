@@ -11,11 +11,9 @@ import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
-import ai.sangmado.jt808.protocol.message.content.JT808MessageContentDecoder;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
-import ai.sangmado.jt808.protocol.message.header.JT808MessageHeaderDecoder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.nio.ByteBuffer;
@@ -25,37 +23,55 @@ import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
 /**
  * JT808 消息包
  */
-@Getter
-@Setter
-@NoArgsConstructor
 public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion extends IProtocolVersion>
         implements IJT808MessageFormatter<TProtocolVersion> {
 
     /**
      * 头标识
      */
+    @Getter
+    @Setter
     private Byte beginMarker = 0x7e;
 
     /**
      * 消息头
      */
+    @Getter
+    @Setter
     private JT808MessageHeader<TMessageId, TProtocolVersion> header;
 
     /**
      * 消息体
      */
+    @Getter
+    @Setter
     private JT808MessageContent<TMessageId, TProtocolVersion> content;
 
     /**
      * 校验码
      * 从消息头首字节开始，同后一字节进行异或操作，直到消息体末字节结束。校验码占用一个字节。
      */
+    @Getter
+    @Setter
     private Byte checksum;
 
     /**
      * 尾标识
      */
+    @Getter
+    @Setter
     private Byte endMarker = 0x7e;
+
+    private IJT808MessageDecoder<TMessageId, TProtocolVersion> messageDecoder;
+
+    @SuppressWarnings("unchecked")
+    public JT808MessagePacket() {
+        this.messageDecoder = (IJT808MessageDecoder<TMessageId, TProtocolVersion>) JT808MessageDecoder.Default;
+    }
+
+    public JT808MessagePacket(@NonNull IJT808MessageDecoder<TMessageId, TProtocolVersion> messageDecoder) {
+        this.messageDecoder = messageDecoder;
+    }
 
     @Override
     public void serialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
@@ -154,13 +170,13 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
 
     private JT808MessageHeader<TMessageId, TProtocolVersion> decodeMessageHeader(
             ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
-        return JT808MessageHeaderDecoder.decode(ctx, reader);
+        return this.messageDecoder.decodeHeader(ctx, reader);
     }
 
     private JT808MessageContent<TMessageId, TProtocolVersion> decodeMessageContent(
             ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader,
             JT808MessageHeader<TMessageId, TProtocolVersion> header) {
-        return JT808MessageContentDecoder.decode(ctx, reader, header);
+        return this.messageDecoder.decodeContent(ctx, reader, header);
     }
 
     private static byte checksum(ByteBuffer buf) {

@@ -1,6 +1,6 @@
 package ai.sangmado.jt808.protocol.exceptions;
 
-import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 
 /**
  * 不支持JT808协议版本异常
@@ -12,7 +12,7 @@ public class UnsupportedJT808ProtocolVersionException extends RuntimeException {
         this("暂不支持该协议版本");
     }
 
-    public UnsupportedJT808ProtocolVersionException(JT808ProtocolVersion protocolVersion) {
+    public UnsupportedJT808ProtocolVersionException(IProtocolVersion protocolVersion) {
         this("暂不支持该协议版本: " + protocolVersion);
     }
 

@@ -21,6 +21,7 @@ import static com.google.common.base.Strings.padStart;
 @Setter
 @NoArgsConstructor
 public class JT808MessageHeader2011 extends JT808MessageHeader<JT808MessageId, JT808ProtocolVersion> {
+    public static final JT808ProtocolVersion PROTOCOL_VERSION = V2011;
 
     @Builder
     public JT808MessageHeader2011(
@@ -52,7 +53,7 @@ public class JT808MessageHeader2011 extends JT808MessageHeader<JT808MessageId, J
         writer.writeWord(getMessageId().getValue());
 
         final char padChar = '0';
-        if (ctx.getProtocolVersion().equals(V2011)) {
+        if (ctx.getProtocolVersion().equals(PROTOCOL_VERSION)) {
             writer.writeWord(getMessageContentProperty().marshal());
             writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 6, padChar));
         } else {
@@ -73,7 +74,7 @@ public class JT808MessageHeader2011 extends JT808MessageHeader<JT808MessageId, J
 
         final String padChar = "0";
         int contentPropertyValue = reader.readWord();
-        if (ctx.getProtocolVersion().equals(V2011)) {
+        if (ctx.getProtocolVersion().equals(PROTOCOL_VERSION)) {
             JT808MessageHeaderMessageContentProperty2011 property = new JT808MessageHeaderMessageContentProperty2011();
             property.release(contentPropertyValue);
             setMessageContentProperty(property);
@@ -90,5 +91,11 @@ public class JT808MessageHeader2011 extends JT808MessageHeader<JT808MessageId, J
             property.setPacketSequence(reader.readWord());
             setMessagePacketProperty(property);
         }
+    }
+
+    public static JT808MessageHeader2011 decode(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+        JT808MessageHeader2011 header = new JT808MessageHeader2011();
+        header.deserialize(ctx, reader);
+        return header;
     }
 }

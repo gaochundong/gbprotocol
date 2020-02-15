@@ -17,10 +17,11 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class JT808_Message_Content_0x8100 extends JT808MessageContent<JT808MessageId, JT808ProtocolVersion> {
+    public static final JT808MessageId MESSAGE_ID = JT808MessageId.JT808_Message_0x8100;
 
     @Override
     public JT808MessageId getMessageId() {
-        return JT808MessageId.JT808_Message_0x8100;
+        return MESSAGE_ID;
     }
 
     /**
@@ -60,5 +61,11 @@ public class JT808_Message_Content_0x8100 extends JT808MessageContent<JT808Messa
         if (registrationResult == JT808DeviceRegistrationResult.Success) {
             setAuthCode(reader.readStringRemaining());
         }
+    }
+
+    public static JT808_Message_Content_0x8100 decode(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+        JT808_Message_Content_0x8100 content = new JT808_Message_Content_0x8100();
+        content.deserialize(ctx, reader);
+        return content;
     }
 }

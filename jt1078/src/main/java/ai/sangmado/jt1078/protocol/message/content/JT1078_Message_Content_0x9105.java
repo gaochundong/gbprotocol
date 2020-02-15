@@ -17,10 +17,11 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class JT1078_Message_Content_0x9105 extends JT808MessageContent<JT1078MessageId, JT1078ProtocolVersion> {
+    public static final JT1078MessageId MESSAGE_ID = JT1078MessageId.JT1078_Message_0x9105;
 
     @Override
     public JT1078MessageId getMessageId() {
-        return JT1078MessageId.JT1078_Message_0x9105;
+        return MESSAGE_ID;
     }
 
     /**
@@ -62,5 +63,11 @@ public class JT1078_Message_Content_0x9105 extends JT808MessageContent<JT1078Mes
     @Override
     public void deserialize(ISpecificationContext<JT1078ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
 
+    }
+
+    public static JT1078_Message_Content_0x9105 decode(ISpecificationContext<JT1078ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+        JT1078_Message_Content_0x9105 content = new JT1078_Message_Content_0x9105();
+        content.deserialize(ctx, reader);
+        return content;
     }
 }
