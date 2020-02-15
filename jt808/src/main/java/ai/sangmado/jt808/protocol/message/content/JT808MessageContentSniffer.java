@@ -32,7 +32,7 @@ public final class JT808MessageContentSniffer {
             content = new JT808_Message_Content_0x8100();
             content.deserialize((ISpecificationContext<JT808ProtocolVersion>) ctx, reader);
         } else {
-            throw new UnsupportedJT808MessageException((JT808MessageId) header.getMessageId());
+            throw new UnsupportedJT808MessageException(header.getMessageId());
         }
         return (JT808MessageContent<TMessageId, TProtocolVersion>) content;
     }

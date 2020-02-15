@@ -1,6 +1,6 @@
 package ai.sangmado.jt808.protocol.exceptions;
 
-import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.enums.IMessageId;
 
 /**
  * 不支持JT808协议消息异常
@@ -12,7 +12,7 @@ public class UnsupportedJT808MessageException extends RuntimeException {
         this("暂不支持该协议消息");
     }
 
-    public UnsupportedJT808MessageException(JT808MessageId messageId) {
+    public UnsupportedJT808MessageException(IMessageId messageId) {
         this("暂不支持该协议消息: " + messageId.getName());
     }
 
