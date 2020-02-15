@@ -11,15 +11,15 @@ import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionExce
 import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
 
 /**
- * JT808消息头嗅探器
+ * JT808消息头解码器
  */
-public final class JT808MessageHeaderSniffer {
+public final class JT808MessageHeaderDecoder {
 
     @SuppressWarnings("unchecked")
-    public static <TMessageId extends IMessageId, TProtocolVersion extends IProtocolVersion> JT808MessageHeader<TMessageId, TProtocolVersion> sniff(
+    public static <TMessageId extends IMessageId, TProtocolVersion extends IProtocolVersion> JT808MessageHeader<TMessageId, TProtocolVersion> decode(
             ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
         if (!(ctx.getProtocolVersion() instanceof JT808ProtocolVersion)) {
-            throw new UnsupportedJT808ProtocolVersionException("协议不匹配");
+            throw new UnsupportedJT808ProtocolVersionException("协议不匹配: " + ctx.getProtocolVersion());
         }
 
         JT808MessageHeader<JT808MessageId, JT808ProtocolVersion> header;

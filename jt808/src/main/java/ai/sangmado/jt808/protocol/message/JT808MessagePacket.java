@@ -11,9 +11,9 @@ import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
-import ai.sangmado.jt808.protocol.message.content.JT808MessageContentSniffer;
+import ai.sangmado.jt808.protocol.message.content.JT808MessageContentDecoder;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
-import ai.sangmado.jt808.protocol.message.header.JT808MessageHeaderSniffer;
+import ai.sangmado.jt808.protocol.message.header.JT808MessageHeaderDecoder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -104,6 +104,7 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
         bufReader.markIndex();
         int messageId = bufReader.readWord();
         int messageContentProperty = bufReader.readWord();
+        int protocolVersion = bufReader.readByte();
         bufReader.resetIndex();
 
         // 通过消息体属性格式中第14位版本位尝试判断协议版本
@@ -111,23 +112,23 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
             // 2019版本，此标记位为1.
             if (ctx.getProtocolVersion().getValue() < V2019.getValue()) {
                 throw new UnsupportedJT808ProtocolVersionException(String.format(
-                        "协议版本不匹配，终端上传消息版本[%s]，服务端配置版本[%s]，消息ID[%s]",
-                        V2019, ctx.getProtocolVersion(), messageId));
+                        "协议版本不匹配，终端上传消息版本[%s]，服务端配置版本[%s]，消息ID[%s]，版本位[%s]",
+                        V2019, ctx.getProtocolVersion(), messageId, protocolVersion));
             }
         } else {
             // 2013版本与2011版本相同，此标记位为0.
             if (ctx.getProtocolVersion().getValue() > V2013.getValue()) {
                 throw new UnsupportedJT808ProtocolVersionException(String.format(
-                        "协议版本不匹配，终端上传消息版本[%s|%s]，服务端配置版本[%s]，消息ID[%s]",
-                        V2013, V2011, ctx.getProtocolVersion(), messageId));
+                        "协议版本不匹配，终端上传消息版本[%s|%s]，服务端配置版本[%s]，消息ID[%s]，版本位[%s]",
+                        V2013, V2011, ctx.getProtocolVersion(), messageId, protocolVersion));
             }
         }
 
         // 读取消息头
-        this.header = JT808MessageHeaderSniffer.sniff(ctx, bufReader);
+        this.header = JT808MessageHeaderDecoder.decode(ctx, bufReader);
 
         // 读取消息体
-        this.content = JT808MessageContentSniffer.sniff(ctx, bufReader, header);
+        this.content = JT808MessageContentDecoder.decode(ctx, bufReader, header);
 
         // 读取校验码
         messageBuf.limit(bufArrayLength);
