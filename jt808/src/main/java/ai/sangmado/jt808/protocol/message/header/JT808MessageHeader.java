@@ -1,7 +1,8 @@
 package ai.sangmado.jt808.protocol.message.header;
 
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
-import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.enums.IMessageId;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import lombok.*;
 
 /**
@@ -11,7 +12,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class JT808MessageHeader<TMessageId extends JT808MessageId, TProtocolVersion>
+public abstract class JT808MessageHeader<TMessageId extends IMessageId, TProtocolVersion extends IProtocolVersion>
         implements IJT808MessageFormatter<TProtocolVersion>, Cloneable {
 
     /**

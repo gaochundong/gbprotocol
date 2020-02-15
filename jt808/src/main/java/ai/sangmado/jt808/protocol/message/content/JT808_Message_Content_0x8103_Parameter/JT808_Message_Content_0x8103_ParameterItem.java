@@ -1,6 +1,7 @@
 package ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter;
 
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import lombok.Setter;
  * 终端􏰉􏱀􏰏􏰙􏱁平台设置终端参数 - 参数项
  */
 @NoArgsConstructor
-public abstract class JT808_Message_Content_0x8103_ParameterItem<TProtocolVersion>
+public abstract class JT808_Message_Content_0x8103_ParameterItem<TProtocolVersion extends IProtocolVersion>
         implements IJT808MessageFormatter<TProtocolVersion> {
 
     /**

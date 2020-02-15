@@ -3,6 +3,7 @@ package ai.sangmado.jt808.protocol.codec;
 import ai.sangmado.gbcommon.utils.BCD;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import io.netty.buffer.ByteBuf;
 
 import java.nio.ByteBuffer;
@@ -11,17 +12,27 @@ import java.nio.ByteOrder;
 /**
  * 基于 Netty ByteBuf 的读取层实现
  */
-public class JT808MessageNettyByteBufReader implements IJT808MessageBufferReader {
-    private ISpecificationContext ctx;
+public class JT808MessageNettyByteBufReader<TProtocolVersion extends IProtocolVersion> implements IJT808MessageBufferReader {
+    private ISpecificationContext<TProtocolVersion> ctx;
     private ByteBuf buf;
 
-    public JT808MessageNettyByteBufReader(ISpecificationContext ctx, ByteBuf buf) {
+    public JT808MessageNettyByteBufReader(ISpecificationContext<TProtocolVersion> ctx, ByteBuf buf) {
         this.ctx = ctx;
         this.buf = buf;
     }
 
     private boolean isBigEndian() {
         return ctx.getByteOrder() == ByteOrder.BIG_ENDIAN;
+    }
+
+    @Override
+    public void markIndex() {
+        buf.markReaderIndex();
+    }
+
+    @Override
+    public void resetIndex() {
+        buf.resetReaderIndex();
     }
 
     @Override

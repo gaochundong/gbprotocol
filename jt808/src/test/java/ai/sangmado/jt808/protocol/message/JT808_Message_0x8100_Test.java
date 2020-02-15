@@ -68,19 +68,19 @@ public class JT808_Message_0x8100_Test {
                 .ackSerialNumber(ackSerialNumber)
                 .build();
 
-        List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
+        List<JT808MessagePacket<JT808MessageId, JT808ProtocolVersion>> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
         assertEquals(1, packets.size());
 
         byte[] bufArray = new byte[512];
         ByteBuffer buf = ByteBuffer.wrap(bufArray);
-        IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter(ctx, buf);
-        JT808MessagePacket sePacket = packets.get(0);
+        IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter<>(ctx, buf);
+        JT808MessagePacket<JT808MessageId, JT808ProtocolVersion> sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
         assertEquals(27, buf.limit());
 
-        IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
-        JT808MessagePacket dePacket = new JT808MessagePacket();
+        IJT808MessageBufferReader reader = new JT808MessageByteBufferReader<>(ctx, buf);
+        JT808MessagePacket<JT808MessageId, JT808ProtocolVersion> dePacket = new JT808MessagePacket<>();
         dePacket.deserialize(ctx, reader);
         assertEquals(messageId, dePacket.getHeader().getMessageId());
         assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());

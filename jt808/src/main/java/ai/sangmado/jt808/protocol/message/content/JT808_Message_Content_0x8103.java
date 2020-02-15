@@ -3,6 +3,7 @@ package ai.sangmado.jt808.protocol.message.content;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItem;
 import lombok.*;
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JT808_Message_Content_0x8103<TProtocolVersion> extends JT808MessageContent<JT808MessageId, TProtocolVersion> {
+public class JT808_Message_Content_0x8103<TProtocolVersion extends IProtocolVersion> extends JT808MessageContent<JT808MessageId, TProtocolVersion> {
 
     @Override
     public JT808MessageId getMessageId() {

@@ -1,6 +1,7 @@
 package ai.sangmado.jt1078.protocol.enums;
 
-import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.enums.IMessageId;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class JT1078MessageId extends JT808MessageId {
+public class JT1078MessageId implements IMessageId {
     public static final JT1078MessageId JT1078_Message_0x1003 = new JT1078MessageId("JT1078_Message_0x1003", 0x1003, JT1078ProtocolVersion.V2016, "终端上传音视频属性");
     public static final JT1078MessageId JT1078_Message_0x1005 = new JT1078MessageId("JT1078_Message_0x1005", 0x1005, JT1078ProtocolVersion.V2016, "终端上传乘客流量");
     public static final JT1078MessageId JT1078_Message_0x1205 = new JT1078MessageId("JT1078_Message_0x1205", 0x1205, JT1078ProtocolVersion.V2016, "终端上传音视频资源列表");
@@ -35,8 +36,44 @@ public class JT1078MessageId extends JT808MessageId {
     public static final JT1078MessageId JT1078_Message_0x9305 = new JT1078MessageId("JT1078_Message_0x9305", 0x9305, JT1078ProtocolVersion.V2016, "平台下发红外补光控制");
     public static final JT1078MessageId JT1078_Message_0x9306 = new JT1078MessageId("JT1078_Message_0x9306", 0x9306, JT1078ProtocolVersion.V2016, "平台下发云台变倍控制");
 
-    public JT1078MessageId(String name, int value, Object since, String description) {
-        super(name, value, since, description);
+    /**
+     * 消息ID名称
+     */
+    private String name;
+    /**
+     * 消息ID值
+     */
+    private Integer value;
+    /**
+     * 消息ID来自版本
+     */
+    private IProtocolVersion since;
+    /**
+     * 消息ID描述
+     */
+    private String description;
+
+    public JT1078MessageId(String name, int value, IProtocolVersion since, String description) {
+        this.name = name;
+        this.value = value;
+        this.since = since;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof JT1078MessageId)) {
+            return false;
+        }
+        return this.getValue().equals(((JT1078MessageId) obj).getValue());
     }
 
     private static final Map<Integer, JT1078MessageId> mapping = new HashMap<>();

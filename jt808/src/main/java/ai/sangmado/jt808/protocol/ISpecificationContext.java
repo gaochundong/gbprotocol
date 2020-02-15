@@ -1,6 +1,7 @@
 package ai.sangmado.jt808.protocol;
 
 import ai.sangmado.gbcommon.memory.IByteArrayPool;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 
 import java.nio.ByteOrder;
@@ -9,7 +10,7 @@ import java.nio.charset.Charset;
 /**
  * 协议上下文
  */
-public interface ISpecificationContext<TProtocolVersion> {
+public interface ISpecificationContext<TProtocolVersion extends IProtocolVersion> {
 
     /**
      * 获取协议版本

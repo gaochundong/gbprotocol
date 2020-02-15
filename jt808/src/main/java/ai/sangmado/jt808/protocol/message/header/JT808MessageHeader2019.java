@@ -13,6 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.V2013;
+import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.V2019;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.base.Strings.padStart;
 
@@ -55,21 +57,17 @@ public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, J
         }
     }
 
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @Override
     public void serialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getMessageId().getValue());
 
         final char padChar = '0';
-        switch (ctx.getProtocolVersion()) {
-            case V2019: {
-                writer.writeWord(getMessageContentProperty().marshal());
-                writer.writeByte(getProtocolVersion());
-                writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 10, padChar));
-                break;
-            }
-            default:
-                throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
+        if (ctx.getProtocolVersion().equals(V2019)) {
+            writer.writeWord(getMessageContentProperty().marshal());
+            writer.writeByte(getProtocolVersion());
+            writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 10, padChar));
+        } else {
+            throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
         writer.writeWord(getSerialNumber());
@@ -80,24 +78,20 @@ public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, J
         }
     }
 
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @Override
     public void deserialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
         setMessageId(JT808MessageId.cast(reader.readWord()));
 
         final String padChar = "0";
         int contentPropertyValue = reader.readWord();
-        switch (ctx.getProtocolVersion()) {
-            case V2019: {
-                JT808MessageHeaderMessageContentProperty2019 property = new JT808MessageHeaderMessageContentProperty2019();
-                property.release(contentPropertyValue);
-                setMessageContentProperty(property);
-                setProtocolVersion(reader.readByte());
-                setPhoneNumber(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(10 / 2)));
-                break;
-            }
-            default:
-                throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
+        if (ctx.getProtocolVersion().equals(V2013)) {
+            JT808MessageHeaderMessageContentProperty2019 property = new JT808MessageHeaderMessageContentProperty2019();
+            property.release(contentPropertyValue);
+            setMessageContentProperty(property);
+            setProtocolVersion(reader.readByte());
+            setPhoneNumber(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(10 / 2)));
+        } else {
+            throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
         setSerialNumber(reader.readWord());

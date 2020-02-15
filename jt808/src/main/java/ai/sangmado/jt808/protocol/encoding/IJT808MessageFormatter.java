@@ -1,11 +1,12 @@
 package ai.sangmado.jt808.protocol.encoding;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 
 /**
  * JT808 消息序列化器
  */
-public interface IJT808MessageFormatter<TProtocolVersion> {
+public interface IJT808MessageFormatter<TProtocolVersion extends IProtocolVersion> {
 
     /**
      * 将JT808消息对象序列化后写入Buffer

@@ -9,6 +9,7 @@ import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionExce
 import com.google.common.base.CharMatcher;
 import lombok.*;
 
+import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
 import static com.google.common.base.Strings.*;
 
 /**
@@ -77,22 +78,16 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent<JT808Messa
         writer.writeWord(getCityId());
 
         final char padChar = '0';
-        switch (ctx.getProtocolVersion()) {
-            case V2011:
-            case V2013: {
-                writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, padChar));
-                writer.writeString(padEnd(nullToEmpty(getDeviceModel()), 20, padChar));
-                writer.writeString(padEnd(nullToEmpty(getDeviceId()), 7, padChar));
-                break;
-            }
-            case V2019: {
-                writer.writeString(padStart(nullToEmpty(getManufacturerId()), 11, padChar));
-                writer.writeString(padStart(nullToEmpty(getDeviceModel()), 30, padChar));
-                writer.writeString(padStart(nullToEmpty(getDeviceId()), 30, padChar));
-                break;
-            }
-            default:
-                throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
+        if (ctx.getProtocolVersion().equals(V2011) || ctx.getProtocolVersion().equals(V2013)) {
+            writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, padChar));
+            writer.writeString(padEnd(nullToEmpty(getDeviceModel()), 20, padChar));
+            writer.writeString(padEnd(nullToEmpty(getDeviceId()), 7, padChar));
+        } else if (ctx.getProtocolVersion().equals(V2019)) {
+            writer.writeString(padStart(nullToEmpty(getManufacturerId()), 11, padChar));
+            writer.writeString(padStart(nullToEmpty(getDeviceModel()), 30, padChar));
+            writer.writeString(padStart(nullToEmpty(getDeviceId()), 30, padChar));
+        } else {
+            throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
         writer.writeByte(getPlateColor());
@@ -105,22 +100,16 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent<JT808Messa
         setCityId(reader.readWord());
 
         final String padChar = "0";
-        switch (ctx.getProtocolVersion()) {
-            case V2011:
-            case V2013: {
-                setManufacturerId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(5)));
-                setDeviceModel(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(20)));
-                setDeviceId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(7)));
-                break;
-            }
-            case V2019: {
-                setManufacturerId(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(11)));
-                setDeviceModel(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(30)));
-                setDeviceId(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(30)));
-                break;
-            }
-            default:
-                throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
+        if (ctx.getProtocolVersion().equals(V2011) || ctx.getProtocolVersion().equals(V2013)) {
+            setManufacturerId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(5)));
+            setDeviceModel(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(20)));
+            setDeviceId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(7)));
+        } else if (ctx.getProtocolVersion().equals(V2019)) {
+            setManufacturerId(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(11)));
+            setDeviceModel(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(30)));
+            setDeviceId(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(30)));
+        } else {
+            throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
         setPlateColor(reader.readByte());

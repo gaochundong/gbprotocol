@@ -5,7 +5,8 @@ import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
 import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferWriter;
-import ai.sangmado.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.jt808.protocol.enums.IMessageId;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 
 import java.nio.ByteBuffer;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * JT808 消息体
  */
-public abstract class JT808MessageContent<TMessageId extends JT808MessageId, TProtocolVersion>
+public abstract class JT808MessageContent<TMessageId extends IMessageId, TProtocolVersion extends IProtocolVersion>
         implements IJT808MessageFormatter<TProtocolVersion> {
 
     /**
@@ -35,7 +36,7 @@ public abstract class JT808MessageContent<TMessageId extends JT808MessageId, TPr
         PooledByteArray pba = ctx.getByteArrayPool().borrow();
         try {
             ByteBuffer buf = ByteBuffer.wrap(pba.array());
-            IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
+            IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter<>(ctx, buf);
             this.serialize(ctx, bufWriter);
             buf.flip();
             return buf.remaining();

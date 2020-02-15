@@ -14,7 +14,7 @@ import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
  */
 @Getter
 @Setter
-public class JT808MessageId {
+public class JT808MessageId implements IMessageId {
     public static final JT808MessageId JT808_Message_0x0001 = new JT808MessageId("JT808_Message_0x0001", 0x0001, V2011, "终端通用应答");
     public static final JT808MessageId JT808_Message_0x0002 = new JT808MessageId("JT808_Message_0x0002", 0x0002, V2011, "终端心跳");
     public static final JT808MessageId JT808_Message_0x0003 = new JT808MessageId("JT808_Message_0x0003", 0x0003, V2013, "终端注销");
@@ -99,13 +99,13 @@ public class JT808MessageId {
     /**
      * 消息ID来自版本
      */
-    private Object since;
+    private IProtocolVersion since;
     /**
      * 消息ID描述
      */
     private String description;
 
-    public JT808MessageId(String name, int value, Object since, String description) {
+    public JT808MessageId(String name, int value, IProtocolVersion since, String description) {
         this.name = name;
         this.value = value;
         this.since = since;

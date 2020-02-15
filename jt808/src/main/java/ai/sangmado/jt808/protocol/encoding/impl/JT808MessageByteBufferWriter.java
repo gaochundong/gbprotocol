@@ -3,6 +3,7 @@ package ai.sangmado.jt808.protocol.encoding.impl;
 import ai.sangmado.gbcommon.utils.BCD;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -12,11 +13,11 @@ import static ai.sangmado.gbcommon.utils.Bits.*;
 /**
  * 基于 ByteBuffer 的写入层实现
  */
-public class JT808MessageByteBufferWriter implements IJT808MessageBufferWriter {
-    private ISpecificationContext ctx;
+public class JT808MessageByteBufferWriter<TProtocolVersion extends IProtocolVersion> implements IJT808MessageBufferWriter {
+    private ISpecificationContext<TProtocolVersion> ctx;
     private ByteBuffer buf;
 
-    public JT808MessageByteBufferWriter(ISpecificationContext ctx, ByteBuffer buf) {
+    public JT808MessageByteBufferWriter(ISpecificationContext<TProtocolVersion> ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

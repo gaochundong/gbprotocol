@@ -6,6 +6,16 @@ package ai.sangmado.jt808.protocol.encoding;
 public interface IJT808MessageBufferReader {
 
     /**
+     * 标记当前读取位置
+     */
+    void markIndex();
+
+    /**
+     * 重置至已标记的读取位置
+     */
+    void resetIndex();
+
+    /**
      * 是否还有可读数据
      *
      * @return 是否还有可读数据
