@@ -20,9 +20,6 @@ public final class JT808MessageContentDecoder {
             ISpecificationContext<TProtocolVersion> ctx,
             IJT808MessageBufferReader reader,
             JT808MessageHeader<TMessageId, TProtocolVersion> header) {
-        if (!(ctx.getProtocolVersion() instanceof JT808ProtocolVersion)) {
-            throw new UnsupportedJT808ProtocolVersionException("协议不匹配: " + ctx.getProtocolVersion());
-        }
 
         JT808MessageContent<JT808MessageId, JT808ProtocolVersion> content;
         if (header.getMessageId().equals(JT808MessageId.JT808_Message_0x0100)) {

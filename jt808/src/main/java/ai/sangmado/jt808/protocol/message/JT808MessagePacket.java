@@ -100,12 +100,39 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
         IJT808MessageBufferReader bufReader = new JT808MessageByteBufferReader<>(ctx, messageBuf);
         this.beginMarker = bufReader.readByte();
 
+        // 检查协议版本
+        checkMessageProtocolVersion(ctx, bufReader);
+
+        // 读取消息头
+        this.header = decodeMessageHeader(ctx, bufReader);
+
+        // 读取消息体
+        this.content = decodeMessageContent(ctx, bufReader, header);
+
+        // 读取校验码
+        messageBuf.limit(bufArrayLength);
+        this.checksum = bufReader.readByte();
+
+        // 读取尾标识
+        this.endMarker = bufReader.readByte();
+
+        // 验证校验码
+        messageBuf.flip();
+        messageBuf.position(1);
+        messageBuf.limit(bufArrayLength - 2);
+        byte reChecksum = checksum(messageBuf);
+        if (this.checksum != reChecksum) {
+            throw new InvalidJT808MessageChecksumException();
+        }
+    }
+
+    private void checkMessageProtocolVersion(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
         // 预读取消息头中消息ID和消息体属性
-        bufReader.markIndex();
-        int messageId = bufReader.readWord();
-        int messageContentProperty = bufReader.readWord();
-        int protocolVersion = bufReader.readByte();
-        bufReader.resetIndex();
+        reader.markIndex();
+        int messageId = reader.readWord();
+        int messageContentProperty = reader.readWord();
+        int protocolVersion = reader.readByte();
+        reader.resetIndex();
 
         // 通过消息体属性格式中第14位版本位尝试判断协议版本
         if ((messageContentProperty >> 14 & 0x01) == 1) {
@@ -123,28 +150,17 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
                         V2013, V2011, ctx.getProtocolVersion(), messageId, protocolVersion));
             }
         }
+    }
 
-        // 读取消息头
-        this.header = JT808MessageHeaderDecoder.decode(ctx, bufReader);
+    private JT808MessageHeader<TMessageId, TProtocolVersion> decodeMessageHeader(
+            ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+        return JT808MessageHeaderDecoder.decode(ctx, reader);
+    }
 
-        // 读取消息体
-        this.content = JT808MessageContentDecoder.decode(ctx, bufReader, header);
-
-        // 读取校验码
-        messageBuf.limit(bufArrayLength);
-        this.checksum = bufReader.readByte();
-
-        // 读取尾标识
-        this.endMarker = bufReader.readByte();
-
-        // 验证校验码
-        messageBuf.flip();
-        messageBuf.position(1);
-        messageBuf.limit(bufArrayLength - 2);
-        byte reChecksum = checksum(messageBuf);
-        if (this.checksum != reChecksum) {
-            throw new InvalidJT808MessageChecksumException();
-        }
+    private JT808MessageContent<TMessageId, TProtocolVersion> decodeMessageContent(
+            ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader,
+            JT808MessageHeader<TMessageId, TProtocolVersion> header) {
+        return JT808MessageContentDecoder.decode(ctx, reader, header);
     }
 
     private static byte checksum(ByteBuffer buf) {

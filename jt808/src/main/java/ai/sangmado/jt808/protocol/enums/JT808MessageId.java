@@ -4,7 +4,9 @@ import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
@@ -129,6 +131,7 @@ public class JT808MessageId implements IMessageId {
     }
 
     private static final Map<Integer, JT808MessageId> mapping = new HashMap<>();
+    private static final Map<Integer, JT808MessageId> extensions = new HashMap<>();
 
     static {
         mapping.put(JT808_Message_0x0001.getValue(), JT808_Message_0x0001);
@@ -206,7 +209,7 @@ public class JT808MessageId implements IMessageId {
     }
 
     public static JT808MessageId cast(int value) {
-        JT808MessageId item = mapping.get(value);
+        JT808MessageId item = tryCast(value);
         if (item == null) {
             throw new UnsupportedJT808MessageException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
@@ -216,10 +219,24 @@ public class JT808MessageId implements IMessageId {
     }
 
     public static JT808MessageId tryCast(int value) {
-        return mapping.get(value);
+        JT808MessageId item = mapping.get(value);
+        if (item == null) {
+            item = extensions.get(value);
+        }
+        return item;
     }
 
-    public static boolean isInstanceOf(int value) {
+    public static boolean exists(int value) {
         return tryCast(value) != null;
+    }
+
+    public static List<JT808MessageId> list() {
+        List<JT808MessageId> l = new ArrayList<>(mapping.values());
+        l.addAll(extensions.values());
+        return l;
+    }
+
+    public static void putExtensions(List<JT808MessageId> messages) {
+        messages.forEach(i -> extensions.put(i.getValue(), i));
     }
 }

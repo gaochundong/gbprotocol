@@ -1,12 +1,14 @@
 package ai.sangmado.jt1078.protocol.enums;
 
-import ai.sangmado.jt808.protocol.enums.IMessageId;
 import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
+import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,7 +16,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class JT1078MessageId implements IMessageId {
+public class JT1078MessageId extends JT808MessageId {
     public static final JT1078MessageId JT1078_Message_0x1003 = new JT1078MessageId("JT1078_Message_0x1003", 0x1003, JT1078ProtocolVersion.V2016, "终端上传音视频属性");
     public static final JT1078MessageId JT1078_Message_0x1005 = new JT1078MessageId("JT1078_Message_0x1005", 0x1005, JT1078ProtocolVersion.V2016, "终端上传乘客流量");
     public static final JT1078MessageId JT1078_Message_0x1205 = new JT1078MessageId("JT1078_Message_0x1205", 0x1205, JT1078ProtocolVersion.V2016, "终端上传音视频资源列表");
@@ -36,28 +38,8 @@ public class JT1078MessageId implements IMessageId {
     public static final JT1078MessageId JT1078_Message_0x9305 = new JT1078MessageId("JT1078_Message_0x9305", 0x9305, JT1078ProtocolVersion.V2016, "平台下发红外补光控制");
     public static final JT1078MessageId JT1078_Message_0x9306 = new JT1078MessageId("JT1078_Message_0x9306", 0x9306, JT1078ProtocolVersion.V2016, "平台下发云台变倍控制");
 
-    /**
-     * 消息ID名称
-     */
-    private String name;
-    /**
-     * 消息ID值
-     */
-    private Integer value;
-    /**
-     * 消息ID来自版本
-     */
-    private IProtocolVersion since;
-    /**
-     * 消息ID描述
-     */
-    private String description;
-
     public JT1078MessageId(String name, int value, IProtocolVersion since, String description) {
-        this.name = name;
-        this.value = value;
-        this.since = since;
-        this.description = description;
+        super(name, value, since, description);
     }
 
     @Override
@@ -102,7 +84,7 @@ public class JT1078MessageId implements IMessageId {
     }
 
     public static JT1078MessageId cast(int value) {
-        JT1078MessageId item = mapping.get(value);
+        JT1078MessageId item = tryCast(value);
         if (item == null) {
             throw new UnsupportedJT808MessageException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
@@ -115,7 +97,11 @@ public class JT1078MessageId implements IMessageId {
         return mapping.get(value);
     }
 
-    public static boolean isInstanceOf(int value) {
-        return tryCast(value) != null;
+    public static boolean exists(int value) {
+        return mapping.containsKey(value);
+    }
+
+    public static List<JT1078MessageId> getJT1078MessageIdList() {
+        return new ArrayList<>(mapping.values());
     }
 }
