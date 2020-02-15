@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.V2013;
 import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.V2019;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.base.Strings.padStart;
@@ -84,7 +83,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, J
 
         final String padChar = "0";
         int contentPropertyValue = reader.readWord();
-        if (ctx.getProtocolVersion().equals(V2013)) {
+        if (ctx.getProtocolVersion().equals(V2019)) {
             JT808MessageHeaderMessageContentProperty2019 property = new JT808MessageHeaderMessageContentProperty2019();
             property.release(contentPropertyValue);
             setMessageContentProperty(property);
