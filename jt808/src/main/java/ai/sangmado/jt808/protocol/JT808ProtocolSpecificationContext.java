@@ -17,7 +17,7 @@ import java.nio.charset.Charset;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JT808ProtocolSpecificationContext implements ISpecificationContext<JT808ProtocolVersion> {
+public class JT808ProtocolSpecificationContext implements ISpecificationContext {
     @Setter
     @Builder.Default
     private JT808ProtocolVersion protocolVersion = JT808ProtocolVersion.V2019;

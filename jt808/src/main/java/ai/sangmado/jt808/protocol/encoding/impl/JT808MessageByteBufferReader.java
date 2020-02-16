@@ -3,7 +3,6 @@ package ai.sangmado.jt808.protocol.encoding.impl;
 import ai.sangmado.gbcommon.utils.BCD;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
-import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -11,12 +10,12 @@ import java.nio.ByteOrder;
 /**
  * 基于 ByteBuffer 的读取层实现
  */
-public class JT808MessageByteBufferReader<TProtocolVersion extends IProtocolVersion> implements IJT808MessageBufferReader {
-    private ISpecificationContext<TProtocolVersion> ctx;
+public class JT808MessageByteBufferReader implements IJT808MessageBufferReader {
+    private ISpecificationContext ctx;
     private ByteBuffer buf;
     private int markedIndex = 0;
 
-    public JT808MessageByteBufferReader(ISpecificationContext<TProtocolVersion> ctx, ByteBuffer buf) {
+    public JT808MessageByteBufferReader(ISpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

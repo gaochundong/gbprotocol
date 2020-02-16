@@ -3,8 +3,7 @@ package ai.sangmado.jt808.protocol.message.content;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
-import ai.sangmado.jt808.protocol.enums.IMessageId;
-import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
+import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,13 +13,12 @@ import java.nio.ByteBuffer;
 /**
  * JT808 已分片消息体
  */
-public class JT808MessageSplitContent<TMessageId extends IMessageId, TProtocolVersion extends IProtocolVersion>
-        extends JT808MessageContent<TMessageId, TProtocolVersion> {
+public class JT808MessageSplitContent extends JT808MessageContent {
 
-    private JT808MessageContent<TMessageId, TProtocolVersion> originContent;
+    private JT808MessageContent originContent;
 
     @Override
-    public TMessageId getMessageId() {
+    public JT808MessageId getMessageId() {
         return this.originContent.getMessageId();
     }
 
@@ -38,7 +36,7 @@ public class JT808MessageSplitContent<TMessageId extends IMessageId, TProtocolVe
     private ByteBuffer splitContent;
 
     public JT808MessageSplitContent(
-            JT808MessageContent<TMessageId, TProtocolVersion> originContent,
+            JT808MessageContent originContent,
             int totalSplits, int splitIndex, int contentLength) {
         this.originContent = originContent;
         this.totalSplits = totalSplits;
@@ -47,17 +45,17 @@ public class JT808MessageSplitContent<TMessageId extends IMessageId, TProtocolVe
     }
 
     @Override
-    public int getContentLength(ISpecificationContext<TProtocolVersion> ctx) {
+    public int getContentLength(ISpecificationContext ctx) {
         return contentLength;
     }
 
     @Override
-    public void serialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeBytes(splitContent);
     }
 
     @Override
-    public void deserialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         byte[] buffer = reader.readBytes(contentLength);
         setSplitContent(ByteBuffer.wrap(buffer));
     }

@@ -20,7 +20,7 @@ import static com.google.common.base.Strings.padStart;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, JT808ProtocolVersion> {
+public class JT808MessageHeader2019 extends JT808MessageHeader {
     public static final JT808ProtocolVersion PROTOCOL_VERSION = V2019;
 
     /**
@@ -42,7 +42,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, J
     }
 
     @Override
-    public JT808MessageHeader<JT808MessageId, JT808ProtocolVersion> clone() {
+    public JT808MessageHeader clone() {
         try {
             return JT808MessageHeader2019.builder()
                     .messageId(this.getMessageId())
@@ -58,7 +58,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, J
     }
 
     @Override
-    public void serialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getMessageId().getValue());
 
         final char padChar = '0';
@@ -79,7 +79,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, J
     }
 
     @Override
-    public void deserialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         setMessageId(JT808MessageId.cast(reader.readWord()));
 
         final String padChar = "0";
@@ -104,7 +104,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader<JT808MessageId, J
         }
     }
 
-    public static JT808MessageHeader2019 decode(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    public static JT808MessageHeader2019 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808MessageHeader2019 header = new JT808MessageHeader2019();
         header.deserialize(ctx, reader);
         return header;

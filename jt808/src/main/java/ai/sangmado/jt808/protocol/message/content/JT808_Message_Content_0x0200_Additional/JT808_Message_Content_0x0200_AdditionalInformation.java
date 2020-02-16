@@ -1,7 +1,6 @@
 package ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional;
 
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
-import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +11,7 @@ import lombok.Setter;
  * 􏰢􏰣格式：附加信息ID+附加信息长度+附加信息
  */
 @NoArgsConstructor
-public abstract class JT808_Message_Content_0x0200_AdditionalInformation<TProtocolVersion extends IProtocolVersion>
-        implements IJT808MessageFormatter<TProtocolVersion> {
+public abstract class JT808_Message_Content_0x0200_AdditionalInformation implements IJT808MessageFormatter {
 
     /**
      * 获取位置附加信息ID

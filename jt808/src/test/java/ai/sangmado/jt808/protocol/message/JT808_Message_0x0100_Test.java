@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
 public class JT808_Message_0x0100_Test {
 
     @Mock
-    private ISpecificationContext<JT808ProtocolVersion> ctx;
+    private ISpecificationContext ctx;
 
     private IByteArrayPool byteArrayPool = new PooledByteArrayFactory(512, 10);
 
@@ -60,12 +60,12 @@ public class JT808_Message_0x0100_Test {
         byte plateColor = (byte) 8;
         int serialNumber = 123;
 
-        JT808MessageHeader<JT808MessageId, JT808ProtocolVersion> header = JT808MessageHeaderFactory
+        JT808MessageHeader header = JT808MessageHeaderFactory
                 .buildWith(ctx)
                 .withMessageId(messageId)
                 .withPhoneNumber(phoneNumber)
                 .withSerialNumber(serialNumber);
-        JT808MessageContent<JT808MessageId, JT808ProtocolVersion> content = JT808_Message_Content_0x0100.builder()
+        JT808MessageContent content = JT808_Message_Content_0x0100.builder()
                 .provinceId(provinceId)
                 .cityId(cityId)
                 .manufacturerId(manufacturerId)
@@ -75,19 +75,19 @@ public class JT808_Message_0x0100_Test {
                 .plateColor(plateColor)
                 .build();
 
-        List<JT808MessagePacket<JT808MessageId, JT808ProtocolVersion>> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
+        List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
         assertEquals(1, packets.size());
 
         byte[] bufArray = new byte[512];
         ByteBuffer buf = ByteBuffer.wrap(bufArray);
-        IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter<>(ctx, buf);
-        JT808MessagePacket<JT808MessageId, JT808ProtocolVersion> sePacket = packets.get(0);
+        IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter(ctx, buf);
+        JT808MessagePacket sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
         assertEquals(102, buf.limit());
 
-        IJT808MessageBufferReader reader = new JT808MessageByteBufferReader<>(ctx, buf);
-        JT808MessagePacket<JT808MessageId, JT808ProtocolVersion> dePacket = new JT808MessagePacket<>();
+        IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
+        JT808MessagePacket dePacket = new JT808MessagePacket();
         dePacket.deserialize(ctx, reader);
         assertEquals(messageId, dePacket.getHeader().getMessageId());
         assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());

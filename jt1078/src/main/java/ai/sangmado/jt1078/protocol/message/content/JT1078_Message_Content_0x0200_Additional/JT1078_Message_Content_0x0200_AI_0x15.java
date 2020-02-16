@@ -1,6 +1,5 @@
 package ai.sangmado.jt1078.protocol.message.content.JT1078_Message_Content_0x0200_Additional;
 
-import ai.sangmado.jt1078.protocol.enums.JT1078ProtocolVersion;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
@@ -14,7 +13,7 @@ import lombok.Setter;
  * 终端􏰉􏱀􏰏􏰙􏱁位置信息汇报 - 位置附加信息 - 视频信号丢失报警状态
  */
 @NoArgsConstructor
-public class JT1078_Message_Content_0x0200_AI_0x15 extends JT808_Message_Content_0x0200_AdditionalInformation<JT1078ProtocolVersion> {
+public class JT1078_Message_Content_0x0200_AI_0x15 extends JT808_Message_Content_0x0200_AdditionalInformation {
 
     @Override
     public JT808_Message_Content_0x0200_AdditionalInformationId getAdditionalInformationId() {
@@ -29,12 +28,12 @@ public class JT1078_Message_Content_0x0200_AI_0x15 extends JT808_Message_Content
     private Integer videoSignalLoss;
 
     @Override
-    public void serialize(ISpecificationContext<JT1078ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext<JT1078ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 }

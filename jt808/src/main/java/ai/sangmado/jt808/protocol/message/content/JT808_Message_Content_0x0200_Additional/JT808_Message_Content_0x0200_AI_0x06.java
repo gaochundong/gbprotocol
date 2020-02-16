@@ -3,7 +3,6 @@ package ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0200_
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
-import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import lombok.Setter;
  * 终端􏰉􏱀􏰏􏰙􏱁位置信息汇报 - 位置附加信息 - 车厢温度
  */
 @NoArgsConstructor
-public class JT808_Message_Content_0x0200_AI_0x06 extends JT808_Message_Content_0x0200_AdditionalInformation<JT808ProtocolVersion> {
+public class JT808_Message_Content_0x0200_AI_0x06 extends JT808_Message_Content_0x0200_AdditionalInformation {
 
     @Override
     public JT808_Message_Content_0x0200_AdditionalInformationId getAdditionalInformationId() {
@@ -27,12 +26,12 @@ public class JT808_Message_Content_0x0200_AI_0x06 extends JT808_Message_Content_
     private Integer cabinTemperature;
 
     @Override
-    public void serialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 }

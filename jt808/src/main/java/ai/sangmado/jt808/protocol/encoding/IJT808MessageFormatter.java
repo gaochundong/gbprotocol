@@ -1,12 +1,11 @@
 package ai.sangmado.jt808.protocol.encoding;
 
 import ai.sangmado.jt808.protocol.ISpecificationContext;
-import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 
 /**
  * JT808 消息序列化器
  */
-public interface IJT808MessageFormatter<TProtocolVersion extends IProtocolVersion> {
+public interface IJT808MessageFormatter {
 
     /**
      * 将JT808消息对象序列化后写入Buffer
@@ -14,7 +13,7 @@ public interface IJT808MessageFormatter<TProtocolVersion extends IProtocolVersio
      * @param ctx    协议规范上下文
      * @param writer Buffer写入器
      */
-    void serialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferWriter writer);
+    void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer);
 
     /**
      * 从Buffer读取数据并反序列化后构建JT808消息对象
@@ -22,5 +21,5 @@ public interface IJT808MessageFormatter<TProtocolVersion extends IProtocolVersio
      * @param ctx    协议规范上下文
      * @param reader Buffer读取器
      */
-    void deserialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader);
+    void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader);
 }

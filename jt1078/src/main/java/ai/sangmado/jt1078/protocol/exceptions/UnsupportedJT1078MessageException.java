@@ -1,6 +1,6 @@
 package ai.sangmado.jt1078.protocol.exceptions;
 
-import ai.sangmado.jt1078.protocol.enums.JT1078MessageId;
+import ai.sangmado.jt808.protocol.enums.IMessageId;
 
 /**
  * 不支持JT808协议消息异常
@@ -12,7 +12,7 @@ public class UnsupportedJT1078MessageException extends RuntimeException {
         this("暂不支持该协议消息");
     }
 
-    public UnsupportedJT1078MessageException(JT1078MessageId messageId) {
+    public UnsupportedJT1078MessageException(IMessageId messageId) {
         this("暂不支持该协议消息: " + messageId.getName());
     }
 

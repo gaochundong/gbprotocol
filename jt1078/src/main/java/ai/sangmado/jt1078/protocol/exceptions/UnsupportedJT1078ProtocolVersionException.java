@@ -1,6 +1,6 @@
 package ai.sangmado.jt1078.protocol.exceptions;
 
-import ai.sangmado.jt1078.protocol.enums.JT1078ProtocolVersion;
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 
 /**
  * 不支持JT1078协议版本异常
@@ -12,7 +12,7 @@ public class UnsupportedJT1078ProtocolVersionException extends RuntimeException 
         this("暂不支持该协议版本");
     }
 
-    public UnsupportedJT1078ProtocolVersionException(JT1078ProtocolVersion protocolVersion) {
+    public UnsupportedJT1078ProtocolVersionException(IProtocolVersion protocolVersion) {
         this("暂不支持该协议版本: " + protocolVersion);
     }
 

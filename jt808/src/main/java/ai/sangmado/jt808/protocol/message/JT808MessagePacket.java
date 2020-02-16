@@ -6,8 +6,6 @@ import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
 import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferReader;
 import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferWriter;
-import ai.sangmado.jt808.protocol.enums.IMessageId;
-import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
@@ -23,8 +21,7 @@ import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
 /**
  * JT808 消息包
  */
-public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion extends IProtocolVersion>
-        implements IJT808MessageFormatter<TProtocolVersion> {
+public class JT808MessagePacket implements IJT808MessageFormatter {
 
     /**
      * 头标识
@@ -38,14 +35,14 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
      */
     @Getter
     @Setter
-    private JT808MessageHeader<TMessageId, TProtocolVersion> header;
+    private JT808MessageHeader header;
 
     /**
      * 消息体
      */
     @Getter
     @Setter
-    private JT808MessageContent<TMessageId, TProtocolVersion> content;
+    private JT808MessageContent content;
 
     /**
      * 校验码
@@ -62,24 +59,23 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
     @Setter
     private Byte endMarker = 0x7e;
 
-    private IJT808MessageDecoder<TMessageId, TProtocolVersion> messageDecoder;
+    private IJT808MessageDecoder messageDecoder;
 
-    @SuppressWarnings("unchecked")
     public JT808MessagePacket() {
-        this.messageDecoder = (IJT808MessageDecoder<TMessageId, TProtocolVersion>) JT808MessageDecoder.Default;
+        this.messageDecoder = JT808MessageDecoder.Default;
     }
 
-    public JT808MessagePacket(@NonNull IJT808MessageDecoder<TMessageId, TProtocolVersion> messageDecoder) {
+    public JT808MessagePacket(@NonNull IJT808MessageDecoder messageDecoder) {
         this.messageDecoder = messageDecoder;
     }
 
     @Override
-    public void serialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         // 求出消息数据
         final int possibleHeaderLength = 20;
         byte[] bufArray = new byte[possibleHeaderLength + content.getContentLength(ctx)];
         ByteBuffer messageBuf = ByteBuffer.wrap(bufArray);
-        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter<>(ctx, messageBuf);
+        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, messageBuf);
         header.serialize(ctx, bufWriter);
         content.serialize(ctx, bufWriter);
         messageBuf.flip();
@@ -98,11 +94,11 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
     }
 
     @Override
-    public void deserialize(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         // 将数据进行转义
         byte[] bufArray = new byte[reader.readableBytes()];
         ByteBuffer messageBuf = ByteBuffer.wrap(bufArray);
-        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter<>(ctx, messageBuf);
+        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, messageBuf);
         while (reader.isReadable()) {
             readUnescapedByte(reader, bufWriter);
         }
@@ -113,7 +109,7 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
         messageBuf.limit(bufArrayLength - 2);
 
         // 读取头标识
-        IJT808MessageBufferReader bufReader = new JT808MessageByteBufferReader<>(ctx, messageBuf);
+        IJT808MessageBufferReader bufReader = new JT808MessageByteBufferReader(ctx, messageBuf);
         this.beginMarker = bufReader.readByte();
 
         // 检查协议版本
@@ -142,7 +138,7 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
         }
     }
 
-    private void checkMessageProtocolVersion(ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    private void checkMessageProtocolVersion(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         // 预读取消息头中消息ID和消息体属性
         reader.markIndex();
         int messageId = reader.readWord();
@@ -168,14 +164,14 @@ public class JT808MessagePacket<TMessageId extends IMessageId, TProtocolVersion 
         }
     }
 
-    private JT808MessageHeader<TMessageId, TProtocolVersion> decodeMessageHeader(
-            ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    private JT808MessageHeader decodeMessageHeader(
+            ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         return this.messageDecoder.decodeHeader(ctx, reader);
     }
 
-    private JT808MessageContent<TMessageId, TProtocolVersion> decodeMessageContent(
-            ISpecificationContext<TProtocolVersion> ctx, IJT808MessageBufferReader reader,
-            JT808MessageHeader<TMessageId, TProtocolVersion> header) {
+    private JT808MessageContent decodeMessageContent(
+            ISpecificationContext ctx, IJT808MessageBufferReader reader,
+            JT808MessageHeader header) {
         return this.messageDecoder.decodeContent(ctx, reader, header);
     }
 

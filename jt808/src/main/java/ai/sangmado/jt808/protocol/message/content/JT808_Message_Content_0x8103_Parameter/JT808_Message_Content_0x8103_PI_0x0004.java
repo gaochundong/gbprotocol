@@ -3,7 +3,6 @@ package ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
-import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import lombok.Setter;
  * 终端􏰉􏱀􏰏􏰙􏱁终端􏰉􏱀􏰏􏰙􏱁平台设置终端参数 - 参数项 - UDP消息应答超时时间
  */
 @NoArgsConstructor
-public class JT808_Message_Content_0x8103_PI_0x0004 extends JT808_Message_Content_0x8103_ParameterItem<JT808ProtocolVersion> {
+public class JT808_Message_Content_0x8103_PI_0x0004 extends JT808_Message_Content_0x8103_ParameterItem {
 
     @Override
     public JT808_Message_Content_0x8103_ParameterItemId getParameterItemId() {
@@ -27,12 +26,12 @@ public class JT808_Message_Content_0x8103_PI_0x0004 extends JT808_Message_Conten
     private Integer udpReplyTimeout;
 
     @Override
-    public void serialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext<JT808ProtocolVersion> ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 }

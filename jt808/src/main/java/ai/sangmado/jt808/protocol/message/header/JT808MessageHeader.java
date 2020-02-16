@@ -1,8 +1,7 @@
 package ai.sangmado.jt808.protocol.message.header;
 
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
-import ai.sangmado.jt808.protocol.enums.IMessageId;
-import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
+import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import lombok.*;
 
 /**
@@ -12,13 +11,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class JT808MessageHeader<TMessageId extends IMessageId, TProtocolVersion extends IProtocolVersion>
-        implements IJT808MessageFormatter<TProtocolVersion>, Cloneable {
+public abstract class JT808MessageHeader implements IJT808MessageFormatter, Cloneable {
 
     /**
      * 消息ID
      */
-    private TMessageId messageId;
+    private JT808MessageId messageId;
 
     /**
      * 消息体属性
@@ -44,27 +42,27 @@ public abstract class JT808MessageHeader<TMessageId extends IMessageId, TProtoco
      */
     private String phoneNumber;
 
-    public JT808MessageHeader<TMessageId, TProtocolVersion> withMessageId(TMessageId messageId) {
+    public JT808MessageHeader withMessageId(JT808MessageId messageId) {
         this.setMessageId(messageId);
         return this;
     }
 
-    public JT808MessageHeader<TMessageId, TProtocolVersion> withMessageContentProperty(JT808MessageHeaderMessageContentProperty messageContentProperty) {
+    public JT808MessageHeader withMessageContentProperty(JT808MessageHeaderMessageContentProperty messageContentProperty) {
         this.setMessageContentProperty(messageContentProperty);
         return this;
     }
 
-    public JT808MessageHeader<TMessageId, TProtocolVersion> withSerialNumber(int serialNumber) {
+    public JT808MessageHeader withSerialNumber(int serialNumber) {
         this.setSerialNumber(serialNumber);
         return this;
     }
 
-    public JT808MessageHeader<TMessageId, TProtocolVersion> withMessagePacketProperty(JT808MessageHeaderMessagePacketProperty messagePacketProperty) {
+    public JT808MessageHeader withMessagePacketProperty(JT808MessageHeaderMessagePacketProperty messagePacketProperty) {
         this.setMessagePacketProperty(messagePacketProperty);
         return this;
     }
 
-    public JT808MessageHeader<TMessageId, TProtocolVersion> withPhoneNumber(String phoneNumber) {
+    public JT808MessageHeader withPhoneNumber(String phoneNumber) {
         this.setPhoneNumber(phoneNumber);
         return this;
     }
@@ -75,5 +73,5 @@ public abstract class JT808MessageHeader<TMessageId extends IMessageId, TProtoco
      * @return 克隆对象
      */
     @Override
-    public abstract JT808MessageHeader<TMessageId, TProtocolVersion> clone();
+    public abstract JT808MessageHeader clone();
 }
