@@ -14,10 +14,12 @@ import lombok.Setter;
  */
 @NoArgsConstructor
 public class JT1078_Message_Content_0x0200_AI_0x14 extends JT808_Message_Content_0x0200_AdditionalInformation {
+    public static final JT808_Message_Content_0x0200_AdditionalInformationId ADDITIONAL_INFORMATION_ID =
+            JT1078_Message_Content_0x0200_AdditionalInformationId.JT1078_0x0200_0x14;
 
     @Override
     public JT808_Message_Content_0x0200_AdditionalInformationId getAdditionalInformationId() {
-        return JT1078_Message_Content_0x0200_AdditionalInformationId.JT1078_0x0200_0x14;
+        return ADDITIONAL_INFORMATION_ID;
     }
 
     /**

@@ -4,6 +4,7 @@ import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItem;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,10 +14,12 @@ import lombok.Setter;
  */
 @NoArgsConstructor
 public class JT1078_Message_Content_0x8103_PI_0x0075 extends JT808_Message_Content_0x8103_ParameterItem {
+    public static final JT808_Message_Content_0x8103_ParameterItemId PARAMETER_ITEM_ID =
+            JT1078_Message_Content_0x8103_ParameterItemId.JT1078_0x8103_0x0075;
 
     @Override
-    public JT1078_Message_Content_0x8103_ParameterItemId getParameterItemId() {
-        return JT1078_Message_Content_0x8103_ParameterItemId.JT1078_0x8103_0x0075;
+    public JT808_Message_Content_0x8103_ParameterItemId getParameterItemId() {
+        return PARAMETER_ITEM_ID;
     }
 
     /**

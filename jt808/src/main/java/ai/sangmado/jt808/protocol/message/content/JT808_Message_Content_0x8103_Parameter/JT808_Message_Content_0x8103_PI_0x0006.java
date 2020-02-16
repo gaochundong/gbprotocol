@@ -12,10 +12,12 @@ import lombok.Setter;
  */
 @NoArgsConstructor
 public class JT808_Message_Content_0x8103_PI_0x0006 extends JT808_Message_Content_0x8103_ParameterItem {
+    public static final JT808_Message_Content_0x8103_ParameterItemId PARAMETER_ITEM_ID =
+            JT808_Message_Content_0x8103_ParameterItemId.JT808_0x8103_0x0006;
 
     @Override
     public JT808_Message_Content_0x8103_ParameterItemId getParameterItemId() {
-        return JT808_Message_Content_0x8103_ParameterItemId.JT808_0x8103_0x0006;
+        return PARAMETER_ITEM_ID;
     }
 
     /**
