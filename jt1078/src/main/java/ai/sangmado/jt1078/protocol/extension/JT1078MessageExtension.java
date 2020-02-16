@@ -1,4 +1,4 @@
-package ai.sangmado.jt1078.protocol.message.extension;
+package ai.sangmado.jt1078.protocol.extension;
 
 import ai.sangmado.jt1078.protocol.enums.JT1078MessageId;
 import ai.sangmado.jt1078.protocol.message.content.*;
@@ -16,14 +16,14 @@ public class JT1078MessageExtension {
     /**
      * JT1078 协议扩展消息ID
      */
-    public void extendMessageIdDefinitions() {
+    public static void extendMessageIdDefinitions() {
         JT808MessageId.putExtensions(new ArrayList<>(JT1078MessageId.getJT1078MessageIdList()));
     }
 
     /**
      * JT1078 协议扩展消息体定义
      */
-    public void extendMessageContentDefinitions() {
+    public static void extendMessageContentDefinitions() {
         register(JT1078_Message_Content_0x1003.MESSAGE_ID, JT1078_Message_Content_0x1003::decode);
         register(JT1078_Message_Content_0x1005.MESSAGE_ID, JT1078_Message_Content_0x1005::decode);
         register(JT1078_Message_Content_0x9003.MESSAGE_ID, JT1078_Message_Content_0x9003::decode);
