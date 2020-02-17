@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 /**
- * 终端􏰉􏱀􏰏􏰙􏱁位置信息汇报 - 位置附加信息 - 注册器
+ * 终端位置信息汇报 - 位置附加信息 - 注册器
  */
 public class JT808_Message_Content_0x8103_ParameterItemRegistration {
 

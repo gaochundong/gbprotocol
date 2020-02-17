@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 终端􏰉􏱀􏰏􏰙􏱁位置信息汇报 - 位置附加信息
+ * 终端位置信息汇报 - 位置附加信息
  * <p>
  * 􏰢􏰣格式：附加信息ID+附加信息长度+附加信息
  */

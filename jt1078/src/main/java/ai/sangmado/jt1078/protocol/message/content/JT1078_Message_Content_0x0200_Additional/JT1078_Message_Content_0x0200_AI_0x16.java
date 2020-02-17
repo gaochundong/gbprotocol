@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 终端􏰉􏱀􏰏􏰙􏱁位置信息汇报 - 位置附加信息 - 视频信号遮挡报警状态
+ * 终端位置信息汇报 - 位置附加信息 - 视频信号遮挡报警状态
  */
 @NoArgsConstructor
 public class JT1078_Message_Content_0x0200_AI_0x16 extends JT808_Message_Content_0x0200_AdditionalInformation {

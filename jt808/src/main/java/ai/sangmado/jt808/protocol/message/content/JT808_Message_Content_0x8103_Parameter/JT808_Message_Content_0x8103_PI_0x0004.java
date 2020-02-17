@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 终端􏰉􏱀􏰏􏰙􏱁终端􏰉􏱀􏰏􏰙􏱁平台设置终端参数 - 参数项 - UDP消息应答超时时间
+ * 平台设置终端参数 - 参数项 - UDP消息应答超时时间
  */
 @NoArgsConstructor
 public class JT808_Message_Content_0x8103_PI_0x0004 extends JT808_Message_Content_0x8103_ParameterItem {

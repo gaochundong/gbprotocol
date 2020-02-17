@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 终端􏰉􏱀􏰏􏰙􏱁位置信息汇报 - 位置附加信息 - 模拟量
+ * 终端位置信息汇报 - 位置附加信息 - 模拟量
  */
 @NoArgsConstructor
 public class JT808_Message_Content_0x0200_AI_0x2B extends JT808_Message_Content_0x0200_AdditionalInformation {

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 终端􏰉􏱀􏰏􏰙􏱁终端􏰉􏱀􏰏􏰙􏱁平台设置终端参数 - 参数项 - 特殊报警录像参数设置
+ * 平台设置终端参数 - 参数项 - 特殊报警录像参数设置
  */
 @NoArgsConstructor
 public class JT1078_Message_Content_0x8103_PI_0x0079 extends JT808_Message_Content_0x8103_ParameterItem {

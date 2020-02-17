@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 终端􏰉􏱀􏰏􏰙􏱁终端􏰉􏱀􏰏􏰙􏱁平台设置终端参数 - 参数项 - 音视频通道列表设置
+ * 平台设置终端参数 - 参数项 - 音视频通道列表设置
  */
 @NoArgsConstructor
 public class JT1078_Message_Content_0x8103_PI_0x0076 extends JT808_Message_Content_0x8103_ParameterItem {
