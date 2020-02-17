@@ -28,7 +28,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
      */
     @Getter
     @Setter
-    private Byte beginMarker = 0x7e;
+    private byte beginMarker = 0x7e;
 
     /**
      * 消息头
@@ -50,14 +50,14 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
      */
     @Getter
     @Setter
-    private Byte checksum;
+    private int checksum;
 
     /**
      * 尾标识
      */
     @Getter
     @Setter
-    private Byte endMarker = 0x7e;
+    private byte endMarker = 0x7e;
 
     private IJT808MessageDecoder messageDecoder;
 
@@ -89,7 +89,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         while (messageBuf.hasRemaining()) {
             writeEscapedByte(messageBuf.get(), writer);
         }
-        writeEscapedByte(this.checksum, writer);
+        writeEscapedByte((byte) this.checksum, writer);
         writer.writeByte(endMarker);
     }
 
@@ -132,7 +132,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         messageBuf.flip();
         messageBuf.position(1);
         messageBuf.limit(bufArrayLength - 2);
-        byte reChecksum = checksum(messageBuf);
+        int reChecksum = checksum(messageBuf);
         if (this.checksum != reChecksum) {
             throw new InvalidJT808MessageChecksumException();
         }
@@ -143,7 +143,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         reader.markIndex();
         int messageId = reader.readWord();
         int messageContentProperty = reader.readWord();
-        int protocolVersion = reader.readByte();
+        int protocolVersion = reader.readByte() & 0xFF;
         reader.resetIndex();
 
         // 通过消息体属性格式中第14位版本位尝试判断协议版本
@@ -175,12 +175,12 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         return this.messageDecoder.decodeContent(ctx, reader, header);
     }
 
-    private static byte checksum(ByteBuffer buf) {
+    private static int checksum(ByteBuffer buf) {
         int checksum = 0;
         while (buf.hasRemaining()) {
             checksum = checksum ^ buf.get();
         }
-        return (byte) checksum;
+        return checksum;
     }
 
     private static void writeEscapedByte(byte x, IJT808MessageBufferWriter writer) {

@@ -44,6 +44,11 @@ public class JT1078ProtocolVersion implements IProtocolVersion {
         return this.getValue().equals(((JT1078ProtocolVersion) obj).getValue());
     }
 
+    @Override
+    public int compareTo(IProtocolVersion o) {
+        return this.getValue().compareTo(o.getValue());
+    }
+
     private static final Map<Integer, JT1078ProtocolVersion> mapping = new HashMap<>();
 
     static {

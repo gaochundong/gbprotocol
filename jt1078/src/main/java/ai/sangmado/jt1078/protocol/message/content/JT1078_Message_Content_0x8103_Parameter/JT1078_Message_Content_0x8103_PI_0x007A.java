@@ -22,6 +22,11 @@ public class JT1078_Message_Content_0x8103_PI_0x007A extends JT808_Message_Conte
         return PARAMETER_ITEM_ID;
     }
 
+    @Override
+    public Integer getParameterItemLength() {
+        return 4;
+    }
+
     /**
      * 视频相关报警屏蔽字
      */
@@ -37,5 +42,11 @@ public class JT1078_Message_Content_0x8103_PI_0x007A extends JT808_Message_Conte
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
 
+    }
+
+    public static JT1078_Message_Content_0x8103_PI_0x007A decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT1078_Message_Content_0x8103_PI_0x007A content = new JT1078_Message_Content_0x8103_PI_0x007A();
+        content.deserialize(ctx, reader);
+        return content;
     }
 }

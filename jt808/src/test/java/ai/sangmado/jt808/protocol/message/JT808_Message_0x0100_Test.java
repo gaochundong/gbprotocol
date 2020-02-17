@@ -49,7 +49,8 @@ public class JT808_Message_0x0100_Test {
     @Test
     public void when_JT808_Message_0x0100_thenShouldPassSerializationAndDeserialization() {
         JT808MessageId messageId = JT808MessageId.JT808_Message_0x0100;
-        String phoneNumber = "123456789";
+        String phoneNumber = "123456";
+        int serialNumber = 123;
 
         int provinceId = 19;
         int cityId = 18;
@@ -57,8 +58,7 @@ public class JT808_Message_0x0100_Test {
         String deviceId = "111";
         String deviceModel = "Made in China";
         String plateNumber = "AAA-BBB-CCC";
-        byte plateColor = (byte) 8;
-        int serialNumber = 123;
+        Integer plateColor = 8;
 
         JT808MessageHeader header = JT808MessageHeaderFactory
                 .buildWith(ctx)
@@ -84,7 +84,7 @@ public class JT808_Message_0x0100_Test {
         JT808MessagePacket sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
-        assertEquals(102, buf.limit());
+        assertEquals(107, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
         JT808MessagePacket dePacket = new JT808MessagePacket();

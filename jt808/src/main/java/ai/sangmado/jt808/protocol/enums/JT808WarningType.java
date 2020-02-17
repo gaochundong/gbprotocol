@@ -48,7 +48,7 @@ public enum JT808WarningType {
     JT808_Warning_31(1 << 31, V2013, ResetAfterAck, "非法开门报警，终端未设置区域时，不判断非法开门，收到应答后清零"),
     ;
 
-    private Integer value;
+    private Long value;
 
     private JT808ProtocolVersion since;
 
@@ -56,7 +56,7 @@ public enum JT808WarningType {
 
     private String description;
 
-    JT808WarningType(int value, JT808ProtocolVersion since, JT808WarningDisposition disposition, String description) {
+    JT808WarningType(long value, JT808ProtocolVersion since, JT808WarningDisposition disposition, String description) {
         this.value = value;
         this.since = since;
         this.disposition = disposition;
@@ -68,7 +68,7 @@ public enum JT808WarningType {
         return this.name();
     }
 
-    private static final Map<Integer, JT808WarningType> mapping = new HashMap<>();
+    private static final Map<Long, JT808WarningType> mapping = new HashMap<>();
 
     static {
         for (JT808WarningType item : values()) {
@@ -76,11 +76,11 @@ public enum JT808WarningType {
         }
     }
 
-    public static JT808WarningType cast(int value) {
+    public static JT808WarningType cast(long value) {
         JT808WarningType item = mapping.get(value);
         if (item == null) {
             throw new IllegalArgumentException(String.format(
-                    "Cannot cast integer [%s] to [%s] enum.",
+                    "Cannot cast long [%s] to [%s] enum.",
                     value, JT808WarningType.class.getSimpleName()));
         }
         return item;

@@ -53,18 +53,18 @@ public class JT808MessageNettyByteBufReader implements IJT808MessageBufferReader
     @Override
     public int readWord() {
         if (isBigEndian()) {
-            return ((buf.readByte() << 8) | (buf.readByte())) & 0xFFFF;
+            return (((buf.readByte() & 0xFF) << 8) | ((buf.readByte() & 0xFF))) & 0xFFFF;
         } else {
-            return ((buf.readByte()) | (buf.readByte() << 8)) & 0xFFFF;
+            return (((buf.readByte() & 0xFF)) | ((buf.readByte() & 0xFF) << 8)) & 0xFFFF;
         }
     }
 
     @Override
     public long readDWord() {
         if (isBigEndian()) {
-            return ((buf.readByte() << 24) | (buf.readByte() << 16) | (buf.readByte() << 8) | (buf.readByte())) & 0xFFFFFFFFL;
+            return (((buf.readByte() & 0xFF) << 24) | ((buf.readByte() & 0xFF) << 16) | ((buf.readByte() & 0xFF) << 8) | ((buf.readByte() & 0xFF))) & 0xFFFFFFFFL;
         } else {
-            return ((buf.readByte()) | (buf.readByte() << 8) | (buf.readByte() << 16) | (buf.readByte() << 24)) & 0xFFFFFFFFL;
+            return (((buf.readByte() & 0xFF)) | ((buf.readByte() & 0xFF) << 8) | ((buf.readByte() & 0xFF) << 16) | ((buf.readByte() & 0xFF) << 24)) & 0xFFFFFFFFL;
         }
     }
 

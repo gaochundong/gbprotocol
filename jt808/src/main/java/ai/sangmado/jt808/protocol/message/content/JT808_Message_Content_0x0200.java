@@ -6,10 +6,20 @@ import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.enums.JT808VehicleState;
 import ai.sangmado.jt808.protocol.enums.JT808WarningType;
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformation;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationId;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationRegistration;
+import com.google.common.base.CharMatcher;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Strings.nullToEmpty;
+import static com.google.common.base.Strings.padStart;
 
 /**
  * 终端􏰉􏱀􏰏􏰙􏱁位置信息汇报
@@ -43,30 +53,30 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
      * 纬度
      * 以度为单位的纬度值乘以10的6次方，精确到百万分之一度
      */
-    private Integer latitude;
+    private Long latitude;
     /**
      * 经度
      * 以度为单位的经度值乘以10的6次方，精确到百万分之一度
      */
-    private Integer longitude;
+    private Long longitude;
     /**
      * 高程
      * 海拔高度，单位为米(m)
      */
-    private Integer altitude;
+    private Long altitude;
     /**
      * 速度
      * 单位为1/10公里每小时(1/10km/h)
      */
-    private Integer speed;
+    private Long speed;
     /**
      * 方向
      * 0~359，正北为0，顺时针
      */
-    private Integer direction;
+    private Long direction;
     /**
      * 时间
-     * BCD[6]，YY-MM-DD-hh-mm-ss(GMT+8时间，本标准中之后涉及的时间均采用此时区)
+     * BCD[6]，YYMMDDhhmmss(GMT+8时间，本标准中之后涉及的时间均采用此时区)
      */
     private String timestamp;
     /**
@@ -76,10 +86,58 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+        writer.writeDWord(getWarningType().getValue());
+        writer.writeDWord(getState().getValue());
+        writer.writeDWord(getLatitude());
+        writer.writeDWord(getLongitude());
+        writer.writeDWord(getAltitude());
+        writer.writeDWord(getSpeed());
+        writer.writeDWord(getDirection());
+
+        final char padChar = '0';
+        writer.writeBCD(padStart(nullToEmpty(getTimestamp()), 6 * 2, padChar));
+
+        // 针对附加信息排序后再写入
+        if (getAdditionalInformationList() != null && getAdditionalInformationList().size() > 0) {
+            for (JT808_Message_Content_0x0200_AdditionalInformation ai :
+                    getAdditionalInformationList().stream()
+                            .sorted(Comparator.comparing(JT808_Message_Content_0x0200_AdditionalInformation::getAdditionalInformationId))
+                            .collect(Collectors.toList())) {
+                ai.serialize(ctx, writer);
+            }
+        }
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        setWarningType(JT808WarningType.cast(reader.readDWord()));
+        setState(JT808VehicleState.cast(reader.readDWord()));
+        setLatitude(reader.readDWord());
+        setLongitude(reader.readDWord());
+        setAltitude(reader.readDWord());
+        setSpeed(reader.readDWord());
+        setDirection(reader.readDWord());
+
+        final String padChar = "0";
+        setTimestamp(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(6)));
+
+        // 通过读取附加信息ID进行判断
+        // 格式：附加信息ID+附加信息长度+附加信息
+        setAdditionalInformationList(new ArrayList<>());
+        while (reader.readableBytes() > 0) {
+            reader.markIndex();
+            int aiId = reader.readByte() & 0xFF;
+            reader.resetIndex();
+
+            JT808_Message_Content_0x0200_AdditionalInformationId additionalInformationId = JT808_Message_Content_0x0200_AdditionalInformationId.cast(aiId);
+            if (!JT808_Message_Content_0x0200_AdditionalInformationRegistration.getDecoders().containsKey(additionalInformationId)) {
+                throw new UnsupportedJT808OperationException("暂不支持该附加信息ID:" + additionalInformationId);
+            }
+            JT808_Message_Content_0x0200_AdditionalInformation ai =
+                    JT808_Message_Content_0x0200_AdditionalInformationRegistration.getDecoders()
+                            .get(additionalInformationId).apply(ctx, reader);
+            getAdditionalInformationList().add(ai);
+        }
     }
 
     public static JT808_Message_Content_0x0200 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {

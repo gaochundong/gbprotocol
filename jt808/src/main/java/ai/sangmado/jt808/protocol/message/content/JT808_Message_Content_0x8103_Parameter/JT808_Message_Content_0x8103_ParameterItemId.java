@@ -1,10 +1,13 @@
 package ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter;
 
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
@@ -14,7 +17,7 @@ import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
  */
 @Getter
 @Setter
-public class JT808_Message_Content_0x8103_ParameterItemId {
+public class JT808_Message_Content_0x8103_ParameterItemId implements Comparable<JT808_Message_Content_0x8103_ParameterItemId> {
     public static final JT808_Message_Content_0x8103_ParameterItemId JT808_0x8103_0x0001 = new JT808_Message_Content_0x8103_ParameterItemId("JT808_0x8103_0x0001", 0x0001, V2011, "终端心跳发送间隔");
     public static final JT808_Message_Content_0x8103_ParameterItemId JT808_0x8103_0x0002 = new JT808_Message_Content_0x8103_ParameterItemId("JT808_0x8103_0x0002", 0x0002, V2011, "TCP消息应答超时时间");
     public static final JT808_Message_Content_0x8103_ParameterItemId JT808_0x8103_0x0003 = new JT808_Message_Content_0x8103_ParameterItemId("JT808_0x8103_0x0003", 0x0003, V2011, "TCP消息重传次数");
@@ -119,17 +122,17 @@ public class JT808_Message_Content_0x8103_ParameterItemId {
     /**
      * 参数项ID值
      */
-    private Integer value;
+    private Long value;
     /**
      * 参数项ID来自版本
      */
-    private Object since;
+    private IProtocolVersion since;
     /**
      * 参数项ID描述
      */
     private String description;
 
-    public JT808_Message_Content_0x8103_ParameterItemId(String name, int value, Object since, String description) {
+    public JT808_Message_Content_0x8103_ParameterItemId(String name, long value, IProtocolVersion since, String description) {
         this.name = name;
         this.value = value;
         this.since = since;
@@ -152,7 +155,13 @@ public class JT808_Message_Content_0x8103_ParameterItemId {
         return ((JT808_Message_Content_0x8103_ParameterItemId) obj).getValue().equals(this.getValue());
     }
 
-    private static final Map<Integer, JT808_Message_Content_0x8103_ParameterItemId> mapping = new HashMap<>();
+    @Override
+    public int compareTo(JT808_Message_Content_0x8103_ParameterItemId o) {
+        return this.getValue().compareTo(o.getValue());
+    }
+
+    private static final Map<Long, JT808_Message_Content_0x8103_ParameterItemId> mapping = new HashMap<>();
+    private static final Map<Long, JT808_Message_Content_0x8103_ParameterItemId> extensions = new HashMap<>();
 
     static {
         mapping.put(JT808_0x8103_0x0001.getValue(), JT808_0x8103_0x0001);
@@ -253,21 +262,35 @@ public class JT808_Message_Content_0x8103_ParameterItemId {
         mapping.put(JT808_0x8103_0x0110.getValue(), JT808_0x8103_0x0110);
     }
 
-    public static JT808_Message_Content_0x8103_ParameterItemId cast(int value) {
-        JT808_Message_Content_0x8103_ParameterItemId item = mapping.get(value);
+    public static JT808_Message_Content_0x8103_ParameterItemId cast(long value) {
+        JT808_Message_Content_0x8103_ParameterItemId item = tryCast(value);
         if (item == null) {
             throw new UnsupportedJT808MessageException(String.format(
-                    "Cannot cast integer [%s] to [%s] enum.",
+                    "Cannot cast long [%s] to [%s] enum.",
                     value, JT808_Message_Content_0x8103_ParameterItemId.class.getSimpleName()));
         }
         return item;
     }
 
-    public static JT808_Message_Content_0x8103_ParameterItemId tryCast(int value) {
-        return mapping.get(value);
+    public static JT808_Message_Content_0x8103_ParameterItemId tryCast(long value) {
+        JT808_Message_Content_0x8103_ParameterItemId item = mapping.get(value);
+        if (item == null) {
+            item = extensions.get(value);
+        }
+        return item;
     }
 
-    public static boolean isInstanceOf(int value) {
+    public static boolean exists(long value) {
         return tryCast(value) != null;
+    }
+
+    public static List<JT808_Message_Content_0x8103_ParameterItemId> list() {
+        List<JT808_Message_Content_0x8103_ParameterItemId> l = new ArrayList<>(mapping.values());
+        l.addAll(extensions.values());
+        return l;
+    }
+
+    public static void putExtensions(List<JT808_Message_Content_0x8103_ParameterItemId> parameterItemIdList) {
+        parameterItemIdList.forEach(i -> extensions.put(i.getValue(), i));
     }
 }

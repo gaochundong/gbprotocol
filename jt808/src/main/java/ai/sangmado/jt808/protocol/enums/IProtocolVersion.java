@@ -3,7 +3,7 @@ package ai.sangmado.jt808.protocol.enums;
 /**
  * 协议版本接口定义
  */
-public interface IProtocolVersion {
+public interface IProtocolVersion extends Comparable<IProtocolVersion> {
 
     /**
      * 获取协议版本名称

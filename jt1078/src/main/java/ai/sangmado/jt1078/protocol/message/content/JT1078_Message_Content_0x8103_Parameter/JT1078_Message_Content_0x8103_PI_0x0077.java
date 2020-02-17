@@ -22,6 +22,11 @@ public class JT1078_Message_Content_0x8103_PI_0x0077 extends JT808_Message_Conte
         return PARAMETER_ITEM_ID;
     }
 
+    @Override
+    public Integer getParameterItemLength() {
+        return 4;
+    }
+
     /**
      * 单独视频通道参数设置
      */
@@ -37,5 +42,11 @@ public class JT1078_Message_Content_0x8103_PI_0x0077 extends JT808_Message_Conte
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
 
+    }
+
+    public static JT1078_Message_Content_0x8103_PI_0x0077 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT1078_Message_Content_0x8103_PI_0x0077 content = new JT1078_Message_Content_0x8103_PI_0x0077();
+        content.deserialize(ctx, reader);
+        return content;
     }
 }

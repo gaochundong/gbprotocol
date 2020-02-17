@@ -130,6 +130,11 @@ public class JT808MessageId implements IMessageId {
         return this.getValue().equals(((JT808MessageId) obj).getValue());
     }
 
+    @Override
+    public int compareTo(IMessageId o) {
+        return this.getValue().compareTo(o.getValue());
+    }
+
     private static final Map<Integer, JT808MessageId> mapping = new HashMap<>();
     private static final Map<Integer, JT808MessageId> extensions = new HashMap<>();
 

@@ -1,9 +1,7 @@
 package ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter;
 
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * 终端􏰉􏱀􏰏􏰙􏱁平台设置终端参数 - 参数项
@@ -19,9 +17,9 @@ public abstract class JT808_Message_Content_0x8103_ParameterItem implements IJT8
     public abstract JT808_Message_Content_0x8103_ParameterItemId getParameterItemId();
 
     /**
-     * 参数项长度
+     * 获取参数项长度
+     *
+     * @return 参数项长度
      */
-    @Getter
-    @Setter
-    private Integer parameterItemLength;
+    public abstract Integer getParameterItemLength();
 }

@@ -46,13 +46,13 @@ public enum JT808VehicleState {
     JT808_Vehicle_State_31(1 << 31, V2011, "保留"),
     ;
 
-    private Integer value;
+    private Long value;
 
     private JT808ProtocolVersion since;
 
     private String description;
 
-    JT808VehicleState(int value, JT808ProtocolVersion since, String description) {
+    JT808VehicleState(long value, JT808ProtocolVersion since, String description) {
         this.value = value;
         this.since = since;
         this.description = description;
@@ -63,7 +63,7 @@ public enum JT808VehicleState {
         return this.name();
     }
 
-    private static final Map<Integer, JT808VehicleState> mapping = new HashMap<>();
+    private static final Map<Long, JT808VehicleState> mapping = new HashMap<>();
 
     static {
         for (JT808VehicleState item : values()) {
@@ -71,11 +71,11 @@ public enum JT808VehicleState {
         }
     }
 
-    public static JT808VehicleState cast(int value) {
+    public static JT808VehicleState cast(long value) {
         JT808VehicleState item = mapping.get(value);
         if (item == null) {
             throw new IllegalArgumentException(String.format(
-                    "Cannot cast integer [%s] to [%s] enum.",
+                    "Cannot cast long [%s] to [%s] enum.",
                     value, JT808VehicleState.class.getSimpleName()));
         }
         return item;

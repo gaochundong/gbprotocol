@@ -65,7 +65,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
      * 2013版本 按照 JT/T415-2006 的 5.4.12。未上牌时，取值为 0。
      * 2019版本 按照 JT/T697.7-2014 中的规定。未上牌时，取值为 0。
      */
-    private Byte plateColor;
+    private Integer plateColor;
     /**
      * 车牌号
      * 车牌颜色为 0 时，表示车辆 VIN；否则，表示公安交通管理部门颁发的机动车号牌。
@@ -112,7 +112,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
-        setPlateColor(reader.readByte());
+        setPlateColor(reader.readByte() & 0xFF);
         setPlateNumber(reader.readStringRemaining());
     }
 

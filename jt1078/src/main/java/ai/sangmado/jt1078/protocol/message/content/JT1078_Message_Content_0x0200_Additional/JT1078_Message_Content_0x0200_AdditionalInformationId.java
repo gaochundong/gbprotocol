@@ -1,11 +1,14 @@
 package ai.sangmado.jt1078.protocol.message.content.JT1078_Message_Content_0x0200_Additional;
 
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationId;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static ai.sangmado.jt1078.protocol.enums.JT1078ProtocolVersion.V2016;
@@ -22,7 +25,7 @@ public class JT1078_Message_Content_0x0200_AdditionalInformationId extends JT808
     public static final JT1078_Message_Content_0x0200_AdditionalInformationId JT1078_0x0200_0x17 = new JT1078_Message_Content_0x0200_AdditionalInformationId("JT1078_0x200_0x17", 0x17, V2016, "存储器故障报警状态");
     public static final JT1078_Message_Content_0x0200_AdditionalInformationId JT1078_0x0200_0x18 = new JT1078_Message_Content_0x0200_AdditionalInformationId("JT1078_0x200_0x18", 0x18, V2016, "异常驾驶行为报警详细描述");
 
-    public JT1078_Message_Content_0x0200_AdditionalInformationId(String name, int value, Object since, String description) {
+    public JT1078_Message_Content_0x0200_AdditionalInformationId(String name, int value, IProtocolVersion since, String description) {
         super(name, value, since, description);
     }
 
@@ -37,7 +40,7 @@ public class JT1078_Message_Content_0x0200_AdditionalInformationId extends JT808
     }
 
     public static JT1078_Message_Content_0x0200_AdditionalInformationId cast(int value) {
-        JT1078_Message_Content_0x0200_AdditionalInformationId item = mapping.get(value);
+        JT1078_Message_Content_0x0200_AdditionalInformationId item = tryCast(value);
         if (item == null) {
             throw new UnsupportedJT808MessageException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
@@ -50,7 +53,11 @@ public class JT1078_Message_Content_0x0200_AdditionalInformationId extends JT808
         return mapping.get(value);
     }
 
-    public static boolean isInstanceOf(int value) {
+    public static boolean exists(int value) {
         return tryCast(value) != null;
+    }
+
+    public static List<JT1078_Message_Content_0x0200_AdditionalInformationId> get_JT1078_Message_Content_0x0200_AdditionalInformationId_List() {
+        return new ArrayList<>(mapping.values());
     }
 }

@@ -55,7 +55,7 @@ public class JT808MessageHeader2011 extends JT808MessageHeader {
         final char padChar = '0';
         if (ctx.getProtocolVersion().equals(PROTOCOL_VERSION)) {
             writer.writeWord(getMessageContentProperty().marshal());
-            writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 6, padChar));
+            writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 6 * 2, padChar));
         } else {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
@@ -78,7 +78,7 @@ public class JT808MessageHeader2011 extends JT808MessageHeader {
             JT808MessageHeaderMessageContentProperty2011 property = new JT808MessageHeaderMessageContentProperty2011();
             property.release(contentPropertyValue);
             setMessageContentProperty(property);
-            setPhoneNumber(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(6 / 2)));
+            setPhoneNumber(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(6)));
         } else {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }

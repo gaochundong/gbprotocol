@@ -101,7 +101,7 @@ public class JT1078MessageId extends JT808MessageId {
         return mapping.containsKey(value);
     }
 
-    public static List<JT1078MessageId> getJT1078MessageIdList() {
+    public static List<JT1078MessageId> get_JT1078MessageId_List() {
         return new ArrayList<>(mapping.values());
     }
 }

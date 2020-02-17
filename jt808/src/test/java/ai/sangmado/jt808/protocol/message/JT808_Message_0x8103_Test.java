@@ -7,12 +7,14 @@ import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
 import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferReader;
 import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferWriter;
-import ai.sangmado.jt808.protocol.enums.JT808DeviceRegistrationResult;
 import ai.sangmado.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
-import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8100;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_PI_0x0001;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_PI_0x0002;
+import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItem;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeaderFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,12 +25,13 @@ import org.mockito.MockitoAnnotations;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class JT808_Message_0x8100_Test {
+public class JT808_Message_0x8103_Test {
 
     @Mock
     private ISpecificationContext ctx;
@@ -48,24 +51,28 @@ public class JT808_Message_0x8100_Test {
     }
 
     @Test
-    public void when_JT808_Message_0x8100_thenShouldPassSerializationAndDeserialization() {
-        JT808MessageId messageId = JT808MessageId.JT808_Message_0x8100;
-        String phoneNumber = "123456";
+    public void when_JT808_Message_0x8103_thenShouldPassSerializationAndDeserialization() {
+        JT808MessageId messageId = JT808MessageId.JT808_Message_0x8103;
+        String phoneNumber = "123456789";
         int serialNumber = 123;
 
-        JT808DeviceRegistrationResult registrationResult = JT808DeviceRegistrationResult.Success;
-        String authCode = "1234-5678";
-        int ackSerialNumber = 123;
+        JT808_Message_Content_0x8103_PI_0x0001 pi1 = new JT808_Message_Content_0x8103_PI_0x0001();
+        pi1.setHeartbeatInterval(12345L);
+        JT808_Message_Content_0x8103_PI_0x0002 pi2 = new JT808_Message_Content_0x8103_PI_0x0002();
+        pi2.setTcpReplyTimeout(23456L);
+
+        List<JT808_Message_Content_0x8103_ParameterItem> itemList = new ArrayList<>();
+        itemList.add(pi1);
+        itemList.add(pi2);
 
         JT808MessageHeader header = JT808MessageHeaderFactory
                 .buildWith(ctx)
                 .withMessageId(messageId)
                 .withPhoneNumber(phoneNumber)
                 .withSerialNumber(serialNumber);
-        JT808MessageContent content = JT808_Message_Content_0x8100.builder()
-                .registrationResult(registrationResult)
-                .authCode(authCode)
-                .ackSerialNumber(ackSerialNumber)
+        JT808MessageContent content = JT808_Message_Content_0x8103.builder()
+                .itemCount(itemList.size())
+                .itemList(itemList)
                 .build();
 
         List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
@@ -77,7 +84,7 @@ public class JT808_Message_0x8100_Test {
         JT808MessagePacket sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
-        assertEquals(32, buf.limit());
+        assertEquals(39, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
         JT808MessagePacket dePacket = new JT808MessagePacket();
@@ -85,8 +92,6 @@ public class JT808_Message_0x8100_Test {
         assertEquals(messageId, dePacket.getHeader().getMessageId());
         assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());
         assertEquals(serialNumber, dePacket.getHeader().getSerialNumber());
-        assertEquals(registrationResult, ((JT808_Message_Content_0x8100) (dePacket.getContent())).getRegistrationResult());
-        assertEquals(authCode, ((JT808_Message_Content_0x8100) (dePacket.getContent())).getAuthCode());
-        assertEquals(ackSerialNumber, ((JT808_Message_Content_0x8100) (dePacket.getContent())).getAckSerialNumber());
+        assertEquals(itemList.size(), ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemCount());
     }
 }

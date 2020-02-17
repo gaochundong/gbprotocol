@@ -1,10 +1,13 @@
 package ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional;
 
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
@@ -14,7 +17,7 @@ import static ai.sangmado.jt808.protocol.enums.JT808ProtocolVersion.*;
  */
 @Getter
 @Setter
-public class JT808_Message_Content_0x0200_AdditionalInformationId {
+public class JT808_Message_Content_0x0200_AdditionalInformationId implements Comparable<JT808_Message_Content_0x0200_AdditionalInformationId> {
     public static final JT808_Message_Content_0x0200_AdditionalInformationId JT808_0x0200_0x01 = new JT808_Message_Content_0x0200_AdditionalInformationId("JT808_0x0200_0x01", 0x01, V2011, "里程");
     public static final JT808_Message_Content_0x0200_AdditionalInformationId JT808_0x0200_0x02 = new JT808_Message_Content_0x0200_AdditionalInformationId("JT808_0x0200_0x02", 0x02, V2011, "油量");
     public static final JT808_Message_Content_0x0200_AdditionalInformationId JT808_0x0200_0x03 = new JT808_Message_Content_0x0200_AdditionalInformationId("JT808_0x0200_0x03", 0x03, V2011, "行驶记录功能获取的速度");
@@ -46,13 +49,13 @@ public class JT808_Message_Content_0x0200_AdditionalInformationId {
     /**
      * 附件信息ID来自版本
      */
-    private Object since;
+    private IProtocolVersion since;
     /**
      * 附件信息ID描述
      */
     private String description;
 
-    public JT808_Message_Content_0x0200_AdditionalInformationId(String name, int value, Object since, String description) {
+    public JT808_Message_Content_0x0200_AdditionalInformationId(String name, int value, IProtocolVersion since, String description) {
         this.name = name;
         this.value = value;
         this.since = since;
@@ -75,7 +78,13 @@ public class JT808_Message_Content_0x0200_AdditionalInformationId {
         return ((JT808_Message_Content_0x0200_AdditionalInformationId) obj).getValue().equals(this.getValue());
     }
 
+    @Override
+    public int compareTo(JT808_Message_Content_0x0200_AdditionalInformationId o) {
+        return this.getValue().compareTo(o.getValue());
+    }
+
     private static final Map<Integer, JT808_Message_Content_0x0200_AdditionalInformationId> mapping = new HashMap<>();
+    private static final Map<Integer, JT808_Message_Content_0x0200_AdditionalInformationId> extensions = new HashMap<>();
 
     static {
         mapping.put(JT808_0x0200_0x01.getValue(), JT808_0x0200_0x01);
@@ -100,7 +109,7 @@ public class JT808_Message_Content_0x0200_AdditionalInformationId {
     }
 
     public static JT808_Message_Content_0x0200_AdditionalInformationId cast(int value) {
-        JT808_Message_Content_0x0200_AdditionalInformationId item = mapping.get(value);
+        JT808_Message_Content_0x0200_AdditionalInformationId item = tryCast(value);
         if (item == null) {
             throw new UnsupportedJT808MessageException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
@@ -110,10 +119,24 @@ public class JT808_Message_Content_0x0200_AdditionalInformationId {
     }
 
     public static JT808_Message_Content_0x0200_AdditionalInformationId tryCast(int value) {
-        return mapping.get(value);
+        JT808_Message_Content_0x0200_AdditionalInformationId item = mapping.get(value);
+        if (item == null) {
+            item = extensions.get(value);
+        }
+        return item;
     }
 
-    public static boolean isInstanceOf(int value) {
+    public static boolean exists(int value) {
         return tryCast(value) != null;
+    }
+
+    public static List<JT808_Message_Content_0x0200_AdditionalInformationId> list() {
+        List<JT808_Message_Content_0x0200_AdditionalInformationId> l = new ArrayList<>(mapping.values());
+        l.addAll(extensions.values());
+        return l;
+    }
+
+    public static void putExtensions(List<JT808_Message_Content_0x0200_AdditionalInformationId> additionalInformationIdList) {
+        additionalInformationIdList.forEach(i -> extensions.put(i.getValue(), i));
     }
 }

@@ -1,11 +1,14 @@
 package ai.sangmado.jt1078.protocol.message.content.JT1078_Message_Content_0x8103_Parameter;
 
+import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemId;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static ai.sangmado.jt1078.protocol.enums.JT1078ProtocolVersion.V2016;
@@ -24,11 +27,11 @@ public class JT1078_Message_Content_0x8103_ParameterItemId extends JT808_Message
     public static final JT1078_Message_Content_0x8103_ParameterItemId JT1078_0x8103_0x007B = new JT1078_Message_Content_0x8103_ParameterItemId("JT1078_0x8103_0x007B", 0x007B, V2016, "图像分析报警参数设置");
     public static final JT1078_Message_Content_0x8103_ParameterItemId JT1078_0x8103_0x007C = new JT1078_Message_Content_0x8103_ParameterItemId("JT1078_0x8103_0x007C", 0x007C, V2016, "终端休眠唤醒模式设置");
 
-    public JT1078_Message_Content_0x8103_ParameterItemId(String name, int value, Object since, String description) {
+    public JT1078_Message_Content_0x8103_ParameterItemId(String name, long value, IProtocolVersion since, String description) {
         super(name, value, since, description);
     }
 
-    private static final Map<Integer, JT1078_Message_Content_0x8103_ParameterItemId> mapping = new HashMap<>();
+    private static final Map<Long, JT1078_Message_Content_0x8103_ParameterItemId> mapping = new HashMap<>();
 
     static {
         mapping.put(JT1078_0x8103_0x0075.getValue(), JT1078_0x8103_0x0075);
@@ -40,21 +43,25 @@ public class JT1078_Message_Content_0x8103_ParameterItemId extends JT808_Message
         mapping.put(JT1078_0x8103_0x007C.getValue(), JT1078_0x8103_0x007C);
     }
 
-    public static JT1078_Message_Content_0x8103_ParameterItemId cast(int value) {
+    public static JT1078_Message_Content_0x8103_ParameterItemId cast(long value) {
         JT1078_Message_Content_0x8103_ParameterItemId item = mapping.get(value);
         if (item == null) {
             throw new UnsupportedJT808MessageException(String.format(
-                    "Cannot cast integer [%s] to [%s] enum.",
+                    "Cannot cast long [%s] to [%s] enum.",
                     value, JT1078_Message_Content_0x8103_ParameterItemId.class.getSimpleName()));
         }
         return item;
     }
 
-    public static JT1078_Message_Content_0x8103_ParameterItemId tryCast(int value) {
+    public static JT1078_Message_Content_0x8103_ParameterItemId tryCast(long value) {
         return mapping.get(value);
     }
 
-    public static boolean isInstanceOf(int value) {
+    public static boolean exists(long value) {
         return tryCast(value) != null;
+    }
+
+    public static List<JT1078_Message_Content_0x8103_ParameterItemId> get_JT1078_Message_Content_0x8103_ParameterItemId_List() {
+        return new ArrayList<>(mapping.values());
     }
 }

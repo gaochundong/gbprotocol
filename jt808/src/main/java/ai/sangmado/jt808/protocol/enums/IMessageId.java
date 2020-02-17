@@ -3,7 +3,7 @@ package ai.sangmado.jt808.protocol.enums;
 /**
  * 消息ID接口定义
  */
-public interface IMessageId {
+public interface IMessageId extends Comparable<IMessageId> {
 
     /**
      * 获取消息名称

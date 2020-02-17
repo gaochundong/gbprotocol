@@ -38,4 +38,10 @@ public class JT1078_Message_Content_0x0200_AI_0x16 extends JT808_Message_Content
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
+
+    public static JT1078_Message_Content_0x0200_AI_0x16 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT1078_Message_Content_0x0200_AI_0x16 content = new JT1078_Message_Content_0x0200_AI_0x16();
+        content.deserialize(ctx, reader);
+        return content;
+    }
 }

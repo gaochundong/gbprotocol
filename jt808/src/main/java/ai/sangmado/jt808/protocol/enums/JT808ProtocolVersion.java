@@ -45,6 +45,11 @@ public class JT808ProtocolVersion implements IProtocolVersion {
         return this.getValue().equals(((JT808ProtocolVersion) obj).getValue());
     }
 
+    @Override
+    public int compareTo(IProtocolVersion o) {
+        return this.getValue().compareTo(o.getValue());
+    }
+
     private static final Map<Integer, JT808ProtocolVersion> mapping = new HashMap<>();
 
     static {
@@ -54,7 +59,7 @@ public class JT808ProtocolVersion implements IProtocolVersion {
     }
 
     public static JT808ProtocolVersion cast(int value) {
-        JT808ProtocolVersion item = mapping.get(value);
+        JT808ProtocolVersion item = tryCast(value);
         if (item == null) {
             throw new UnsupportedJT808ProtocolVersionException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
@@ -67,7 +72,7 @@ public class JT808ProtocolVersion implements IProtocolVersion {
         return mapping.get(value);
     }
 
-    public static boolean isInstanceOf(int value) {
+    public static boolean exists(int value) {
         return tryCast(value) != null;
     }
 }

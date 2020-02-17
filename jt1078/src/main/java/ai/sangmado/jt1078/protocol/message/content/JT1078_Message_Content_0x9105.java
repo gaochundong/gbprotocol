@@ -8,7 +8,9 @@ import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
 import lombok.*;
 
 /**
- * 平台下发实时音视频传输请求
+ * 平台下发实时音视频传输状态通知
+ * <p>
+ * 平台在接收终端上传音视频数据的过程中按照设定的时间间隔向终端发送通知包.
  */
 @Getter
 @Setter
@@ -24,35 +26,15 @@ public class JT1078_Message_Content_0x9105 extends JT808MessageContent {
     }
 
     /**
-     * 服务器IP地址长度
-     */
-    private Integer serverIPAddressLength;
-    /**
-     * 服务器IP地址
-     */
-    private String serverIPAddress;
-    /**
-     * 服务器视频通道监听端口号(TCP)
-     */
-    private Integer serverVideoChannelTcpPort;
-    /**
-     * 服务器视频通道监听端口号（UDP）
-     */
-    private Integer serverVideoChannelUdpPort;
-    /**
      * 逻辑通道号
+     * <p>
+     * 按照JTT1076-2016中的表2：营运车辆车载视频终端音视频通道定义表；
      */
     private Integer logicalChannelNumber;
     /**
-     * 数据类型
-     * 0:音视频 1:视频 2:双向对讲 3:监听 4:中心广播 5:透传
+     * 丢包率
      */
-    private Integer dataType;
-    /**
-     * 码流类型
-     * 0:主码流 1:子码流
-     */
-    private Integer streamType;
+    private Integer packetLossRate;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
