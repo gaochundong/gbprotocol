@@ -2,6 +2,8 @@ package ai.sangmado.jt1078.protocol.message;
 
 import ai.sangmado.gbcommon.memory.IByteArrayPool;
 import ai.sangmado.gbcommon.memory.PooledByteArrayFactory;
+import ai.sangmado.jt1078.protocol.message.content.JT1078_Message_Content_0x8103_Parameter.JT1078_Message_Content_0x8103_PI_0x0075;
+import ai.sangmado.jt1078.protocol.message.extension.JT1078MessageExtension;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
@@ -50,6 +52,8 @@ public class JT1078_Message_0x8103_Test {
         when(ctx.getMessageContentEncryptionMode()).thenReturn(JT808MessageContentEncryptionMode.None);
         when(ctx.getByteArrayPool()).thenReturn(byteArrayPool);
         assertEquals("GBK", ctx.getCharset().name());
+
+        JT1078MessageExtension.extend();
     }
 
     @Test
@@ -62,10 +66,24 @@ public class JT1078_Message_0x8103_Test {
         pi1.setHeartbeatInterval(12345L);
         JT808_Message_Content_0x8103_PI_0x0002 pi2 = new JT808_Message_Content_0x8103_PI_0x0002();
         pi2.setTcpReplyTimeout(23456L);
+        JT1078_Message_Content_0x8103_PI_0x0075 pi3 = new JT1078_Message_Content_0x8103_PI_0x0075();
+        pi3.setRealtimeStreamEncoding(0);
+        pi3.setRealtimeStreamResolution(3);
+        pi3.setRealtimeStreamKeyFrameInterval(10);
+        pi3.setRealtimeStreamTargetFps(25);
+        pi3.setRealtimeStreamTargetBitRate(1024L);
+        pi3.setStorageStreamEncoding(0);
+        pi3.setStorageStreamResolution(3);
+        pi3.setStorageStreamKeyFrameInterval(10);
+        pi3.setStorageStreamTargetFps(25);
+        pi3.setStorageStreamTargetBitRate(1024L);
+        pi3.setOsdOverlaySetting(1);
+        pi3.setAudioOutputEnabled(1);
 
         List<JT808_Message_Content_0x8103_ParameterItem> itemList = new ArrayList<>();
         itemList.add(pi1);
         itemList.add(pi2);
+        itemList.add(pi3);
 
         JT808MessageHeader header = JT808MessageHeaderFactory
                 .buildWith(ctx)
@@ -86,7 +104,7 @@ public class JT1078_Message_0x8103_Test {
         JT808MessagePacket sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
-        assertEquals(39, buf.limit());
+        assertEquals(65, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
         JT808MessagePacket dePacket = new JT808MessagePacket();
@@ -95,5 +113,9 @@ public class JT1078_Message_0x8103_Test {
         assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());
         assertEquals(serialNumber, dePacket.getHeader().getSerialNumber());
         assertEquals(itemList.size(), ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemCount());
+        assertEquals(JT808_Message_Content_0x8103_PI_0x0001.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemList().get(0).getParameterItemId());
+        assertEquals(JT808_Message_Content_0x8103_PI_0x0002.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemList().get(1).getParameterItemId());
+        assertEquals(JT1078_Message_Content_0x8103_PI_0x0075.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemList().get(2).getParameterItemId());
+        assertEquals(pi3.getRealtimeStreamTargetBitRate(), ((JT1078_Message_Content_0x8103_PI_0x0075) (((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemList().get(2))).getRealtimeStreamTargetBitRate());
     }
 }
