@@ -46,7 +46,7 @@ public class JT1078_Message_0x8103_Test {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        when(ctx.getProtocolVersion()).thenReturn(JT808ProtocolVersion.V2019);
+        when(ctx.getProtocolVersion()).thenReturn(JT808ProtocolVersion.V2011);
         when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
         when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
         when(ctx.getMessageContentEncryptionMode()).thenReturn(JT808MessageContentEncryptionMode.None);
@@ -104,7 +104,7 @@ public class JT1078_Message_0x8103_Test {
         JT808MessagePacket sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
-        assertEquals(65, buf.limit());
+        assertEquals(60, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
         JT808MessagePacket dePacket = new JT808MessagePacket();
