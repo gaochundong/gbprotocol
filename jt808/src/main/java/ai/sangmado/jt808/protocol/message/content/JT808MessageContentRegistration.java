@@ -18,14 +18,14 @@ public class JT808MessageContentRegistration {
         return decoders;
     }
 
-    public static void register(JT808MessageId messageId, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808MessageContent> contentDecoder) {
+    public static void registerDecoder(JT808MessageId messageId, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808MessageContent> contentDecoder) {
         decoders.put(messageId, contentDecoder);
     }
 
     static {
-        register(JT808_Message_Content_0x0100.MESSAGE_ID, JT808_Message_Content_0x0100::decode);
-        register(JT808_Message_Content_0x0200.MESSAGE_ID, JT808_Message_Content_0x0200::decode);
-        register(JT808_Message_Content_0x8100.MESSAGE_ID, JT808_Message_Content_0x8100::decode);
-        register(JT808_Message_Content_0x8103.MESSAGE_ID, JT808_Message_Content_0x8103::decode);
+        registerDecoder(JT808_Message_Content_0x0100.MESSAGE_ID, JT808_Message_Content_0x0100::decode);
+        registerDecoder(JT808_Message_Content_0x0200.MESSAGE_ID, JT808_Message_Content_0x0200::decode);
+        registerDecoder(JT808_Message_Content_0x8100.MESSAGE_ID, JT808_Message_Content_0x8100::decode);
+        registerDecoder(JT808_Message_Content_0x8103.MESSAGE_ID, JT808_Message_Content_0x8103::decode);
     }
 }

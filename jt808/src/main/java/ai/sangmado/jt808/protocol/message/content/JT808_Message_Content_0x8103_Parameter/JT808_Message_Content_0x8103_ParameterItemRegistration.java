@@ -18,17 +18,17 @@ public class JT808_Message_Content_0x8103_ParameterItemRegistration {
         return decoders;
     }
 
-    public static void register(JT808_Message_Content_0x8103_ParameterItemId messageId, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808_Message_Content_0x8103_ParameterItem> contentDecoder) {
+    public static void registerDecoder(JT808_Message_Content_0x8103_ParameterItemId messageId, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808_Message_Content_0x8103_ParameterItem> contentDecoder) {
         decoders.put(messageId, contentDecoder);
     }
 
     static {
-        register(JT808_Message_Content_0x8103_PI_0x0001.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0001::decode);
-        register(JT808_Message_Content_0x8103_PI_0x0002.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0002::decode);
-        register(JT808_Message_Content_0x8103_PI_0x0003.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0003::decode);
-        register(JT808_Message_Content_0x8103_PI_0x0004.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0004::decode);
-        register(JT808_Message_Content_0x8103_PI_0x0005.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0005::decode);
-        register(JT808_Message_Content_0x8103_PI_0x0006.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0006::decode);
-        register(JT808_Message_Content_0x8103_PI_0x0007.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0007::decode);
+        registerDecoder(JT808_Message_Content_0x8103_PI_0x0001.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0001::decode);
+        registerDecoder(JT808_Message_Content_0x8103_PI_0x0002.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0002::decode);
+        registerDecoder(JT808_Message_Content_0x8103_PI_0x0003.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0003::decode);
+        registerDecoder(JT808_Message_Content_0x8103_PI_0x0004.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0004::decode);
+        registerDecoder(JT808_Message_Content_0x8103_PI_0x0005.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0005::decode);
+        registerDecoder(JT808_Message_Content_0x8103_PI_0x0006.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0006::decode);
+        registerDecoder(JT808_Message_Content_0x8103_PI_0x0007.PARAMETER_ITEM_ID, JT808_Message_Content_0x8103_PI_0x0007::decode);
     }
 }
