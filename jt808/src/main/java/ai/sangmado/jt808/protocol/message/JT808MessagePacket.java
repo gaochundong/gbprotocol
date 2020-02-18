@@ -75,27 +75,26 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         // 求出消息数据，此处需要申请Header+Content长度的内存
         PooledByteArray pba = ctx.getByteArrayPool().borrow();
         try {
-            serializeWithBuffer(ctx, writer, pba.array());
+            serializeWithBuffer(ctx, writer, ByteBuffer.wrap(pba.array()));
         } finally {
             ctx.getByteArrayPool().recycle(pba);
         }
     }
 
-    private void serializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferWriter writer, byte[] buffer) {
-        ByteBuffer messageBuf = ByteBuffer.wrap(buffer);
-        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, messageBuf);
+    private void serializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferWriter writer, ByteBuffer buf) {
+        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
         header.serialize(ctx, bufWriter);
         content.serialize(ctx, bufWriter);
-        messageBuf.flip();
+        buf.flip();
 
         // 计算校验码
-        this.checksum = checksum(messageBuf);
-        messageBuf.flip();
+        this.checksum = checksum(buf);
+        buf.flip();
 
         // 按顺序写入标识位和数据
         writer.writeByte(beginMarker);
-        while (messageBuf.hasRemaining()) {
-            writeEscapedByte(messageBuf.get(), writer);
+        while (buf.hasRemaining()) {
+            writeEscapedByte(buf.get(), writer);
         }
         writeEscapedByte((byte) this.checksum, writer);
         writer.writeByte(endMarker);
@@ -106,30 +105,29 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
         PooledByteArray pba = ctx.getByteArrayPool().borrow();
         try {
-            deserializeWithBuffer(ctx, reader, pba.array());
+            deserializeWithBuffer(ctx, reader, ByteBuffer.wrap(pba.array()));
         } finally {
             ctx.getByteArrayPool().recycle(pba);
         }
     }
 
-    private void deserializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferReader reader, byte[] buffer) {
-        ByteBuffer messageBuf = ByteBuffer.wrap(buffer);
-        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, messageBuf);
+    private void deserializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferReader reader, ByteBuffer buf) {
+        IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
         while (reader.isReadable()) {
             readUnescapedByte(reader, bufWriter);
         }
-        messageBuf.flip();
+        buf.flip();
 
         // 记录数组长度
-        int bufArrayLength = messageBuf.limit();
-        messageBuf.limit(bufArrayLength - 2);
+        int bufArrayLength = buf.limit();
+        buf.limit(bufArrayLength - 2);
 
         // 读取头标识
-        IJT808MessageBufferReader bufReader = new JT808MessageByteBufferReader(ctx, messageBuf);
+        IJT808MessageBufferReader bufReader = new JT808MessageByteBufferReader(ctx, buf);
         this.beginMarker = bufReader.readByte();
 
         // 检查协议版本
-        checkMessageProtocolVersion(ctx, bufReader);
+        verifyMessageProtocolVersion(ctx, bufReader);
 
         // 读取消息头
         this.header = decodeMessageHeader(ctx, bufReader);
@@ -138,23 +136,23 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         this.content = decodeMessageContent(ctx, bufReader, header);
 
         // 读取校验码
-        messageBuf.limit(bufArrayLength);
+        buf.limit(bufArrayLength);
         this.checksum = bufReader.readByte();
 
         // 读取尾标识
         this.endMarker = bufReader.readByte();
 
         // 验证校验码
-        messageBuf.flip();
-        messageBuf.position(1);
-        messageBuf.limit(bufArrayLength - 2);
-        int reChecksum = checksum(messageBuf);
+        buf.flip();
+        buf.position(1);
+        buf.limit(bufArrayLength - 2);
+        int reChecksum = checksum(buf);
         if (this.checksum != reChecksum) {
             throw new InvalidJT808MessageChecksumException();
         }
     }
 
-    private void checkMessageProtocolVersion(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    private void verifyMessageProtocolVersion(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         // 预读取消息头中消息ID和消息体属性
         reader.markIndex();
         int messageId = reader.readWord();
