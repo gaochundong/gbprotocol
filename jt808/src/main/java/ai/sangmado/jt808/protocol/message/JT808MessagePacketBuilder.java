@@ -3,6 +3,7 @@ package ai.sangmado.jt808.protocol.message;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.jt808.protocol.message.header.JT808MessageHeader;
+import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +56,6 @@ public final class JT808MessagePacketBuilder {
         packet.setHeader(header);
         packet.setContent(content);
 
-        List<JT808MessagePacket> packets = new ArrayList<>(1);
-        packets.add(packet);
-        return packets;
+        return Lists.newArrayList(packet);
     }
 }

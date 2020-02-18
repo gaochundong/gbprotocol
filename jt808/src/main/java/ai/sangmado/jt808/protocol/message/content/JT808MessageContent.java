@@ -74,14 +74,17 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
             throw new UnsupportedJT808OperationException("不适当的分包函数调用");
         }
 
+        // 获取消息体长度
         int contentLength = getContentLength(ctx);
+
+        // 分包时需要使用临时数组，此处的缺点是不能从池化数组中借用
         byte[] bufArray = new byte[contentLength];
 
         int splitByLength = getSplitByLength(ctx);
-        int splitCount = (bufArray.length / splitByLength) + (bufArray.length % splitByLength > 0 ? 1 : 0);
+        int splitCount = (contentLength / splitByLength) + (contentLength % splitByLength > 0 ? 1 : 0);
         List<JT808MessageContent> splitContents = new ArrayList<>(splitCount);
         for (int i = 0; i < splitCount; i++) {
-            int splitContentLength = (i < splitCount - 1) ? splitByLength : (bufArray.length % splitByLength);
+            int splitContentLength = (i < splitCount - 1) ? splitByLength : (contentLength % splitByLength);
             JT808MessageSplitContent child =
                     new JT808MessageSplitContent(this, splitCount, i, splitContentLength);
             child.setSplitContent(ByteBuffer.wrap(bufArray, (i * splitByLength), splitContentLength));

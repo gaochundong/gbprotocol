@@ -1,5 +1,6 @@
 package ai.sangmado.jt808.protocol.message;
 
+import ai.sangmado.gbcommon.memory.PooledByteArray;
 import ai.sangmado.jt808.protocol.ISpecificationContext;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferReader;
 import ai.sangmado.jt808.protocol.encoding.IJT808MessageBufferWriter;
@@ -71,10 +72,17 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
-        // 求出消息数据
-        final int possibleHeaderLength = 20;
-        byte[] bufArray = new byte[possibleHeaderLength + content.getContentLength(ctx)];
-        ByteBuffer messageBuf = ByteBuffer.wrap(bufArray);
+        // 求出消息数据，此处需要申请Header+Content长度的内存
+        PooledByteArray pba = ctx.getByteArrayPool().borrow();
+        try {
+            serializeWithBuffer(ctx, writer, pba.array());
+        } finally {
+            ctx.getByteArrayPool().recycle(pba);
+        }
+    }
+
+    private void serializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferWriter writer, byte[] buffer) {
+        ByteBuffer messageBuf = ByteBuffer.wrap(buffer);
         IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, messageBuf);
         header.serialize(ctx, bufWriter);
         content.serialize(ctx, bufWriter);
@@ -95,9 +103,17 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        // 将数据进行转义
-        byte[] bufArray = new byte[reader.readableBytes()];
-        ByteBuffer messageBuf = ByteBuffer.wrap(bufArray);
+        // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
+        PooledByteArray pba = ctx.getByteArrayPool().borrow();
+        try {
+            deserializeWithBuffer(ctx, reader, pba.array());
+        } finally {
+            ctx.getByteArrayPool().recycle(pba);
+        }
+    }
+
+    private void deserializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferReader reader, byte[] buffer) {
+        ByteBuffer messageBuf = ByteBuffer.wrap(buffer);
         IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, messageBuf);
         while (reader.isReadable()) {
             readUnescapedByte(reader, bufWriter);
@@ -175,6 +191,15 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         return this.messageDecoder.decodeContent(ctx, reader, header);
     }
 
+    /**
+     * 计算校验码
+     * <p>
+     * 校验码的计算规则应从消息头首字节开始，同后一字节进行异或操作，直到消息体末字节结束；
+     * 校验码长度为一字节；
+     *
+     * @param buf 计算内容
+     * @return 校验码
+     */
     private static int checksum(ByteBuffer buf) {
         int checksum = 0;
         while (buf.hasRemaining()) {
@@ -183,6 +208,15 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         return checksum;
     }
 
+    /**
+     * 标识位转义
+     * <p>
+     * 先对0x7d进行转义，转换为固定两字节数据 0x7d 0x01；
+     * 在对0x7e进行转义，转换为固定两字节数据 0x7d 0x02；
+     *
+     * @param x      字节
+     * @param writer 转义后写入器
+     */
     private static void writeEscapedByte(byte x, IJT808MessageBufferWriter writer) {
         if (x == (byte) 0x7d) {
             writer.writeByte(0x7d);
@@ -195,6 +229,12 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         }
     }
 
+    /**
+     * 反向标识位转义
+     *
+     * @param reader 数据读取器
+     * @param writer 反向转义后数据写入器
+     */
     private void readUnescapedByte(IJT808MessageBufferReader reader, IJT808MessageBufferWriter writer) {
         byte x = reader.readByte();
         if (x == (byte) 0x7d) {

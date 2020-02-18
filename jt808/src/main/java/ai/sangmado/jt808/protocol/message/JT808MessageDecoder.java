@@ -42,6 +42,7 @@ public class JT808MessageDecoder implements IJT808MessageDecoder {
             ByteBuffer buf = ByteBuffer.wrap(pba.array());
             IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
 
+            // 拷贝与消息体长度相等的数据
             int contentLength = header.getMessageContentProperty().getContentLength();
             while (contentLength > 0) {
                 bufWriter.writeByte(reader.readByte());
