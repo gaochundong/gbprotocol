@@ -7,6 +7,7 @@ import ai.sangmado.jt808.protocol.encoding.IJT808MessageFormatter;
 import ai.sangmado.jt808.protocol.encoding.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
+import com.google.common.collect.Lists;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -70,17 +71,22 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @return 分包列表
      */
     public List<JT808MessageContent> split(ISpecificationContext ctx) {
+        // 是否配置允许分包
         if (!couldSplitAccordingly(ctx)) {
             throw new UnsupportedJT808OperationException("不适当的分包函数调用");
         }
 
         // 获取消息体长度
         int contentLength = getContentLength(ctx);
+        // 获取分包长度
+        int splitByLength = getSplitByLength(ctx);
+        // 消息体长度大于分包长度，则进行分包，否则还是单包
+        if (contentLength <= splitByLength) {
+            return Lists.newArrayList(this);
+        }
 
         // 分包时需要使用临时数组，此处的缺点是不能从池化数组中借用
         byte[] bufArray = new byte[contentLength];
-
-        int splitByLength = getSplitByLength(ctx);
         int splitCount = (contentLength / splitByLength) + (contentLength % splitByLength > 0 ? 1 : 0);
         List<JT808MessageContent> splitContents = new ArrayList<>(splitCount);
         for (int i = 0; i < splitCount; i++) {
