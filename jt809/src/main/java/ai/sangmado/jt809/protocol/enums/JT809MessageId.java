@@ -124,7 +124,45 @@ public class JT809MessageId implements IMessageId {
     private static final Map<Integer, JT809MessageId> extensions = new HashMap<>();
 
     static {
+        mapping.put(JT809_Message_0x1001.getValue(), JT809_Message_0x1001);
+        mapping.put(JT809_Message_0x1002.getValue(), JT809_Message_0x1002);
+        mapping.put(JT809_Message_0x1003.getValue(), JT809_Message_0x1003);
+        mapping.put(JT809_Message_0x1004.getValue(), JT809_Message_0x1004);
+        mapping.put(JT809_Message_0x1005.getValue(), JT809_Message_0x1005);
+        mapping.put(JT809_Message_0x1006.getValue(), JT809_Message_0x1006);
+        mapping.put(JT809_Message_0x1007.getValue(), JT809_Message_0x1007);
+        mapping.put(JT809_Message_0x1008.getValue(), JT809_Message_0x1008);
 
+        mapping.put(JT809_Message_0x9001.getValue(), JT809_Message_0x9001);
+        mapping.put(JT809_Message_0x9002.getValue(), JT809_Message_0x9002);
+        mapping.put(JT809_Message_0x9003.getValue(), JT809_Message_0x9003);
+        mapping.put(JT809_Message_0x9004.getValue(), JT809_Message_0x9004);
+        mapping.put(JT809_Message_0x9005.getValue(), JT809_Message_0x9005);
+        mapping.put(JT809_Message_0x9006.getValue(), JT809_Message_0x9006);
+        mapping.put(JT809_Message_0x9007.getValue(), JT809_Message_0x9007);
+        mapping.put(JT809_Message_0x9008.getValue(), JT809_Message_0x9008);
+
+        mapping.put(JT809_Message_0x1101.getValue(), JT809_Message_0x1101);
+        mapping.put(JT809_Message_0x9101.getValue(), JT809_Message_0x9101);
+        mapping.put(JT809_Message_0x1102.getValue(), JT809_Message_0x1102);
+        mapping.put(JT809_Message_0x9102.getValue(), JT809_Message_0x9102);
+        mapping.put(JT809_Message_0x1103.getValue(), JT809_Message_0x1103);
+        mapping.put(JT809_Message_0x9103.getValue(), JT809_Message_0x9103);
+
+        mapping.put(JT809_Message_0x1200.getValue(), JT809_Message_0x1200);
+        mapping.put(JT809_Message_0x9200.getValue(), JT809_Message_0x9200);
+
+        mapping.put(JT809_Message_0x1300.getValue(), JT809_Message_0x1300);
+        mapping.put(JT809_Message_0x9300.getValue(), JT809_Message_0x9300);
+
+        mapping.put(JT809_Message_0x1400.getValue(), JT809_Message_0x1400);
+        mapping.put(JT809_Message_0x9400.getValue(), JT809_Message_0x9400);
+
+        mapping.put(JT809_Message_0x1500.getValue(), JT809_Message_0x1500);
+        mapping.put(JT809_Message_0x9500.getValue(), JT809_Message_0x9500);
+
+        mapping.put(JT809_Message_0x1600.getValue(), JT809_Message_0x1600);
+        mapping.put(JT809_Message_0x9600.getValue(), JT809_Message_0x9600);
     }
 
     public static JT809MessageId cast(int value) {
