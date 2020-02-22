@@ -1,5 +1,6 @@
 package ai.sangmado.jt808.protocol.enums;
 
+import ai.sangmado.gbcommon.enums.IProtocolVersion;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -50,13 +51,13 @@ public enum JT808WarningType {
 
     private Long value;
 
-    private JT808ProtocolVersion since;
+    private IProtocolVersion since;
 
     private JT808WarningDisposition disposition;
 
     private String description;
 
-    JT808WarningType(long value, JT808ProtocolVersion since, JT808WarningDisposition disposition, String description) {
+    JT808WarningType(long value, IProtocolVersion since, JT808WarningDisposition disposition, String description) {
         this.value = value;
         this.since = since;
         this.disposition = disposition;
