@@ -43,7 +43,7 @@ public class JT808MessageHeader2011 extends JT808MessageHeader {
                     .messagePacketProperty(this.getMessagePacketProperty() == null ? null : this.getMessagePacketProperty().clone())
                     .phoneNumber(this.getPhoneNumber())
                     .build();
-        } catch (CloneNotSupportedException ex) {
+        } catch (Exception ex) {
             throw new UnsupportedJT808OperationException("克隆对象失败", ex);
         }
     }

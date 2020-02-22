@@ -1,4 +1,4 @@
-package ai.sangmado.jt808.protocol.enums;
+package ai.sangmado.gbcommon.enums;
 
 /**
  * 消息ID接口定义

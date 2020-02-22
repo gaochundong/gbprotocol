@@ -52,7 +52,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
                     .phoneNumber(this.getPhoneNumber())
                     .protocolVersion(this.getProtocolVersion())
                     .build();
-        } catch (CloneNotSupportedException ex) {
+        } catch (Exception ex) {
             throw new UnsupportedJT808OperationException("克隆对象失败", ex);
         }
     }

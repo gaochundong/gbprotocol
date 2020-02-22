@@ -1,4 +1,4 @@
-package ai.sangmado.jt808.protocol.enums;
+package ai.sangmado.gbcommon.enums;
 
 /**
  * 协议版本接口定义

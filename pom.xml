@@ -12,6 +12,7 @@
 
     <modules>
         <module>jt808</module>
+        <module>jt809</module>
         <module>jt1078</module>
         <module>gbcommon</module>
     </modules>
@@ -65,6 +66,13 @@
             <dependency>
                 <groupId>ai.sangmado</groupId>
                 <artifactId>jt808</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--jt809-->
+            <dependency>
+                <groupId>ai.sangmado</groupId>
+                <artifactId>jt809</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

@@ -1,6 +1,6 @@
 package ai.sangmado.jt1078.protocol.enums;
 
-import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
+import ai.sangmado.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;

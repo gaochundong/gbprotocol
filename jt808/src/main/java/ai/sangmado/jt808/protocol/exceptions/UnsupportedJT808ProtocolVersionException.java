@@ -1,9 +1,9 @@
 package ai.sangmado.jt808.protocol.exceptions;
 
-import ai.sangmado.jt808.protocol.enums.IProtocolVersion;
+import ai.sangmado.gbcommon.enums.IProtocolVersion;
 
 /**
- * 不支持JT808协议版本异常
+ * 不支持协议版本异常
  */
 public class UnsupportedJT808ProtocolVersionException extends RuntimeException {
     static final long serialVersionUID = 4318942682551505933L;
