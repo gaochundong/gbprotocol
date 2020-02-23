@@ -1,5 +1,6 @@
 package ai.sangmado.jt809.protocol.encoding;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 
 /**
@@ -40,7 +41,7 @@ public interface IJT809MessageBufferWriter {
      *
      * @param x 写入数据
      */
-    void writeUInt64(long x);
+    void writeUInt64(BigInteger x);
 
     /**
      * 写入 n 字节数据

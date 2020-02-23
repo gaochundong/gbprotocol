@@ -4,7 +4,10 @@ import ai.sangmado.jt809.protocol.ISpecificationContext;
 import ai.sangmado.jt809.protocol.encoding.IJT809MessageBufferReader;
 import ai.sangmado.jt809.protocol.encoding.IJT809MessageBufferWriter;
 import ai.sangmado.jt809.protocol.enums.JT809MessageId;
+import ai.sangmado.jt809.protocol.enums.JT809SubMessageId;
+import ai.sangmado.jt809.protocol.exceptions.UnsupportedJT809OperationException;
 import ai.sangmado.jt809.protocol.message.content.JT809_Message_Content_0x1400_Sub.JT809_Message_Content_0x1400_SubMessage;
+import ai.sangmado.jt809.protocol.message.content.JT809_Message_Content_0x1400_Sub.JT809_Message_Content_0x1400_SubMessageRegistration;
 import lombok.*;
 
 /**
@@ -30,12 +33,24 @@ public class JT809_Message_Content_0x1400 extends JT809MessageContent {
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
-
+        writer.writeUInt16(getMessageId().getValue());
+        writer.writeUInt32(subMessage.getContentLength(ctx));
+        subMessage.serialize(ctx, writer);
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+        reader.readUInt16();
+        reader.readUInt32();
 
+        reader.markIndex();
+        JT809SubMessageId subMessageId = JT809SubMessageId.cast(reader.readUInt16() & 0xFFFF);
+        reader.resetIndex();
+
+        if (!JT809_Message_Content_0x1400_SubMessageRegistration.getDecoders().containsKey(subMessageId)) {
+            throw new UnsupportedJT809OperationException("暂不支持该附加信息ID:" + subMessageId);
+        }
+        this.subMessage = JT809_Message_Content_0x1400_SubMessageRegistration.getDecoders().get(subMessageId).apply(ctx, reader);
     }
 
     public static JT809_Message_Content_0x1400 decode(ISpecificationContext ctx, IJT809MessageBufferReader reader) {

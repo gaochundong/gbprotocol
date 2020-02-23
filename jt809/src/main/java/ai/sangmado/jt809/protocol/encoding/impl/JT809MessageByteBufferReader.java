@@ -4,6 +4,7 @@ import ai.sangmado.gbcommon.utils.BCD;
 import ai.sangmado.jt809.protocol.ISpecificationContext;
 import ai.sangmado.jt809.protocol.encoding.IJT809MessageBufferReader;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -70,12 +71,13 @@ public class JT809MessageByteBufferReader implements IJT809MessageBufferReader {
 
 
     @Override
-    public long readUInt64() {
-        if (isBigEndian()) {
-            return (((buf.get() & 0xFF) << 24) | ((buf.get() & 0xFF) << 16) | ((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF))) & 0xFFFFFFFFL;
-        } else {
-            return (((buf.get() & 0xFF)) | ((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF) << 16) | ((buf.get() & 0xFF) << 24)) & 0xFFFFFFFFL;
-        }
+    public BigInteger readUInt64() {
+//        if (isBigEndian()) {
+//            return (((buf.get() & 0xFF) << 32) | ((buf.get() & 0xFF) << 24) | ((buf.get() & 0xFF) << 16) | ((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF))) & 0xFFFFFFFFL;
+//        } else {
+//            return (((buf.get() & 0xFF)) | ((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF) << 16) | ((buf.get() & 0xFF) << 24)) & 0xFFFFFFFFL;
+//        }
+        throw new UnsupportedOperationException();
     }
 
     @Override

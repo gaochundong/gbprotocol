@@ -23,9 +23,6 @@ public class JT809MessageContentRegistration {
     }
 
     static {
-//        registerDecoder(JT809_Message_Content_0x0100.MESSAGE_ID, JT809_Message_Content_0x0100::decode);
-//        registerDecoder(JT809_Message_Content_0x0200.MESSAGE_ID, JT809_Message_Content_0x0200::decode);
-//        registerDecoder(JT809_Message_Content_0x8100.MESSAGE_ID, JT809_Message_Content_0x8100::decode);
-//        registerDecoder(JT809_Message_Content_0x8103.MESSAGE_ID, JT809_Message_Content_0x8103::decode);
+        registerDecoder(JT809_Message_Content_0x1400.MESSAGE_ID, JT809_Message_Content_0x1400::decode);
     }
 }

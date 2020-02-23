@@ -4,6 +4,7 @@ import ai.sangmado.gbcommon.utils.BCD;
 import ai.sangmado.jt809.protocol.ISpecificationContext;
 import ai.sangmado.jt809.protocol.encoding.IJT809MessageBufferWriter;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -62,26 +63,26 @@ public class JT809MessageByteBufferWriter implements IJT809MessageBufferWriter {
     }
 
     @Override
-    public void writeUInt64(long x) {
-        if (isBigEndian()) {
-            buf.put(long7(x));
-            buf.put(long6(x));
-            buf.put(long5(x));
-            buf.put(long4(x));
-            buf.put(long3(x));
-            buf.put(long2(x));
-            buf.put(long1(x));
-            buf.put(long0(x));
-        } else {
-            buf.put(long0(x));
-            buf.put(long1(x));
-            buf.put(long2(x));
-            buf.put(long3(x));
-            buf.put(long4(x));
-            buf.put(long5(x));
-            buf.put(long6(x));
-            buf.put(long7(x));
-        }
+    public void writeUInt64(BigInteger x) {
+//        if (isBigEndian()) {
+//            buf.put(long7(x));
+//            buf.put(long6(x));
+//            buf.put(long5(x));
+//            buf.put(long4(x));
+//            buf.put(long3(x));
+//            buf.put(long2(x));
+//            buf.put(long1(x));
+//            buf.put(long0(x));
+//        } else {
+//            buf.put(long0(x));
+//            buf.put(long1(x));
+//            buf.put(long2(x));
+//            buf.put(long3(x));
+//            buf.put(long4(x));
+//            buf.put(long5(x));
+//            buf.put(long6(x));
+//            buf.put(long7(x));
+//        }
     }
 
     @Override

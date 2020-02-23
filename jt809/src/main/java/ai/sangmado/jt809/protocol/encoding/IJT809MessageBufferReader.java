@@ -1,5 +1,7 @@
 package ai.sangmado.jt809.protocol.encoding;
 
+import java.math.BigInteger;
+
 /**
  * JT808 消息Buffer读取器
  */
@@ -47,7 +49,7 @@ public interface IJT809MessageBufferReader {
     /**
      * 读取 UINT64 无符号四字节整型 (字节，64位)
      */
-    long readUInt64();
+    BigInteger readUInt64();
 
     /**
      * 读取 n 字节数据

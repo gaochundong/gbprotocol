@@ -82,11 +82,12 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
     }
 
     private void serializeWithBuffer(ISpecificationContext ctx, IJT809MessageBufferWriter writer, ByteBuffer buf) {
+        // 写入数据
         IJT809MessageBufferWriter bufWriter = new JT809MessageByteBufferWriter(ctx, buf);
         header.serialize(ctx, bufWriter);
-        int headerLength = buf.limit();
+        int headerLength = buf.position();
         content.serialize(ctx, bufWriter);
-        int contentLength = buf.limit() - headerLength;
+        int contentLength = buf.position() - headerLength;
         buf.flip();
 
         // 加密消息体
@@ -95,7 +96,10 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
         }
 
         // 计算校验码
-        this.checksum = checksum(buf);
+        this.checksum = checksum(buf, 0, headerLength + contentLength);
+        buf.limit(headerLength + contentLength + 2);
+        buf.position(headerLength + contentLength);
+        bufWriter.writeUInt16(this.checksum);
         buf.flip();
 
         // 按顺序写入标识位和数据
@@ -103,7 +107,6 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
         while (buf.hasRemaining()) {
             writeEscapedByte(buf.get(), writer);
         }
-        writeEscapedByte((byte) this.checksum, writer);
         writer.writeByte(endMarker);
     }
 
@@ -119,6 +122,7 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
     }
 
     private void deserializeWithBuffer(ISpecificationContext ctx, IJT809MessageBufferReader reader, ByteBuffer buf) {
+        // 反转义
         IJT809MessageBufferWriter bufWriter = new JT809MessageByteBufferWriter(ctx, buf);
         while (reader.isReadable()) {
             readUnescapedByte(reader, bufWriter);
@@ -127,9 +131,13 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
 
         // 记录数组长度
         int bufArrayLength = buf.limit();
-        buf.limit(bufArrayLength - 2);
+
+        // 计算校验码
+        int reChecksum = checksum(buf, 1, bufArrayLength - 4);
 
         // 读取头标识
+        buf.flip();
+        buf.limit(bufArrayLength - 3);
         IJT809MessageBufferReader bufReader = new JT809MessageByteBufferReader(ctx, buf);
         this.beginMarker = bufReader.readByte();
 
@@ -141,22 +149,19 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
         if (header.getEncryptionMode().equals(JT809MessageContentEncryptionMode.Encrypted)) {
             decrypt(ctx, buf, headerPosition, buf.limit() - headerPosition, header.getEncryptionKey());
         }
+        buf.position(headerPosition);
 
         // 读取消息体
         this.content = decodeMessageContent(ctx, bufReader, header);
 
         // 读取校验码
         buf.limit(bufArrayLength);
-        this.checksum = bufReader.readByte();
+        this.checksum = bufReader.readUInt16();
 
         // 读取尾标识
         this.endMarker = bufReader.readByte();
 
         // 验证校验码
-        buf.flip();
-        buf.position(1);
-        buf.limit(bufArrayLength - 2);
-        int reChecksum = checksum(buf);
         if (this.checksum != reChecksum) {
             throw new InvalidJT809MessageChecksumException();
         }
@@ -221,11 +226,13 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
     /**
      * 计算CRC校验码
      *
-     * @param buf 计算内容
+     * @param buf    计算内容
+     * @param offset 起始位置
+     * @param length 处理长度
      * @return 校验码
      */
-    private static int checksum(ByteBuffer buf) {
-        return CRC16.CRC16_CCITT(buf);
+    private static int checksum(ByteBuffer buf, int offset, int length) {
+        return CRC16.CRC16_CCITT(buf, offset, length);
     }
 
     /**

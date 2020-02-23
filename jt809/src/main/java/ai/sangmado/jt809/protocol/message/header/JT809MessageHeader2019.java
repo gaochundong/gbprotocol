@@ -77,7 +77,7 @@ public class JT809MessageHeader2019 extends JT809MessageHeader {
         writer.writeBytes(getVersionFlag().toArray());
         writer.writeByte(getEncryptionMode().getValue());
         writer.writeUInt32(getEncryptionKey());
-        writer.writeUInt64(getTimestamp());
+        //writer.writeUInt64(getTimestamp());
     }
 
     @Override
@@ -89,7 +89,7 @@ public class JT809MessageHeader2019 extends JT809MessageHeader {
         setVersionFlag(new JT809VersionFlag(reader.readBytes(3)));
         setEncryptionMode(JT809MessageContentEncryptionMode.cast(reader.readByte()));
         setEncryptionKey(reader.readUInt32());
-        setTimestamp(reader.readUInt64());
+        //setTimestamp(reader.readUInt64());
     }
 
     public static JT809MessageHeader2019 decode(ISpecificationContext ctx, IJT809MessageBufferReader reader) {

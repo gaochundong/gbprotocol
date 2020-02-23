@@ -82,13 +82,14 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
     }
 
     private void serializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferWriter writer, ByteBuffer buf) {
+        // 写入数据
         IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
         header.serialize(ctx, bufWriter);
         content.serialize(ctx, bufWriter);
         buf.flip();
 
         // 计算校验码
-        this.checksum = checksum(buf);
+        this.checksum = checksum(buf, 0, buf.limit());
         buf.flip();
 
         // 按顺序写入标识位和数据
@@ -112,6 +113,7 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
     }
 
     private void deserializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferReader reader, ByteBuffer buf) {
+        // 反转义
         IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
         while (reader.isReadable()) {
             readUnescapedByte(reader, bufWriter);
@@ -120,9 +122,13 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
 
         // 记录数组长度
         int bufArrayLength = buf.limit();
-        buf.limit(bufArrayLength - 2);
+
+        // 计算校验码
+        int reChecksum = checksum(buf, 1, bufArrayLength - 3);
 
         // 读取头标识
+        buf.flip();
+        buf.limit(bufArrayLength - 2);
         IJT808MessageBufferReader bufReader = new JT808MessageByteBufferReader(ctx, buf);
         this.beginMarker = bufReader.readByte();
 
@@ -143,10 +149,6 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
         this.endMarker = bufReader.readByte();
 
         // 验证校验码
-        buf.flip();
-        buf.position(1);
-        buf.limit(bufArrayLength - 2);
-        int reChecksum = checksum(buf);
         if (this.checksum != reChecksum) {
             throw new InvalidJT808MessageChecksumException();
         }
@@ -195,12 +197,15 @@ public class JT808MessagePacket implements IJT808MessageFormatter {
      * 校验码的计算规则应从消息头首字节开始，同后一字节进行异或操作，直到消息体末字节结束；
      * 校验码长度为一字节；
      *
-     * @param buf 计算内容
+     * @param buf    计算内容
+     * @param offset 起始位置
+     * @param length 处理长度
      * @return 校验码
      */
-    private static int checksum(ByteBuffer buf) {
+    private static int checksum(ByteBuffer buf, int offset, int length) {
         int checksum = 0;
-        while (buf.hasRemaining()) {
+        buf.position(offset);
+        while (buf.hasRemaining() && (buf.position() < offset + length)) {
             checksum = checksum ^ buf.get();
         }
         return checksum;

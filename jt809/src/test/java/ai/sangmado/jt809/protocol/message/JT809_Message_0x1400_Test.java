@@ -12,7 +12,7 @@ import ai.sangmado.jt809.protocol.message.content.JT809MessageContent;
 import ai.sangmado.jt809.protocol.message.content.JT809_Message_Content_0x1400;
 import ai.sangmado.jt809.protocol.message.content.JT809_Message_Content_0x1400_Sub.JT809_Message_Content_0x1400_Sub_0x1402;
 import ai.sangmado.jt809.protocol.message.header.JT809MessageHeader;
-import ai.sangmado.jt809.protocol.message.header.JT809MessageHeader2019;
+import ai.sangmado.jt809.protocol.message.header.JT809MessageHeader2011;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -42,7 +42,7 @@ public class JT809_Message_0x1400_Test {
         encryptionOptions.setIC1(22222L);
         encryptionOptions.setM1(33333L);
 
-        when(ctx.getProtocolVersion()).thenReturn(JT809ProtocolVersion.V2019);
+        when(ctx.getProtocolVersion()).thenReturn(JT809ProtocolVersion.V2011);
         when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
         when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
         when(ctx.getMessageContentEncryptionMode()).thenReturn(JT809MessageContentEncryptionMode.Encrypted);
@@ -57,7 +57,7 @@ public class JT809_Message_0x1400_Test {
         long messageSequenceNumber = 888999L;
         Long gnssCenterId = 33L;
         Long encryptionKey = 7777777L;
-        Long timestamp = 8888888L;
+        Long timestamp = 0x000000004B49286AL;
 
         JT809_Message_Content_0x1400_Sub_0x1402 subMessage = new JT809_Message_Content_0x1400_Sub_0x1402();
         subMessage.setWarningType(JT809WarningType.JT809_Warning_0x000B);
@@ -78,14 +78,13 @@ public class JT809_Message_0x1400_Test {
                 .subMessage(subMessage)
                 .build();
 
-        JT809MessageHeader header = JT809MessageHeader2019.builder()
+        JT809MessageHeader header = JT809MessageHeader2011.builder()
                 .messageId(messageId)
                 .messageSequenceNumber(messageSequenceNumber)
                 .gnssCenterId(gnssCenterId)
                 .versionFlag(new JT809VersionFlag(1, 2, 4))
                 .encryptionMode(JT809MessageContentEncryptionMode.Encrypted)
                 .encryptionKey(encryptionKey)
-                .timestamp(timestamp)
                 .build();
 
         List<JT809MessagePacket> packets = JT809MessagePacketBuilder.buildPackets(ctx, header, content);
@@ -97,7 +96,7 @@ public class JT809_Message_0x1400_Test {
         JT809MessagePacket sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
-        assertEquals(54, buf.limit());
+        assertEquals(76, buf.limit());
 
         IJT809MessageBufferReader reader = new JT809MessageByteBufferReader(ctx, buf);
         JT809MessagePacket dePacket = new JT809MessagePacket();
@@ -106,11 +105,8 @@ public class JT809_Message_0x1400_Test {
         assertEquals(messageId, dePacket.getHeader().getMessageId());
         assertEquals(messageSequenceNumber, dePacket.getHeader().getMessageSequenceNumber());
         assertEquals(gnssCenterId, dePacket.getHeader().getGnssCenterId());
-        assertEquals(timestamp, ((JT809MessageHeader2019) dePacket.getHeader()).getTimestamp());
 
         JT809_Message_Content_0x1400_Sub_0x1402 deSubMessage = (JT809_Message_Content_0x1400_Sub_0x1402) ((JT809_Message_Content_0x1400) (dePacket.getContent())).getSubMessage();
         assertEquals(subMessage.getWarningType(), deSubMessage.getWarningType());
-        assertEquals(subMessage.getWarningTime(), deSubMessage.getWarningTime());
-        assertEquals(subMessage.getPlateNumber(), deSubMessage.getPlateNumber());
     }
 }

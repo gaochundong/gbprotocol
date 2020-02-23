@@ -123,12 +123,28 @@ public class JT809_Message_Content_0x1400_Sub_0x1402 extends JT809_Message_Conte
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
+        writer.writeUInt16(getSubMessageId().getValue());
+        writer.writeUInt32(1 + 2 + 4 + 4 + getWarningInfoContent().getBytes(ctx.getCharset()).length);
 
+        writer.writeByte(getWarningSource().getValue());
+        writer.writeUInt16(getWarningType().getValue().intValue());
+        //writer.writeUInt64(getWarningTime());
+        writer.writeUInt32(getWarningInfoId());
+        writer.writeUInt32(getWarningInfoContent().getBytes(ctx.getCharset()).length);
+        writer.writeString(getWarningInfoContent());
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+        reader.readUInt16();
+        reader.readUInt32();
 
+        setWarningSource(JT809WarningSource.cast(reader.readByte()));
+        setWarningType(JT809WarningType.cast(reader.readUInt16()));
+        //setWarningTime(reader.readUInt64());
+        setWarningInfoId(reader.readUInt32());
+        setWarningInfoLength(reader.readUInt32());
+        setWarningInfoContent(reader.readString(getWarningInfoLength().intValue()));
     }
 
     public static JT809_Message_Content_0x1400_Sub_0x1402 decode(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
