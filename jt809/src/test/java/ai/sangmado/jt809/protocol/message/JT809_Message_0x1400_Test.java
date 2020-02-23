@@ -1,0 +1,109 @@
+package ai.sangmado.jt809.protocol.message;
+
+import ai.sangmado.gbcommon.memory.IByteArrayPool;
+import ai.sangmado.gbcommon.memory.PooledByteArrayFactory;
+import ai.sangmado.jt809.protocol.ISpecificationContext;
+import ai.sangmado.jt809.protocol.encoding.IJT809MessageBufferReader;
+import ai.sangmado.jt809.protocol.encoding.IJT809MessageBufferWriter;
+import ai.sangmado.jt809.protocol.encoding.impl.JT809MessageByteBufferReader;
+import ai.sangmado.jt809.protocol.encoding.impl.JT809MessageByteBufferWriter;
+import ai.sangmado.jt809.protocol.enums.*;
+import ai.sangmado.jt809.protocol.message.content.JT809MessageContent;
+import ai.sangmado.jt809.protocol.message.content.JT809_Message_Content_0x1400;
+import ai.sangmado.jt809.protocol.message.content.JT809_Message_Content_0x1400_Sub.JT809_Message_Content_0x1400_Sub_0x1402;
+import ai.sangmado.jt809.protocol.message.header.JT809MessageHeader;
+import ai.sangmado.jt809.protocol.message.header.JT809MessageHeader2019;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.charset.Charset;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+public class JT809_Message_0x1400_Test {
+
+    @Mock
+    private ISpecificationContext ctx;
+
+    private IByteArrayPool byteArrayPool = new PooledByteArrayFactory(512, 10);
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+
+        when(ctx.getProtocolVersion()).thenReturn(JT809ProtocolVersion.V2019);
+        when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
+        when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
+        when(ctx.getMessageContentEncryptionMode()).thenReturn(JT809MessageContentEncryptionMode.Encrypted);
+        when(ctx.getByteArrayPool()).thenReturn(byteArrayPool);
+        assertEquals("GBK", ctx.getCharset().name());
+    }
+
+    @Test
+    public void when_JT809_Message_0x1400_thenShouldPassSerializationAndDeserialization() {
+        JT809MessageId messageId = JT809MessageId.JT809_Message_0x1400;
+        long messageSequenceNumber = 888999L;
+        Long gnssCenterId = 33L;
+        Long encryptionKey = 7777777L;
+        Long timestamp = 8888888L;
+
+        JT809_Message_Content_0x1400_Sub_0x1402 subMessage = new JT809_Message_Content_0x1400_Sub_0x1402();
+        subMessage.setWarningType(JT809WarningType.JT809_Warning_0x000B);
+        subMessage.setWarningSource(JT809WarningSource.VehicleBox);
+        subMessage.setWarningTime(timestamp);
+        subMessage.setBeginTime(timestamp);
+        subMessage.setEndTime(timestamp);
+        subMessage.setWarningInfoId(789L);
+        subMessage.setWarningInfoLength(44L);
+        subMessage.setWarningInfoContent("Warning! Here is a warning.");
+        subMessage.setDrivingLineId(444L);
+        subMessage.setPlateNumber("京A88888");
+        subMessage.setPlateColor(1);
+        subMessage.setFromPlatformId("99999");
+        subMessage.setToPlatformId("88888");
+
+        JT809MessageHeader header = JT809MessageHeader2019.builder()
+                .protocolVersion(JT809MessageHeader2019.PROTOCOL_VERSION)
+                .messageId(messageId)
+                .messageSequenceNumber(messageSequenceNumber)
+                .gnssCenterId(gnssCenterId)
+                .encryptionMode(JT809MessageContentEncryptionMode.Encrypted)
+                .encryptionKey(encryptionKey)
+                .timestamp(timestamp)
+                .build();
+        JT809MessageContent content = JT809_Message_Content_0x1400.builder()
+                .subMessage(subMessage)
+                .build();
+
+        List<JT809MessagePacket> packets = JT809MessagePacketBuilder.buildPackets(ctx, header, content);
+        assertEquals(1, packets.size());
+
+        byte[] bufArray = new byte[512];
+        ByteBuffer buf = ByteBuffer.wrap(bufArray);
+        IJT809MessageBufferWriter writer = new JT809MessageByteBufferWriter(ctx, buf);
+        JT809MessagePacket sePacket = packets.get(0);
+        sePacket.serialize(ctx, writer);
+        buf.flip();
+        assertEquals(54, buf.limit());
+
+        IJT809MessageBufferReader reader = new JT809MessageByteBufferReader(ctx, buf);
+        JT809MessagePacket dePacket = new JT809MessagePacket();
+        dePacket.deserialize(ctx, reader);
+
+        assertEquals(messageId, dePacket.getHeader().getMessageId());
+        assertEquals(messageSequenceNumber, dePacket.getHeader().getMessageSequenceNumber());
+        assertEquals(gnssCenterId, dePacket.getHeader().getGnssCenterId());
+        assertEquals(timestamp, ((JT809MessageHeader2019) dePacket.getHeader()).getTimestamp());
+
+        JT809_Message_Content_0x1400_Sub_0x1402 deSubMessage = (JT809_Message_Content_0x1400_Sub_0x1402) ((JT809_Message_Content_0x1400) (dePacket.getContent())).getSubMessage();
+        assertEquals(subMessage.getWarningType(), deSubMessage.getWarningType());
+        assertEquals(subMessage.getWarningTime(), deSubMessage.getWarningTime());
+        assertEquals(subMessage.getPlateNumber(), deSubMessage.getPlateNumber());
+    }
+}

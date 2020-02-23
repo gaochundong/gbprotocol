@@ -43,12 +43,12 @@ public class JT809MessageDecoder implements IJT809MessageDecoder {
             IJT809MessageBufferWriter bufWriter = new JT809MessageByteBufferWriter(ctx, buf);
 
             // 拷贝与消息体长度相等的数据
-//            int contentLength = header.getMessageContentProperty().getContentLength();
-//            while (contentLength > 0) {
-//                bufWriter.writeByte(reader.readByte());
-//                contentLength--;
-//            }
-//            buf.flip();
+            long contentLength = header.getMessageLength();
+            while (contentLength > 0) {
+                bufWriter.writeByte(reader.readByte());
+                contentLength--;
+            }
+            buf.flip();
 
             IJT809MessageBufferReader bufReader = new JT809MessageByteBufferReader(ctx, buf);
             return JT809MessageContentRegistration.getDecoders().get(header.getMessageId()).apply(ctx, bufReader);
