@@ -68,6 +68,16 @@ public class JT809MessageByteBufferReader implements IJT809MessageBufferReader {
         }
     }
 
+
+    @Override
+    public long readUInt64() {
+        if (isBigEndian()) {
+            return (((buf.get() & 0xFF) << 24) | ((buf.get() & 0xFF) << 16) | ((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF))) & 0xFFFFFFFFL;
+        } else {
+            return (((buf.get() & 0xFF)) | ((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF) << 16) | ((buf.get() & 0xFF) << 24)) & 0xFFFFFFFFL;
+        }
+    }
+
     @Override
     public byte[] readBytes(int length) {
         byte[] x = new byte[length];

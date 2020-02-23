@@ -35,14 +35,19 @@ public interface IJT809MessageBufferReader {
     byte readByte();
 
     /**
-     * 读取 uint16_t 无符号双字节整型 (字节，16位)
+     * 读取 UINT16 无符号双字节整型 (字节，16位)
      */
     int readUInt16();
 
     /**
-     * 读取 uint32_t 无符号四字节整型 (字节，32位)
+     * 读取 UINT32 无符号四字节整型 (字节，32位)
      */
     long readUInt32();
+
+    /**
+     * 读取 UINT64 无符号四字节整型 (字节，64位)
+     */
+    long readUInt64();
 
     /**
      * 读取 n 字节数据

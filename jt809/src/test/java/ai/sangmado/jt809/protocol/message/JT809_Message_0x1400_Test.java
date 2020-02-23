@@ -74,17 +74,18 @@ public class JT809_Message_0x1400_Test {
         subMessage.setFromPlatformId("99999");
         subMessage.setToPlatformId("88888");
 
+        JT809MessageContent content = JT809_Message_Content_0x1400.builder()
+                .subMessage(subMessage)
+                .build();
+
         JT809MessageHeader header = JT809MessageHeader2019.builder()
-                .protocolVersion(JT809MessageHeader2019.PROTOCOL_VERSION)
                 .messageId(messageId)
                 .messageSequenceNumber(messageSequenceNumber)
                 .gnssCenterId(gnssCenterId)
+                .versionFlag(new JT809VersionFlag(1, 2, 4))
                 .encryptionMode(JT809MessageContentEncryptionMode.Encrypted)
                 .encryptionKey(encryptionKey)
                 .timestamp(timestamp)
-                .build();
-        JT809MessageContent content = JT809_Message_Content_0x1400.builder()
-                .subMessage(subMessage)
                 .build();
 
         List<JT809MessagePacket> packets = JT809MessagePacketBuilder.buildPackets(ctx, header, content);

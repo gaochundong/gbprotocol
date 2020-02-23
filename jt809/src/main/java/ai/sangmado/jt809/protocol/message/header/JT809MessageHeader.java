@@ -3,6 +3,7 @@ package ai.sangmado.jt809.protocol.message.header;
 import ai.sangmado.jt809.protocol.encoding.IJT809MessageFormatter;
 import ai.sangmado.jt809.protocol.enums.JT809MessageContentEncryptionMode;
 import ai.sangmado.jt809.protocol.enums.JT809MessageId;
+import ai.sangmado.jt809.protocol.enums.JT809VersionFlag;
 import ai.sangmado.jt809.protocol.enums.JT809ProtocolVersion;
 import lombok.*;
 
@@ -16,9 +17,7 @@ import lombok.*;
 public abstract class JT809MessageHeader implements IJT809MessageFormatter, Cloneable {
 
     /**
-     * 数据长度
-     * <p>
-     * Since {@link JT809ProtocolVersion#V2011}
+     * 获取无消息体时的长度
      * <p>
      * V2011:
      * 头标识 + 数据头 + 数据体 + 尾标识
@@ -26,7 +25,16 @@ public abstract class JT809MessageHeader implements IJT809MessageFormatter, Clon
      * <p>
      * V2019:
      * 头标识 + 数据头 + 数据体 + CRC校验码 + 尾标识
-     * 1 + 22 + n + 1 + 1
+     * 1 + 30 + n + 1 + 1
+     *
+     * @return 无消息体时的长度
+     */
+    public abstract long getMessageLengthWithoutContent();
+
+    /**
+     * 数据长度
+     * <p>
+     * Since {@link JT809ProtocolVersion#V2011}
      */
     private Long messageLength;
 
@@ -62,7 +70,7 @@ public abstract class JT809MessageHeader implements IJT809MessageFormatter, Clon
      * <p>
      * 长度为3个字节来表示，0x01 0x02 0x0F 标识的版本号是 v1.2.15，以此类推。
      */
-    private JT809ProtocolVersion protocolVersion;
+    private JT809VersionFlag versionFlag;
 
     /**
      * 报文加密标识位

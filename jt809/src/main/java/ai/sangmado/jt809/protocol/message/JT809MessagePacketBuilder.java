@@ -14,6 +14,9 @@ public final class JT809MessagePacketBuilder {
 
     public static List<JT809MessagePacket> buildPackets(
             ISpecificationContext ctx, JT809MessageHeader header, JT809MessageContent content) {
+
+        header.setMessageLength(header.getMessageLengthWithoutContent() + content.getContentLength(ctx));
+
         JT809MessagePacket packet = new JT809MessagePacket();
         packet.setHeader(header);
         packet.setContent(content);
