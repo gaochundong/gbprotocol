@@ -22,18 +22,18 @@ public interface IJT809MessageBufferWriter {
     void writeByte(int x);
 
     /**
-     * 写入 WORD 无符号双字节整型 (字节，16位)
+     * 写入 uint16_t 无符号双字节整型 (字节，16位)
      *
      * @param x 写入数据
      */
-    void writeWord(int x);
+    void writeUInt16(int x);
 
     /**
-     * 写入 DWORD 无符号四字节整型 (字节，32位)
+     * 写入 uint32_t 无符号四字节整型 (字节，32位)
      *
      * @param x 写入数据
      */
-    void writeDWord(long x);
+    void writeUInt32(long x);
 
     /**
      * 写入 n 字节数据

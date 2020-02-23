@@ -1,14 +1,15 @@
 package ai.sangmado.jt809.protocol.message;
 
 import ai.sangmado.gbcommon.memory.PooledByteArray;
+import ai.sangmado.gbcommon.utils.CRC16;
 import ai.sangmado.jt809.protocol.ISpecificationContext;
 import ai.sangmado.jt809.protocol.encoding.IJT809MessageBufferReader;
 import ai.sangmado.jt809.protocol.encoding.IJT809MessageBufferWriter;
 import ai.sangmado.jt809.protocol.encoding.IJT809MessageFormatter;
 import ai.sangmado.jt809.protocol.encoding.impl.JT809MessageByteBufferReader;
 import ai.sangmado.jt809.protocol.encoding.impl.JT809MessageByteBufferWriter;
+import ai.sangmado.jt809.protocol.enums.JT809MessageContentEncryptionMode;
 import ai.sangmado.jt809.protocol.exceptions.InvalidJT809MessageChecksumException;
-import ai.sangmado.jt809.protocol.exceptions.UnsupportedJT809ProtocolVersionException;
 import ai.sangmado.jt809.protocol.message.content.JT809MessageContent;
 import ai.sangmado.jt809.protocol.message.header.JT809MessageHeader;
 import lombok.Getter;
@@ -16,8 +17,6 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import java.nio.ByteBuffer;
-
-import static ai.sangmado.jt809.protocol.enums.JT809ProtocolVersion.*;
 
 /**
  * JT809 消息包
@@ -47,6 +46,8 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
 
     /**
      * CRC校验码
+     * <p>
+     * 从数据头到校验码前的 CRC16-CCITT 的校验值，遵循大端排序方式的规定。
      */
     @Getter
     @Setter
@@ -83,8 +84,15 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
     private void serializeWithBuffer(ISpecificationContext ctx, IJT809MessageBufferWriter writer, ByteBuffer buf) {
         IJT809MessageBufferWriter bufWriter = new JT809MessageByteBufferWriter(ctx, buf);
         header.serialize(ctx, bufWriter);
+        int headerLength = buf.limit();
         content.serialize(ctx, bufWriter);
+        int contentLength = buf.limit() - headerLength;
         buf.flip();
+
+        // 加密消息体
+        if (header.getEncryptionMode().equals(JT809MessageContentEncryptionMode.Encrypted)) {
+            encrypt(ctx, buf, headerLength, contentLength, header.getEncryptionKey());
+        }
 
         // 计算校验码
         this.checksum = checksum(buf);
@@ -125,11 +133,14 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
         IJT809MessageBufferReader bufReader = new JT809MessageByteBufferReader(ctx, buf);
         this.beginMarker = bufReader.readByte();
 
-        // 检查协议版本
-        verifyMessageProtocolVersion(ctx, bufReader);
-
         // 读取消息头
         this.header = decodeMessageHeader(ctx, bufReader);
+        int headerPosition = buf.position();
+
+        // 解密消息体
+        if (header.getEncryptionMode().equals(JT809MessageContentEncryptionMode.Encrypted)) {
+            decrypt(ctx, buf, headerPosition, buf.limit() - headerPosition, header.getEncryptionKey());
+        }
 
         // 读取消息体
         this.content = decodeMessageContent(ctx, bufReader, header);
@@ -151,32 +162,6 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
         }
     }
 
-    private void verifyMessageProtocolVersion(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
-        // 预读取消息头中消息ID和消息体属性
-        reader.markIndex();
-        int messageId = reader.readWord();
-        int messageContentProperty = reader.readWord();
-        int protocolVersion = reader.readByte() & 0xFF;
-        reader.resetIndex();
-
-        // 通过消息体属性格式中第14位版本位尝试判断协议版本
-        if ((messageContentProperty >> 14 & 0x01) == 1) {
-            // 2019版本，此标记位为1.
-            if (ctx.getProtocolVersion().getValue() < V2019.getValue()) {
-                throw new UnsupportedJT809ProtocolVersionException(String.format(
-                        "协议版本不匹配，终端上传消息版本[%s]，服务端配置版本[%s]，消息ID[%s]，版本位[%s]",
-                        V2019, ctx.getProtocolVersion(), messageId, protocolVersion));
-            }
-        } else {
-            // 2013版本与2011版本相同，此标记位为0.
-            if (ctx.getProtocolVersion().getValue() > V2013.getValue()) {
-                throw new UnsupportedJT809ProtocolVersionException(String.format(
-                        "协议版本不匹配，终端上传消息版本[%s|%s]，服务端配置版本[%s]，消息ID[%s]，版本位[%s]",
-                        V2013, V2011, ctx.getProtocolVersion(), messageId, protocolVersion));
-            }
-        }
-    }
-
     private JT809MessageHeader decodeMessageHeader(
             ISpecificationContext ctx, IJT809MessageBufferReader reader) {
         return this.messageDecoder.decodeHeader(ctx, reader);
@@ -189,17 +174,58 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
     }
 
     /**
+     * 加密消息体
+     *
+     * @param ctx           上下文
+     * @param buf           消息体数据
+     * @param offset        起始位置
+     * @param length        处理长度
+     * @param encryptionKey 加密Key
+     */
+    private static void encrypt(ISpecificationContext ctx, ByteBuffer buf, int offset, int length, long encryptionKey) {
+        if (0 == encryptionKey) {
+            encryptionKey = 1;
+        }
+
+        long mkey = ctx.getMessageContentEncryptionOptions().getM1();
+        if (0 == mkey) {
+            mkey = 1;
+        }
+
+        buf.position(offset);
+        while (buf.hasRemaining() && (buf.position() < offset + length)) {
+            int p = buf.position();
+            byte b = buf.get();
+            encryptionKey =
+                    ctx.getMessageContentEncryptionOptions().getIA1()
+                            * (encryptionKey % mkey)
+                            + ctx.getMessageContentEncryptionOptions().getIC1();
+            buf.put(p, (byte) (b ^ (byte) ((encryptionKey >> 20) & 0xFF)));
+        }
+    }
+
+    /**
+     * 解密消息体
+     *
+     * @param ctx           上下文
+     * @param buf           消息体数据
+     * @param offset        起始位置
+     * @param length        处理长度
+     * @param encryptionKey 加密Key
+     */
+    private static void decrypt(ISpecificationContext ctx, ByteBuffer buf, int offset, int length, long encryptionKey) {
+        // 加密解密为同一算法
+        encrypt(ctx, buf, offset, length, encryptionKey);
+    }
+
+    /**
      * 计算CRC校验码
      *
      * @param buf 计算内容
      * @return 校验码
      */
     private static int checksum(ByteBuffer buf) {
-        int checksum = 0;
-        while (buf.hasRemaining()) {
-            checksum = checksum ^ buf.get();
-        }
-        return checksum;
+        return CRC16.CRC16_CCITT(buf);
     }
 
     /**

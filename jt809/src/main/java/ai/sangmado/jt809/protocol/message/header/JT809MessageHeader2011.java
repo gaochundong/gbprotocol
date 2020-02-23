@@ -51,14 +51,14 @@ public class JT809MessageHeader2011 extends JT809MessageHeader {
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
-        writer.writeWord(getMessageId().getValue());
+        writer.writeUInt16(getMessageId().getValue());
 
 
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
-        setMessageId(JT809MessageId.cast(reader.readWord()));
+        setMessageId(JT809MessageId.cast(reader.readUInt16()));
 
 
     }

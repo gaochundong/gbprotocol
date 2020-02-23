@@ -51,7 +51,7 @@ public class JT809MessageByteBufferReader implements IJT809MessageBufferReader {
 
     @SuppressWarnings("IfStatementWithIdenticalBranches")
     @Override
-    public int readWord() {
+    public int readUInt16() {
         if (isBigEndian()) {
             return (((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF))) & 0xFFFF;
         } else {
@@ -60,7 +60,7 @@ public class JT809MessageByteBufferReader implements IJT809MessageBufferReader {
     }
 
     @Override
-    public long readDWord() {
+    public long readUInt32() {
         if (isBigEndian()) {
             return (((buf.get() & 0xFF) << 24) | ((buf.get() & 0xFF) << 16) | ((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF))) & 0xFFFFFFFFL;
         } else {

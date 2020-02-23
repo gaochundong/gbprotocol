@@ -37,10 +37,16 @@ public class JT809_Message_0x1400_Test {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
+        JT809MessageContentEncryptionOptions encryptionOptions = new JT809MessageContentEncryptionOptions();
+        encryptionOptions.setIA1(11111L);
+        encryptionOptions.setIC1(22222L);
+        encryptionOptions.setM1(33333L);
+
         when(ctx.getProtocolVersion()).thenReturn(JT809ProtocolVersion.V2019);
         when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
         when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
         when(ctx.getMessageContentEncryptionMode()).thenReturn(JT809MessageContentEncryptionMode.Encrypted);
+        when(ctx.getMessageContentEncryptionOptions()).thenReturn(encryptionOptions);
         when(ctx.getByteArrayPool()).thenReturn(byteArrayPool);
         assertEquals("GBK", ctx.getCharset().name());
     }

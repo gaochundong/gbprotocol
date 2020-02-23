@@ -36,7 +36,7 @@ public class JT809MessageByteBufferWriter implements IJT809MessageBufferWriter {
     }
 
     @Override
-    public void writeWord(int x) {
+    public void writeUInt16(int x) {
         if (isBigEndian()) {
             buf.put(int1(x));
             buf.put(int0(x));
@@ -47,7 +47,7 @@ public class JT809MessageByteBufferWriter implements IJT809MessageBufferWriter {
     }
 
     @Override
-    public void writeDWord(long x) {
+    public void writeUInt32(long x) {
         if (isBigEndian()) {
             buf.put(long3(x));
             buf.put(long2(x));

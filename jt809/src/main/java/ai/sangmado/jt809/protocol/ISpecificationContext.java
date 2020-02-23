@@ -2,6 +2,7 @@ package ai.sangmado.jt809.protocol;
 
 import ai.sangmado.gbcommon.memory.IByteArrayPool;
 import ai.sangmado.jt809.protocol.enums.JT809MessageContentEncryptionMode;
+import ai.sangmado.jt809.protocol.enums.JT809MessageContentEncryptionOptions;
 import ai.sangmado.jt809.protocol.enums.JT809ProtocolVersion;
 
 import java.nio.ByteOrder;
@@ -42,6 +43,13 @@ public interface ISpecificationContext {
      * @return 消息体加密方式
      */
     JT809MessageContentEncryptionMode getMessageContentEncryptionMode();
+
+    /**
+     * 获取消息体加密参数
+     *
+     * @return 消息体加密参数
+     */
+    JT809MessageContentEncryptionOptions getMessageContentEncryptionOptions();
 
     /**
      * 获取数组池

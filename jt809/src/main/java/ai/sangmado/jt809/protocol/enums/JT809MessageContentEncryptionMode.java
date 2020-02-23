@@ -5,6 +5,9 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 消息体加密选项
+ */
 @Getter
 public enum JT809MessageContentEncryptionMode {
     None(0, "不加密"),
