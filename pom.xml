@@ -15,7 +15,7 @@
         <module>jt808</module>
         <module>jt809</module>
         <module>jt1078</module>
-        <module>db32t3610</module>
+        <module>jt808db32t3610</module>
     </modules>
 
     <properties>
@@ -84,10 +84,10 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!--db32t3610-->
+            <!--jt808db32t3610-->
             <dependency>
                 <groupId>ai.sangmado</groupId>
-                <artifactId>db32t3610</artifactId>
+                <artifactId>jt808db32t3610</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
