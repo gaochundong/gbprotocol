@@ -14,12 +14,12 @@ import ai.sangmado.jt808.protocol.message.content.JT808_Message_Content_0x8103_P
 import java.util.ArrayList;
 
 /**
- * JT1078协议扩展
+ * JT/T1078 协议扩展
  */
 public class JT1078MessageExtension {
 
     /**
-     * JT1078协议扩展
+     * JT/T1078 协议扩展
      */
     public static void extend() {
         extend_Message_Content_Definitions();
@@ -28,7 +28,7 @@ public class JT1078MessageExtension {
     }
 
     /**
-     * JT1078协议扩展消息体定义
+     * JT/T1078 协议扩展消息体定义
      */
     private static void extend_Message_Content_Definitions() {
         JT808MessageId.putExtensions(new ArrayList<>(JT1078MessageId.get_JT1078MessageId_List()));
@@ -43,7 +43,7 @@ public class JT1078MessageExtension {
     }
 
     /**
-     * JT1078协议扩展0x0200消息体定义
+     * JT/T1078 协议扩展0x0200消息体定义
      */
     private static void extend_Message_Content_0x0200_AdditionalInformation_Definitions() {
         JT808_Message_Content_0x0200_AdditionalInformationId.putExtensions(new ArrayList<>(JT1078_Message_Content_0x0200_AdditionalInformationId.get_JT1078_Message_Content_0x0200_AdditionalInformationId_List()));
@@ -56,7 +56,7 @@ public class JT1078MessageExtension {
     }
 
     /**
-     * JT1078协议扩展0x8103消息体定义
+     * JT/T1078 协议扩展0x8103消息体定义
      */
     private static void extend_Message_Content_0x8103_ParameterItem_Definitions() {
         JT808_Message_Content_0x8103_ParameterItemId.putExtensions(new ArrayList<>(JT1078_Message_Content_0x8103_ParameterItemId.get_JT1078_Message_Content_0x8103_ParameterItemId_List()));

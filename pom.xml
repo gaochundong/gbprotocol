@@ -11,10 +11,11 @@
     <description>A library for Chinese National Standards and Industry Standards.</description>
 
     <modules>
+        <module>gbcommon</module>
         <module>jt808</module>
         <module>jt809</module>
         <module>jt1078</module>
-        <module>gbcommon</module>
+        <module>db32t3610</module>
     </modules>
 
     <properties>
@@ -80,6 +81,13 @@
             <dependency>
                 <groupId>ai.sangmado</groupId>
                 <artifactId>jt1078</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--db32t3610-->
+            <dependency>
+                <groupId>ai.sangmado</groupId>
+                <artifactId>db32t3610</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
