@@ -1,11 +1,12 @@
 package ai.sangmado.jt1078.protocol.exceptions;
 
 import ai.sangmado.gbcommon.enums.IProtocolVersion;
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 
 /**
  * 不支持协议版本异常
  */
-public class UnsupportedJT1078ProtocolVersionException extends RuntimeException {
+public class UnsupportedJT1078ProtocolVersionException extends UnsupportedJT808ProtocolVersionException {
     static final long serialVersionUID = -8186572467563833501L;
 
     public UnsupportedJT1078ProtocolVersionException() {

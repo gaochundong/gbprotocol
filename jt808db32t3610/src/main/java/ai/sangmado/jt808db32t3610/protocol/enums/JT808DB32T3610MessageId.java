@@ -2,7 +2,7 @@ package ai.sangmado.jt808db32t3610.protocol.enums;
 
 import ai.sangmado.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
-import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
+import ai.sangmado.jt808db32t3610.protocol.exceptions.UnsupportedJT808DB32T3610MessageException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -56,7 +56,7 @@ public class JT808DB32T3610MessageId extends JT808MessageId {
     public static JT808DB32T3610MessageId cast(int value) {
         JT808DB32T3610MessageId item = tryCast(value);
         if (item == null) {
-            throw new UnsupportedJT808MessageException(String.format(
+            throw new UnsupportedJT808DB32T3610MessageException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
                     value, JT808DB32T3610MessageId.class.getSimpleName()));
         }

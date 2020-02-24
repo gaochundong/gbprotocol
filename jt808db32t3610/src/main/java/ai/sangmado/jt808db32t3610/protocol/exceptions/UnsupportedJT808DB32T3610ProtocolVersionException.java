@@ -1,11 +1,12 @@
 package ai.sangmado.jt808db32t3610.protocol.exceptions;
 
 import ai.sangmado.gbcommon.enums.IProtocolVersion;
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 
 /**
  * 不支持协议版本异常
  */
-public class UnsupportedJT808DB32T3610ProtocolVersionException extends RuntimeException {
+public class UnsupportedJT808DB32T3610ProtocolVersionException extends UnsupportedJT808ProtocolVersionException {
     static final long serialVersionUID = 562928058618468335L;
 
     public UnsupportedJT808DB32T3610ProtocolVersionException() {

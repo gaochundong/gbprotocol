@@ -1,11 +1,12 @@
 package ai.sangmado.jt808db32t3610.protocol.exceptions;
 
 import ai.sangmado.gbcommon.enums.IMessageId;
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 
 /**
  * 不支持协议消息异常
  */
-public class UnsupportedJT808DB32T3610MessageException extends RuntimeException {
+public class UnsupportedJT808DB32T3610MessageException extends UnsupportedJT808MessageException {
     static final long serialVersionUID = 4035581577857292065L;
 
     public UnsupportedJT808DB32T3610MessageException() {

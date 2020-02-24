@@ -1,9 +1,11 @@
 package ai.sangmado.jt808db32t3610.protocol.exceptions;
 
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
+
 /**
  * 不支持协议操作异常
  */
-public class UnsupportedJT808DB32T3610OperationException extends RuntimeException {
+public class UnsupportedJT808DB32T3610OperationException extends UnsupportedJT808OperationException {
     static final long serialVersionUID = 3884063173042415016L;
 
     public UnsupportedJT808DB32T3610OperationException() {

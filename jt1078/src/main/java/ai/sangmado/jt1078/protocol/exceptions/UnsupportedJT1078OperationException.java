@@ -1,9 +1,11 @@
 package ai.sangmado.jt1078.protocol.exceptions;
 
+import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808OperationException;
+
 /**
  * 不支持协议操作异常
  */
-public class UnsupportedJT1078OperationException extends RuntimeException {
+public class UnsupportedJT1078OperationException extends UnsupportedJT808OperationException {
     static final long serialVersionUID = 6857103519680790348L;
 
     public UnsupportedJT1078OperationException() {

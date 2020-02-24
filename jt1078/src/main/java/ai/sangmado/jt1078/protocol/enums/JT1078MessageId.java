@@ -1,8 +1,8 @@
 package ai.sangmado.jt1078.protocol.enums;
 
 import ai.sangmado.gbcommon.enums.IProtocolVersion;
+import ai.sangmado.jt1078.protocol.exceptions.UnsupportedJT1078MessageException;
 import ai.sangmado.jt808.protocol.enums.JT808MessageId;
-import ai.sangmado.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -86,7 +86,7 @@ public class JT1078MessageId extends JT808MessageId {
     public static JT1078MessageId cast(int value) {
         JT1078MessageId item = tryCast(value);
         if (item == null) {
-            throw new UnsupportedJT808MessageException(String.format(
+            throw new UnsupportedJT1078MessageException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
                     value, JT1078MessageId.class.getSimpleName()));
         }
