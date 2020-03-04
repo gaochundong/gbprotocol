@@ -3,11 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>ai.sangmado</groupId>
-    <artifactId>gbstandard</artifactId>
+    <groupId>ai.sangmado.gbstandard</groupId>
+    <artifactId>gbstandard-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1378.0-SNAPSHOT</version>
-    <name>gbstandard</name>
+    <version>1378.1-SNAPSHOT</version>
+    <name>gbstandard-parent</name>
     <description>A library for Chinese National Standards and Industry Standards.</description>
 
     <modules>
@@ -59,42 +59,42 @@
 
             <!--gbcommon-->
             <dependency>
-                <groupId>ai.sangmado</groupId>
+                <groupId>ai.sangmado.gbstandard</groupId>
                 <artifactId>gbcommon</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!--jt808-->
             <dependency>
-                <groupId>ai.sangmado</groupId>
+                <groupId>ai.sangmado.gbstandard</groupId>
                 <artifactId>jt808</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!--jt809-->
             <dependency>
-                <groupId>ai.sangmado</groupId>
+                <groupId>ai.sangmado.gbstandard</groupId>
                 <artifactId>jt809</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!--jt1078-->
             <dependency>
-                <groupId>ai.sangmado</groupId>
+                <groupId>ai.sangmado.gbstandard</groupId>
                 <artifactId>jt1078</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!--jt808db32t3610-->
             <dependency>
-                <groupId>ai.sangmado</groupId>
+                <groupId>ai.sangmado.gbstandard</groupId>
                 <artifactId>jt808db32t3610</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!--jt809db32t3610-->
             <dependency>
-                <groupId>ai.sangmado</groupId>
+                <groupId>ai.sangmado.gbstandard</groupId>
                 <artifactId>jt809db32t3610</artifactId>
                 <version>${project.version}</version>
             </dependency>
