@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>ai.sangmado.gbstandard</groupId>
-        <artifactId>gbstandard-parent</artifactId>
+        <groupId>ai.sangmado.gbprotocol</groupId>
+        <artifactId>gbprotocol-parent</artifactId>
         <version>1378.1-SNAPSHOT</version>
     </parent>
     <artifactId>jt809db32t3610</artifactId>
@@ -27,13 +27,13 @@
 
         <!--gbcommon-->
         <dependency>
-            <groupId>ai.sangmado.gbstandard</groupId>
+            <groupId>ai.sangmado.gbprotocol</groupId>
             <artifactId>gbcommon</artifactId>
         </dependency>
 
         <!--jt809-->
         <dependency>
-            <groupId>ai.sangmado.gbstandard</groupId>
+            <groupId>ai.sangmado.gbprotocol</groupId>
             <artifactId>jt809</artifactId>
         </dependency>
 
