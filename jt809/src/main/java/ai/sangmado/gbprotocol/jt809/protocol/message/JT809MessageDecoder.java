@@ -37,7 +37,7 @@ public class JT809MessageDecoder implements IJT809MessageDecoder {
         if (!JT809MessageContentRegistration.getDecoders().containsKey(header.getMessageId())) {
             throw new UnsupportedJT809MessageException(header.getMessageId());
         }
-        PooledByteArray pba = ctx.getByteArrayPool().borrow();
+        PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
             ByteBuffer buf = ByteBuffer.wrap(pba.array());
             IJT809MessageBufferWriter bufWriter = new JT809MessageByteBufferWriter(ctx, buf);
@@ -53,7 +53,7 @@ public class JT809MessageDecoder implements IJT809MessageDecoder {
             IJT809MessageBufferReader bufReader = new JT809MessageByteBufferReader(ctx, buf);
             return JT809MessageContentRegistration.getDecoders().get(header.getMessageId()).apply(ctx, bufReader);
         } finally {
-            ctx.getByteArrayPool().recycle(pba);
+            ctx.getBufferPool().recycle(pba);
         }
     }
 }

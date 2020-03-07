@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt809.protocol.message;
 
-import ai.sangmado.gbprotocol.gbcommon.memory.IByteArrayPool;
+import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArrayFactory;
 import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
@@ -32,7 +32,7 @@ public class JT809_Message_0x1400_Test {
     @Mock
     private ISpecificationContext ctx;
 
-    private IByteArrayPool byteArrayPool = new PooledByteArrayFactory(512, 10);
+    private IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
 
     @BeforeEach
     public void setup() {
@@ -48,7 +48,7 @@ public class JT809_Message_0x1400_Test {
         when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
         when(ctx.getMessageContentEncryptionMode()).thenReturn(JT809MessageContentEncryptionMode.Encrypted);
         when(ctx.getMessageContentEncryptionOptions()).thenReturn(encryptionOptions);
-        when(ctx.getByteArrayPool()).thenReturn(byteArrayPool);
+        when(ctx.getBufferPool()).thenReturn(bufferPool);
         assertEquals("GBK", ctx.getCharset().name());
     }
 

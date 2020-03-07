@@ -73,11 +73,11 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
     @Override
     public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
         // 求出消息数据，此处需要申请Header+Content长度的内存
-        PooledByteArray pba = ctx.getByteArrayPool().borrow();
+        PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
             serializeWithBuffer(ctx, writer, ByteBuffer.wrap(pba.array()));
         } finally {
-            ctx.getByteArrayPool().recycle(pba);
+            ctx.getBufferPool().recycle(pba);
         }
     }
 
@@ -113,11 +113,11 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
     @Override
     public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
         // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
-        PooledByteArray pba = ctx.getByteArrayPool().borrow();
+        PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
             deserializeWithBuffer(ctx, reader, ByteBuffer.wrap(pba.array()));
         } finally {
-            ctx.getByteArrayPool().recycle(pba);
+            ctx.getBufferPool().recycle(pba);
         }
     }
 

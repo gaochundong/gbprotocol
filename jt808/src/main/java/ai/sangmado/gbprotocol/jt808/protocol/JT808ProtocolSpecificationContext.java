@@ -1,8 +1,8 @@
 package ai.sangmado.gbprotocol.jt808.protocol;
 
-import ai.sangmado.gbprotocol.gbcommon.memory.IByteArrayPool;
-import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageContentEncryptionMode;
+import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -29,9 +29,7 @@ public class JT808ProtocolSpecificationContext implements ISpecificationContext 
     private Charset charset = Charset.forName("GBK");
     @Setter
     @Builder.Default
-    private JT808MessageContentEncryptionMode messageContentEncryptionMode = JT808MessageContentEncryptionMode.RSA;
-    @Setter
-    private IByteArrayPool byteArrayPool;
+    private IBufferPool bufferPool = null;
 
     /**
      * 获取协议版本
@@ -67,22 +65,27 @@ public class JT808ProtocolSpecificationContext implements ISpecificationContext 
     }
 
     /**
-     * 获取消息体加密方式
-     *
-     * @return 消息体加密方式
-     */
-    @Override
-    public JT808MessageContentEncryptionMode getMessageContentEncryptionMode() {
-        return messageContentEncryptionMode;
-    }
-
-    /**
      * 获取数组池
      *
      * @return 数组池
      */
     @Override
-    public IByteArrayPool getByteArrayPool() {
-        return byteArrayPool;
+    public IBufferPool getBufferPool() {
+        return bufferPool;
+    }
+
+    @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
+    public JT808ProtocolSpecificationContext clone() {
+        try {
+            return JT808ProtocolSpecificationContext.builder()
+                    .protocolVersion(this.getProtocolVersion())
+                    .byteOrder(this.getByteOrder())
+                    .charset(this.getCharset())
+                    .bufferPool(this.getBufferPool())
+                    .build();
+        } catch (Exception ex) {
+            throw new UnsupportedJT808OperationException("克隆对象失败", ex);
+        }
     }
 }

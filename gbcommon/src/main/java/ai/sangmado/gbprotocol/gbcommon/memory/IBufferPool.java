@@ -3,7 +3,7 @@ package ai.sangmado.gbprotocol.gbcommon.memory;
 /**
  * 池化数组接口
  */
-public interface IByteArrayPool {
+public interface IBufferPool {
 
     /**
      * 获取池化数组长度

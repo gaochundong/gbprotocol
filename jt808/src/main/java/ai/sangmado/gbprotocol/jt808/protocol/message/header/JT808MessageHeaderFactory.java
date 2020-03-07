@@ -14,7 +14,6 @@ public final class JT808MessageHeaderFactory {
             JT808MessageHeaderMessageContentProperty2011 messageContentProperty =
                     JT808MessageHeaderMessageContentProperty2011.builder()
                             .isMultiplePackets(true)
-                            .encryptionMode(ctx.getMessageContentEncryptionMode())
                             .build();
             return JT808MessageHeader2011.builder()
                     .messageContentProperty(messageContentProperty)
@@ -24,7 +23,6 @@ public final class JT808MessageHeaderFactory {
             JT808MessageHeaderMessageContentProperty2013 messageContentProperty =
                     JT808MessageHeaderMessageContentProperty2013.builder()
                             .isMultiplePackets(true)
-                            .encryptionMode(ctx.getMessageContentEncryptionMode())
                             .build();
             return JT808MessageHeader2013.builder()
                     .messageContentProperty(messageContentProperty)
@@ -34,7 +32,6 @@ public final class JT808MessageHeaderFactory {
             JT808MessageHeaderMessageContentProperty2019 messageContentProperty =
                     JT808MessageHeaderMessageContentProperty2019.builder()
                             .isMultiplePackets(true)
-                            .encryptionMode(ctx.getMessageContentEncryptionMode())
                             .build();
             return JT808MessageHeader2019.builder()
                     .protocolVersion((byte) 1)

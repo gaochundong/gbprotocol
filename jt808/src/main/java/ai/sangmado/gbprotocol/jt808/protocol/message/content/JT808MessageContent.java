@@ -32,7 +32,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @return 消息体长度
      */
     public int getContentLength(ISpecificationContext ctx) {
-        PooledByteArray pba = ctx.getByteArrayPool().borrow();
+        PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
             ByteBuffer buf = ByteBuffer.wrap(pba.array());
             IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
@@ -40,7 +40,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
             buf.flip();
             return buf.remaining();
         } finally {
-            ctx.getByteArrayPool().recycle(pba);
+            ctx.getBufferPool().recycle(pba);
         }
     }
 

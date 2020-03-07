@@ -37,7 +37,7 @@ public class JT808MessageDecoder implements IJT808MessageDecoder {
         if (!JT808MessageContentRegistration.getDecoders().containsKey(header.getMessageId())) {
             throw new UnsupportedJT808MessageException(header.getMessageId());
         }
-        PooledByteArray pba = ctx.getByteArrayPool().borrow();
+        PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
             ByteBuffer buf = ByteBuffer.wrap(pba.array());
             IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
@@ -53,7 +53,7 @@ public class JT808MessageDecoder implements IJT808MessageDecoder {
             IJT808MessageBufferReader bufReader = new JT808MessageByteBufferReader(ctx, buf);
             return JT808MessageContentRegistration.getDecoders().get(header.getMessageId()).apply(ctx, bufReader);
         } finally {
-            ctx.getByteArrayPool().recycle(pba);
+            ctx.getBufferPool().recycle(pba);
         }
     }
 }

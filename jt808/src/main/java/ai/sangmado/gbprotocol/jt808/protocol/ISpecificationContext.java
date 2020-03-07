@@ -1,7 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol;
 
-import ai.sangmado.gbprotocol.gbcommon.memory.IByteArrayPool;
-import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageContentEncryptionMode;
+import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 
 import java.nio.ByteOrder;
@@ -10,7 +9,7 @@ import java.nio.charset.Charset;
 /**
  * 协议上下文
  */
-public interface ISpecificationContext {
+public interface ISpecificationContext extends Cloneable {
 
     /**
      * 获取协议版本
@@ -37,16 +36,9 @@ public interface ISpecificationContext {
     Charset getCharset();
 
     /**
-     * 获取消息体加密方式
-     *
-     * @return 消息体加密方式
-     */
-    JT808MessageContentEncryptionMode getMessageContentEncryptionMode();
-
-    /**
      * 获取数组池
      *
      * @return 数组池
      */
-    IByteArrayPool getByteArrayPool();
+    IBufferPool getBufferPool();
 }
