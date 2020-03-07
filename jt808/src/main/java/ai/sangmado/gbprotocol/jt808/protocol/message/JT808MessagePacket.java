@@ -2,16 +2,15 @@ package ai.sangmado.gbprotocol.jt808.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageFormatter;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByteBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.message.header.JT808MessageHeader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByteBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByteBufferWriter;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -21,7 +20,7 @@ import java.nio.ByteBuffer;
 /**
  * JT808 消息包
  */
-public class JT808MessagePacket implements IJT808MessageFormatter {
+public class JT808MessagePacket implements IJT808Message {
 
     /**
      * 头标识
