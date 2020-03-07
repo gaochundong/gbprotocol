@@ -17,6 +17,13 @@ import lombok.*;
 public abstract class JT809MessageHeader implements IJT809MessageFormatter, Cloneable {
 
     /**
+     * 获取协议版本
+     *
+     * @return 协议版本
+     */
+    public abstract JT809ProtocolVersion getProtocolVersion();
+
+    /**
      * 获取无消息体时的长度
      * <p>
      * V2011:

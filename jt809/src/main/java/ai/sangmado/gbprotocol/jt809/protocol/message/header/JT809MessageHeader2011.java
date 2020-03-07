@@ -35,6 +35,11 @@ public class JT809MessageHeader2011 extends JT809MessageHeader {
     }
 
     @Override
+    public JT809ProtocolVersion getProtocolVersion() {
+        return PROTOCOL_VERSION;
+    }
+
+    @Override
     public long getMessageLengthWithoutContent() {
         return MESSAGE_LENGTH_WITHOUT_CONTENT;
     }

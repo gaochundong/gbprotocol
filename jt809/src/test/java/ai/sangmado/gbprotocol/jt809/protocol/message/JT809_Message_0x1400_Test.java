@@ -3,7 +3,6 @@ package ai.sangmado.gbprotocol.jt809.protocol.message;
 import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArrayFactory;
 import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.*;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809MessageContent;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809_Message_Content_0x1400;
@@ -11,6 +10,7 @@ import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809_Message_Conte
 import ai.sangmado.gbprotocol.jt809.protocol.message.header.JT809MessageHeader;
 import ai.sangmado.gbprotocol.jt809.protocol.message.header.JT809MessageHeader2011;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
+import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.impl.JT809MessageByteBufferReader;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.impl.JT809MessageByteBufferWriter;
 import org.junit.jupiter.api.Assertions;
@@ -46,7 +46,6 @@ public class JT809_Message_0x1400_Test {
         when(ctx.getProtocolVersion()).thenReturn(JT809ProtocolVersion.V2011);
         when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
         when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
-        when(ctx.getMessageContentEncryptionMode()).thenReturn(JT809MessageContentEncryptionMode.Encrypted);
         when(ctx.getMessageContentEncryptionOptions()).thenReturn(encryptionOptions);
         when(ctx.getBufferPool()).thenReturn(bufferPool);
         assertEquals("GBK", ctx.getCharset().name());

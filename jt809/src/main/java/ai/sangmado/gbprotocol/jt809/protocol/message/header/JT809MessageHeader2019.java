@@ -1,13 +1,13 @@
 package ai.sangmado.gbprotocol.jt809.protocol.message.header;
 
-import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionMode;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageId;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809ProtocolVersion;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809VersionFlag;
 import ai.sangmado.gbprotocol.jt809.protocol.exceptions.UnsupportedJT809OperationException;
+import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
+import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +43,11 @@ public class JT809MessageHeader2019 extends JT809MessageHeader {
             Long timestamp) {
         super(messageLength, messageSequenceNumber, messageId, gnssCenterId, versionFlag, encryptionMode, encryptionKey);
         setTimestamp(timestamp);
+    }
+
+    @Override
+    public JT809ProtocolVersion getProtocolVersion() {
+        return PROTOCOL_VERSION;
     }
 
     @Override

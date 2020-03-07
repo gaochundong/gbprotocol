@@ -2,16 +2,16 @@ package ai.sangmado.gbprotocol.jt809.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
 import ai.sangmado.gbprotocol.gbcommon.utils.CRC16;
-import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
-import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageFormatter;
+import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionMode;
+import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809ProtocolVersion;
+import ai.sangmado.gbprotocol.jt809.protocol.exceptions.InvalidJT809MessageChecksumException;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809MessageContent;
 import ai.sangmado.gbprotocol.jt809.protocol.message.header.JT809MessageHeader;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
+import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.impl.JT809MessageByteBufferReader;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.impl.JT809MessageByteBufferWriter;
-import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionMode;
-import ai.sangmado.gbprotocol.jt809.protocol.exceptions.InvalidJT809MessageChecksumException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -21,7 +21,7 @@ import java.nio.ByteBuffer;
 /**
  * JT809 消息包
  */
-public class JT809MessagePacket implements IJT809MessageFormatter {
+public class JT809MessagePacket implements IJT809Message {
 
     /**
      * 头标识
@@ -59,6 +59,16 @@ public class JT809MessagePacket implements IJT809MessageFormatter {
     @Getter
     @Setter
     private byte endMarker = 0x5d;
+
+    /**
+     * 获取协议版本
+     *
+     * @return 协议版本
+     */
+    @Override
+    public JT809ProtocolVersion getProtocolVersion() {
+        return this.header.getProtocolVersion();
+    }
 
     private IJT809MessageDecoder messageDecoder;
 

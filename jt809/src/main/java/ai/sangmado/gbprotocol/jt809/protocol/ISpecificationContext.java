@@ -1,7 +1,6 @@
 package ai.sangmado.gbprotocol.jt809.protocol;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
-import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionMode;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionOptions;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809ProtocolVersion;
 
@@ -36,13 +35,6 @@ public interface ISpecificationContext extends Cloneable {
      * @return 字符集
      */
     Charset getCharset();
-
-    /**
-     * 获取消息体加密方式
-     *
-     * @return 消息体加密方式
-     */
-    JT809MessageContentEncryptionMode getMessageContentEncryptionMode();
 
     /**
      * 获取消息体加密参数
