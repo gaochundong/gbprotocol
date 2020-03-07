@@ -33,6 +33,11 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
     }
 
     @Override
+    public JT808ProtocolVersion getProtocolVersion() {
+        return PROTOCOL_VERSION;
+    }
+
+    @Override
     public JT808MessageHeader clone() {
         try {
             return JT808MessageHeader2013.builder()

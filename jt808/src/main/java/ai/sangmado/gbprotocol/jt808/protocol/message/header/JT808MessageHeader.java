@@ -1,7 +1,8 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.header;
 
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageFormatter;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageFormatter;
 import lombok.*;
 
 /**
@@ -12,6 +13,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class JT808MessageHeader implements IJT808MessageFormatter, Cloneable {
+
+    /**
+     * 获取协议版本
+     *
+     * @return 协议版本
+     */
+    public abstract JT808ProtocolVersion getProtocolVersion();
 
     /**
      * 消息ID

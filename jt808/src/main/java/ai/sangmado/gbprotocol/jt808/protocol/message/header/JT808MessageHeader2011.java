@@ -1,12 +1,12 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.header;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import com.google.common.base.CharMatcher;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,6 +30,11 @@ public class JT808MessageHeader2011 extends JT808MessageHeader {
             JT808MessageHeaderMessagePacketProperty messagePacketProperty,
             String phoneNumber) {
         super(messageId, messageContentProperty, serialNumber, messagePacketProperty, phoneNumber);
+    }
+
+    @Override
+    public JT808ProtocolVersion getProtocolVersion() {
+        return PROTOCOL_VERSION;
     }
 
     @Override

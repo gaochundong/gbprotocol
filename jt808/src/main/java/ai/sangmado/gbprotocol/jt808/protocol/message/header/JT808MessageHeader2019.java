@@ -1,12 +1,12 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.header;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import com.google.common.base.CharMatcher;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
      * 协议版本号
      * 每次关键修订递增，初始版本为1。
      */
-    private Byte protocolVersion = 1;
+    private Byte versionNumber = 1;
 
     @Builder
     public JT808MessageHeader2019(
@@ -35,9 +35,14 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
             Integer serialNumber,
             JT808MessageHeaderMessagePacketProperty messagePacketProperty,
             String phoneNumber,
-            Byte protocolVersion) {
+            Byte versionNumber) {
         super(messageId, messageContentProperty, serialNumber, messagePacketProperty, phoneNumber);
-        if (protocolVersion != null) this.protocolVersion = protocolVersion;
+        if (versionNumber != null) this.versionNumber = versionNumber;
+    }
+
+    @Override
+    public JT808ProtocolVersion getProtocolVersion() {
+        return PROTOCOL_VERSION;
     }
 
     @Override
@@ -49,7 +54,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
                     .serialNumber(this.getSerialNumber())
                     .messagePacketProperty(this.getMessagePacketProperty() == null ? null : this.getMessagePacketProperty().clone())
                     .phoneNumber(this.getPhoneNumber())
-                    .protocolVersion(this.getProtocolVersion())
+                    .versionNumber(this.getVersionNumber())
                     .build();
         } catch (Exception ex) {
             throw new UnsupportedJT808OperationException("克隆对象失败", ex);
@@ -63,7 +68,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
         final char padChar = '0';
         if (ctx.getProtocolVersion().equals(PROTOCOL_VERSION)) {
             writer.writeWord(getMessageContentProperty().marshal());
-            writer.writeByte(getProtocolVersion());
+            writer.writeByte(getVersionNumber());
             writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 10 * 2, padChar));
         } else {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
@@ -87,7 +92,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
             JT808MessageHeaderMessageContentProperty2019 property = new JT808MessageHeaderMessageContentProperty2019();
             property.release(contentPropertyValue);
             setMessageContentProperty(property);
-            setProtocolVersion(reader.readByte());
+            setVersionNumber(reader.readByte());
             setPhoneNumber(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(10)));
         } else {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());

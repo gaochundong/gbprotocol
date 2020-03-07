@@ -58,6 +58,16 @@ public class JT808MessagePacket implements IJT808Message {
     @Setter
     private byte endMarker = 0x7e;
 
+    /**
+     * 获取协议版本
+     *
+     * @return 协议版本
+     */
+    @Override
+    public JT808ProtocolVersion getProtocolVersion() {
+        return this.header.getProtocolVersion();
+    }
+
     private IJT808MessageDecoder messageDecoder;
 
     public JT808MessagePacket() {
@@ -157,7 +167,7 @@ public class JT808MessagePacket implements IJT808Message {
         reader.markIndex();
         int messageId = reader.readWord();
         int messageContentProperty = reader.readWord();
-        int protocolVersion = reader.readByte() & 0xFF;
+        int versionNumber = reader.readByte() & 0xFF;
         reader.resetIndex();
 
         // 通过消息体属性格式中第14位版本位尝试判断协议版本
@@ -166,14 +176,14 @@ public class JT808MessagePacket implements IJT808Message {
             if (ctx.getProtocolVersion().getValue() < JT808ProtocolVersion.V2019.getValue()) {
                 throw new UnsupportedJT808ProtocolVersionException(String.format(
                         "协议版本不匹配，终端上传消息版本[%s]，服务端配置版本[%s]，消息ID[%s]，版本位[%s]",
-                        JT808ProtocolVersion.V2019, ctx.getProtocolVersion(), messageId, protocolVersion));
+                        JT808ProtocolVersion.V2019, ctx.getProtocolVersion(), messageId, versionNumber));
             }
         } else {
             // 2013版本与2011版本相同，此标记位为0.
             if (ctx.getProtocolVersion().getValue() > JT808ProtocolVersion.V2013.getValue()) {
                 throw new UnsupportedJT808ProtocolVersionException(String.format(
                         "协议版本不匹配，终端上传消息版本[%s|%s]，服务端配置版本[%s]，消息ID[%s]，版本位[%s]",
-                        JT808ProtocolVersion.V2013, JT808ProtocolVersion.V2011, ctx.getProtocolVersion(), messageId, protocolVersion));
+                        JT808ProtocolVersion.V2013, JT808ProtocolVersion.V2011, ctx.getProtocolVersion(), messageId, versionNumber));
             }
         }
     }

@@ -34,7 +34,7 @@ public final class JT808MessageHeaderFactory {
                             .isMultiplePackets(true)
                             .build();
             return JT808MessageHeader2019.builder()
-                    .protocolVersion((byte) 1)
+                    .versionNumber((byte) 1)
                     .messageContentProperty(messageContentProperty)
                     .messagePacketProperty(new JT808MessageHeaderMessagePacketProperty())
                     .build();
