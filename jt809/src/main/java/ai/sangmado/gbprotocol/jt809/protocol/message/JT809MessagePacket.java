@@ -86,6 +86,17 @@ public class JT809MessagePacket implements IJT809Message {
         }
     }
 
+    @Override
+    public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+        // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
+        PooledByteArray pba = ctx.getBufferPool().borrow();
+        try {
+            deserializeWithBuffer(ctx, reader, ByteBuffer.wrap(pba.array()));
+        } finally {
+            ctx.getBufferPool().recycle(pba);
+        }
+    }
+
     private void serializeWithBuffer(ISpecificationContext ctx, IJT809MessageBufferWriter writer, ByteBuffer buf) {
         // 写入数据
         IJT809MessageBufferWriter bufWriter = new JT809MessageByteBufferWriter(ctx, buf);
@@ -113,17 +124,6 @@ public class JT809MessagePacket implements IJT809Message {
             writeEscapedByte(buf.get(), writer);
         }
         writer.writeByte(endMarker);
-    }
-
-    @Override
-    public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
-        // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
-        PooledByteArray pba = ctx.getBufferPool().borrow();
-        try {
-            deserializeWithBuffer(ctx, reader, ByteBuffer.wrap(pba.array()));
-        } finally {
-            ctx.getBufferPool().recycle(pba);
-        }
     }
 
     private void deserializeWithBuffer(ISpecificationContext ctx, IJT809MessageBufferReader reader, ByteBuffer buf) {
@@ -181,8 +181,7 @@ public class JT809MessagePacket implements IJT809Message {
     }
 
     private JT809MessageContent decodeMessageContent(
-            ISpecificationContext ctx, IJT809MessageBufferReader reader,
-            JT809MessageHeader header) {
+            ISpecificationContext ctx, IJT809MessageBufferReader reader, JT809MessageHeader header) {
         if (!JT809MessageContentRegistration.getDecoders().containsKey(header.getMessageId())) {
             throw new UnsupportedJT809MessageException(header.getMessageId());
         }

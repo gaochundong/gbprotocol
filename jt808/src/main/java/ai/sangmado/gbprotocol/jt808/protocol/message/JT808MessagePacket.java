@@ -83,6 +83,17 @@ public class JT808MessagePacket implements IJT808Message {
         }
     }
 
+    @Override
+    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
+        PooledByteArray pba = ctx.getBufferPool().borrow();
+        try {
+            deserializeWithBuffer(ctx, reader, ByteBuffer.wrap(pba.array()));
+        } finally {
+            ctx.getBufferPool().recycle(pba);
+        }
+    }
+
     private void serializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferWriter writer, ByteBuffer buf) {
         // 写入数据
         IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
@@ -101,17 +112,6 @@ public class JT808MessagePacket implements IJT808Message {
         }
         writeEscapedByte((byte) this.checksum, writer);
         writer.writeByte(endMarker);
-    }
-
-    @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
-        PooledByteArray pba = ctx.getBufferPool().borrow();
-        try {
-            deserializeWithBuffer(ctx, reader, ByteBuffer.wrap(pba.array()));
-        } finally {
-            ctx.getBufferPool().recycle(pba);
-        }
     }
 
     private void deserializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferReader reader, ByteBuffer buf) {
@@ -162,8 +162,7 @@ public class JT808MessagePacket implements IJT808Message {
     }
 
     private JT808MessageContent decodeMessageContent(
-            ISpecificationContext ctx, IJT808MessageBufferReader reader,
-            JT808MessageHeader header) {
+            ISpecificationContext ctx, IJT808MessageBufferReader reader, JT808MessageHeader header) {
         if (!JT808MessageContentRegistration.getDecoders().containsKey(header.getMessageId())) {
             throw new UnsupportedJT808MessageException(header.getMessageId());
         }
