@@ -23,6 +23,14 @@ public interface IJT808MessageBufferReader {
     boolean isReadable();
 
     /**
+     * 是否还有可读数据
+     *
+     * @param size 可读数据最低长度
+     * @return 是否还有可读数据
+     */
+    boolean isReadable(int size);
+
+    /**
      * 可读数据长度
      *
      * @return 可读数据长度

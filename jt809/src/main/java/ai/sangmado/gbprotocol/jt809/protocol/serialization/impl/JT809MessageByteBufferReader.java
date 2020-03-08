@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * 基于 ByteBuffer 的读取层实现
+ * 基于 ByteBuffer 的 JT809 读取层实现
  */
 public class JT809MessageByteBufferReader implements IJT809MessageBufferReader {
     private ISpecificationContext ctx;
@@ -42,6 +42,11 @@ public class JT809MessageByteBufferReader implements IJT809MessageBufferReader {
     }
 
     @Override
+    public boolean isReadable(int size) {
+        return buf.remaining() >= size;
+    }
+
+    @Override
     public int readableBytes() {
         return buf.remaining();
     }
@@ -69,7 +74,6 @@ public class JT809MessageByteBufferReader implements IJT809MessageBufferReader {
             return (((buf.get() & 0xFF)) | ((buf.get() & 0xFF) << 8) | ((buf.get() & 0xFF) << 16) | ((buf.get() & 0xFF) << 24)) & 0xFFFFFFFFL;
         }
     }
-
 
     @Override
     public UnsignedLong readUInt64() {

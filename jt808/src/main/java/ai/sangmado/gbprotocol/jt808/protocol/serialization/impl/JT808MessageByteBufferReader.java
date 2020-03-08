@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * 基于 ByteBuffer 的读取层实现
+ * 基于 ByteBuffer 的 JT808 读取层实现
  */
 public class JT808MessageByteBufferReader implements IJT808MessageBufferReader {
     private ISpecificationContext ctx;
@@ -37,6 +37,11 @@ public class JT808MessageByteBufferReader implements IJT808MessageBufferReader {
     @Override
     public boolean isReadable() {
         return buf.hasRemaining();
+    }
+
+    @Override
+    public boolean isReadable(int size) {
+        return buf.remaining() >= size;
     }
 
     @Override

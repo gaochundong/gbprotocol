@@ -10,7 +10,7 @@ import java.nio.ByteOrder;
 import static ai.sangmado.gbprotocol.gbcommon.utils.Bits.*;
 
 /**
- * 基于 ByteBuffer 的写入层实现
+ * 基于 ByteBuffer 的 JT808 写入层实现
  */
 public class JT808MessageByteBufferWriter implements IJT808MessageBufferWriter {
     private ISpecificationContext ctx;
