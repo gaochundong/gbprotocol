@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 public class JT809ProtocolSpecificationContext implements ISpecificationContext {
     @Setter
     @Builder.Default
-    private JT809ProtocolVersion protocolVersion = JT809ProtocolVersion.V2019;
+    private JT809ProtocolVersion protocolVersion = JT809ProtocolVersion.V2011;
     @Setter
     @Builder.Default
     private ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;
@@ -102,5 +102,34 @@ public class JT809ProtocolSpecificationContext implements ISpecificationContext 
         } catch (Exception ex) {
             throw new UnsupportedJT809OperationException("克隆对象失败", ex);
         }
+    }
+
+    public static JT809ProtocolSpecificationContext newInstance() {
+        return new JT809ProtocolSpecificationContext();
+    }
+
+    public JT809ProtocolSpecificationContext withProtocolVersion(JT809ProtocolVersion protocolVersion) {
+        this.setProtocolVersion(protocolVersion);
+        return this;
+    }
+
+    public JT809ProtocolSpecificationContext withByteOrder(ByteOrder byteOrder) {
+        this.setByteOrder(byteOrder);
+        return this;
+    }
+
+    public JT809ProtocolSpecificationContext withCharset(Charset charset) {
+        this.setCharset(charset);
+        return this;
+    }
+
+    public JT809ProtocolSpecificationContext withMessageContentEncryptionOptions(JT809MessageContentEncryptionOptions messageContentEncryptionOptions) {
+        this.setMessageContentEncryptionOptions(messageContentEncryptionOptions);
+        return this;
+    }
+
+    public JT809ProtocolSpecificationContext withBufferPool(IBufferPool bufferPool) {
+        this.setBufferPool(bufferPool);
+        return this;
     }
 }

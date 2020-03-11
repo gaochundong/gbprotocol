@@ -3,6 +3,7 @@ package ai.sangmado.gbprotocol.jt809.protocol.message;
 import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArrayFactory;
 import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.JT809ProtocolSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.*;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809MessageContent;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809_Message_Content_0x1400;
@@ -16,39 +17,26 @@ import ai.sangmado.gbprotocol.jt809.protocol.serialization.impl.JT809MessageByte
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.charset.Charset;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class JT809_Message_0x1400_Test {
 
-    @Mock
-    private ISpecificationContext ctx;
-
+    private JT809MessageContentEncryptionOptions encryptionOptions = new JT809MessageContentEncryptionOptions();
     private IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
+    private ISpecificationContext ctx = new JT809ProtocolSpecificationContext().withBufferPool(bufferPool).withMessageContentEncryptionOptions(encryptionOptions);
 
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        JT809MessageContentEncryptionOptions encryptionOptions = new JT809MessageContentEncryptionOptions();
         encryptionOptions.setIA1(11111L);
         encryptionOptions.setIC1(22222L);
         encryptionOptions.setM1(33333L);
-
-        when(ctx.getProtocolVersion()).thenReturn(JT809ProtocolVersion.V2011);
-        when(ctx.getByteOrder()).thenReturn(ByteOrder.BIG_ENDIAN);
-        when(ctx.getCharset()).thenReturn(Charset.forName("GBK"));
-        when(ctx.getMessageContentEncryptionOptions()).thenReturn(encryptionOptions);
-        when(ctx.getBufferPool()).thenReturn(bufferPool);
-        assertEquals("GBK", ctx.getCharset().name());
     }
 
     @Test

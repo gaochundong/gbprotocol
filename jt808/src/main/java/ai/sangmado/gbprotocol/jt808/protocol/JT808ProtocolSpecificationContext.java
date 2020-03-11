@@ -88,4 +88,28 @@ public class JT808ProtocolSpecificationContext implements ISpecificationContext 
             throw new UnsupportedJT808OperationException("克隆对象失败", ex);
         }
     }
+
+    public static JT808ProtocolSpecificationContext newInstance() {
+        return new JT808ProtocolSpecificationContext();
+    }
+
+    public JT808ProtocolSpecificationContext withProtocolVersion(JT808ProtocolVersion protocolVersion) {
+        this.setProtocolVersion(protocolVersion);
+        return this;
+    }
+
+    public JT808ProtocolSpecificationContext withByteOrder(ByteOrder byteOrder) {
+        this.setByteOrder(byteOrder);
+        return this;
+    }
+
+    public JT808ProtocolSpecificationContext withCharset(Charset charset) {
+        this.setCharset(charset);
+        return this;
+    }
+
+    public JT808ProtocolSpecificationContext withBufferPool(IBufferPool bufferPool) {
+        this.setBufferPool(bufferPool);
+        return this;
+    }
 }
