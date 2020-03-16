@@ -4,6 +4,7 @@ import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
 import ai.sangmado.gbprotocol.gbcommon.utils.CRC16;
 import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionMode;
+import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageId;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809ProtocolVersion;
 import ai.sangmado.gbprotocol.jt809.protocol.exceptions.InvalidJT809MessageChecksumException;
 import ai.sangmado.gbprotocol.jt809.protocol.exceptions.UnsupportedJT809MessageException;
@@ -19,12 +20,14 @@ import ai.sangmado.gbprotocol.jt809.protocol.serialization.impl.JT809MessageByte
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.ByteBuffer;
 
 /**
  * JT809 消息包
  */
+@Slf4j
 @NoArgsConstructor
 public class JT809MessagePacket implements IJT809Message {
 
@@ -73,6 +76,16 @@ public class JT809MessagePacket implements IJT809Message {
     @Override
     public JT809ProtocolVersion getProtocolVersion() {
         return this.header.getProtocolVersion();
+    }
+
+    /**
+     * 获取消息ID
+     *
+     * @return 消息ID
+     */
+    @Override
+    public JT809MessageId getMessageId() {
+        return this.header.getMessageId();
     }
 
     @Override

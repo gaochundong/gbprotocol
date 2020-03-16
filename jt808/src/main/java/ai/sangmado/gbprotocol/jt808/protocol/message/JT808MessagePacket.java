@@ -2,6 +2,7 @@ package ai.sangmado.gbprotocol.jt808.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808MessageException;
@@ -17,12 +18,14 @@ import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByte
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.ByteBuffer;
 
 /**
  * JT808 消息包
  */
+@Slf4j
 @NoArgsConstructor
 public class JT808MessagePacket implements IJT808Message {
 
@@ -70,6 +73,16 @@ public class JT808MessagePacket implements IJT808Message {
     @Override
     public JT808ProtocolVersion getProtocolVersion() {
         return this.header.getProtocolVersion();
+    }
+
+    /**
+     * 获取消息ID
+     *
+     * @return 消息ID
+     */
+    @Override
+    public JT808MessageId getMessageId() {
+        return this.header.getMessageId();
     }
 
     @Override

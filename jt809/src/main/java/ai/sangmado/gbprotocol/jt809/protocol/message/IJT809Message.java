@@ -1,5 +1,6 @@
 package ai.sangmado.gbprotocol.jt809.protocol.message;
 
+import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageId;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809ProtocolVersion;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageFormatter;
 
@@ -13,4 +14,11 @@ public interface IJT809Message extends IJT809MessageFormatter {
      * @return 协议版本
      */
     JT809ProtocolVersion getProtocolVersion();
+
+    /**
+     * 获取消息ID
+     *
+     * @return 消息ID
+     */
+    JT809MessageId getMessageId();
 }

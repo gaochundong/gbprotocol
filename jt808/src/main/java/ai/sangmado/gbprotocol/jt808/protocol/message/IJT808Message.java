@@ -1,5 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message;
 
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageFormatter;
 
@@ -13,4 +14,11 @@ public interface IJT808Message extends IJT808MessageFormatter {
      * @return 协议版本
      */
     JT808ProtocolVersion getProtocolVersion();
+
+    /**
+     * 获取消息ID
+     *
+     * @return 消息ID
+     */
+    JT808MessageId getMessageId();
 }

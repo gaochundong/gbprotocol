@@ -49,6 +49,12 @@
             <artifactId>netty-all</artifactId>
         </dependency>
 
+        <!--logging-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
         <!--junit-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
