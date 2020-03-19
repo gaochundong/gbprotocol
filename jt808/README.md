@@ -1,5 +1,10 @@
 # JT808协议
 
+JT/T808 Global navigation satellite system for vehicle engaged in road transport -
+General specifications for vehicle terminal communication protocol and data format.
+
+JT/T808 道路运输车辆卫星定位系统 终端通信协议及数据格式
+
 ## JT808协议消息数据结构
 
 ### 消息结构 JT808MessagePackage

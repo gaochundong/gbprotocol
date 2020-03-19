@@ -1,5 +1,9 @@
 # JT809协议
 
+JT/T809 GNSS system for operating vehicles - General specifications for data exchange between platforms.
+
+JT/T809 道路运输车辆卫星定位系统 平台数据交换
+
 ## JT809协议消息数据结构
 
 ### 消息结构 JT809MessagePackage

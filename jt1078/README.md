@@ -1,5 +1,11 @@
 # JT1078协议
 
+JT/T1078 Global navigation satellite system for operating vehicles - Video communication protocol
+
+JT/T1078 道路运输车辆卫星定位系统 视频通信协议
+
+## 指令描述
+
 继承使用 JT/T808—2011 中除消息ID为0x8804(录音开始命令)外的其他指令。
 
 此外，JT/T808—2011中 :
