@@ -1,11 +1,9 @@
-package ai.sangmado.gbprotocol.jt809.protocol.serialization;
-
-import com.google.common.primitives.UnsignedLong;
+package ai.sangmado.gbprotocol.gb32960.protocol.serialization;
 
 /**
- * JT809 消息Buffer读取器
+ * GB32960 消息Buffer读取器
  */
-public interface IJT809MessageBufferReader {
+public interface IGB32960MessageBufferReader {
 
     /**
      * 标记当前读取位置
@@ -45,19 +43,14 @@ public interface IJT809MessageBufferReader {
     byte readByte();
 
     /**
-     * 读取 UINT16 无符号双字节整型 (字节，16位)
+     * 读取 WORD 无符号双字节整型 (字节，16位)
      */
-    int readUInt16();
+    int readWord();
 
     /**
-     * 读取 UINT32 无符号四字节整型 (字节，32位)
+     * 读取 DWORD 无符号四字节整型 (字节，32位)
      */
-    long readUInt32();
-
-    /**
-     * 读取 UINT64 无符号四字节整型 (字节，64位)
-     */
-    UnsignedLong readUInt64();
+    long readDWord();
 
     /**
      * 读取 n 字节数据
@@ -65,13 +58,6 @@ public interface IJT809MessageBufferReader {
      * @param length 读取长度
      */
     byte[] readBytes(int length);
-
-    /**
-     * 读取 n 字节为 8421 码
-     *
-     * @param length 读取长度
-     */
-    String readBCD(int length);
 
     /**
      * 读取 n 字节为字符串，GBK 编码

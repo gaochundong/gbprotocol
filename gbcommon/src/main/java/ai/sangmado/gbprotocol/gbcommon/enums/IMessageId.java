@@ -3,7 +3,7 @@ package ai.sangmado.gbprotocol.gbcommon.enums;
 /**
  * 消息ID接口定义
  */
-public interface IMessageId extends Comparable<IMessageId> {
+public interface IMessageId extends Comparable<IMessageId>, IExtension<IMessageId> {
 
     /**
      * 获取消息名称
