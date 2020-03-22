@@ -18,6 +18,7 @@
         <module>jt808db32t3610</module>
         <module>jt809db32t3610</module>
         <module>gb32960</module>
+        <module>jt905</module>
     </modules>
 
     <properties>
@@ -106,6 +107,13 @@
             <dependency>
                 <groupId>ai.sangmado.gbprotocol</groupId>
                 <artifactId>gb32960</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--jt905-->
+            <dependency>
+                <groupId>ai.sangmado.gbprotocol</groupId>
+                <artifactId>jt905</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
