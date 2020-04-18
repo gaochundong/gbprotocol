@@ -1,10 +1,10 @@
 package ai.sangmado.gbprotocol.jt1078.protocol.message.content.JT1078_Message_Content_0x8103_Parameter;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItem;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemId;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,11 +28,21 @@ public class JT1078_Message_Content_0x8103_PI_0x007B extends JT808_Message_Conte
     }
 
     /**
-     * 图像分析报警参数设置
+     * 车辆核载人数
+     * <p>
+     * 客运车辆核定载客人数，视频分析结果超过时产生报警
      */
     @Getter
     @Setter
-    private Integer notImplementedSoFar;
+    private Integer numberOfPassengers;
+    /**
+     * 疲劳程度阈值
+     * <p>
+     * 视频分析疲劳驾驶报警阈值，超过时产生报警
+     */
+    @Getter
+    @Setter
+    private Integer fatigueThreshold;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {

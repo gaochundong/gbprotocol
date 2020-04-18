@@ -58,7 +58,7 @@ public class JT1078_Message_Content_0x8103_PI_0x0075 extends JT808_Message_Conte
     /**
      * 实时流关键帧间隔
      * <p>
-     * 范围(1 ～1 000)帧
+     * 范围(1 ～1000)帧
      */
     @Getter
     @Setter

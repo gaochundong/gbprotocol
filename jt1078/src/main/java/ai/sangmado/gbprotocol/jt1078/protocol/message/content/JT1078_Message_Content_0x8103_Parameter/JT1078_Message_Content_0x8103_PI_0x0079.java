@@ -28,11 +28,29 @@ public class JT1078_Message_Content_0x8103_PI_0x0079 extends JT808_Message_Conte
     }
 
     /**
-     * 特殊报警录像参数设置
+     * 特殊报警录像存储阈值
+     *
+     * 特殊报警录像占用主存储器存储阈值百分比，取值1 ～99，默认值为20
      */
     @Getter
     @Setter
-    private Integer notImplementedSoFar;
+    private Integer specialWarningVideoRecordStorageThreshold;
+    /**
+     * 特殊报警录像持续时间
+     *
+     * 特殊报警录像的最长持续时间，单位为分钟(min)，默认值为5
+     */
+    @Getter
+    @Setter
+    private Integer specialWarningVideoRecordStorageDuration;
+    /**
+     * 特殊报警标识起始时间
+     *
+     * 特殊报警发生前进行标记的录像时间，单位为分钟(min)，默认值为1
+     */
+    @Getter
+    @Setter
+    private Integer specialWarningVideoRecordMarkedBeginTime;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {

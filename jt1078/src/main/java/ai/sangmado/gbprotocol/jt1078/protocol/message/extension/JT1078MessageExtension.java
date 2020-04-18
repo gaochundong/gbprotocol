@@ -35,11 +35,24 @@ public class JT1078MessageExtension {
 
         JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x1003.MESSAGE_ID, JT1078_Message_Content_0x1003::decode);
         JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x1005.MESSAGE_ID, JT1078_Message_Content_0x1005::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x1205.MESSAGE_ID, JT1078_Message_Content_0x1205::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x1206.MESSAGE_ID, JT1078_Message_Content_0x1206::decode);
+
         JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9003.MESSAGE_ID, JT1078_Message_Content_0x9003::decode);
         JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9101.MESSAGE_ID, JT1078_Message_Content_0x9101::decode);
         JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9102.MESSAGE_ID, JT1078_Message_Content_0x9102::decode);
         JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9105.MESSAGE_ID, JT1078_Message_Content_0x9105::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9201.MESSAGE_ID, JT1078_Message_Content_0x9201::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9202.MESSAGE_ID, JT1078_Message_Content_0x9202::decode);
         JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9205.MESSAGE_ID, JT1078_Message_Content_0x9205::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9206.MESSAGE_ID, JT1078_Message_Content_0x9206::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9207.MESSAGE_ID, JT1078_Message_Content_0x9207::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9301.MESSAGE_ID, JT1078_Message_Content_0x9301::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9302.MESSAGE_ID, JT1078_Message_Content_0x9302::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9303.MESSAGE_ID, JT1078_Message_Content_0x9303::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9304.MESSAGE_ID, JT1078_Message_Content_0x9304::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9305.MESSAGE_ID, JT1078_Message_Content_0x9305::decode);
+        JT808MessageContentRegistration.registerDecoder(JT1078_Message_Content_0x9306.MESSAGE_ID, JT1078_Message_Content_0x9306::decode);
     }
 
     /**
