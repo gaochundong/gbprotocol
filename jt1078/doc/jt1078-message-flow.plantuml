@@ -1,0 +1,41 @@
+@startuml
+skinparam backgroundColor #EEEBDC
+skinparam handwritten false
+
+title JT1078实时视频传输流程
+
+actor Client #blue
+boundary WebServer
+participant JT1078Server
+participant VideoServer
+entity Device #green
+
+== 发起流程 ==
+
+Client -> WebServer : 实时视频传输请求
+WebServer -> JT1078Server : 实时视频传输请求
+JT1078Server -> VideoServer : 实时视频传输请求(开启端口监听)
+VideoServer --> JT1078Server : 实时视频传输响应(收流地址,直播地址)
+JT1078Server -> Device : 0x9101实时视频传输请求
+JT1078Server -> WebServer : 实时视频传输响应(直播地址)
+WebServer -> Client : 实时视频传输响应(直播地址)
+
+== 传输流程 ==
+
+Device -[#red]> VideoServer : 实时视频传输(RTP流)
+Client -[#red]> VideoServer : 实时视频播放请求
+VideoServer -[#red]> Client : 实时视频播放响应(HLS)
+
+== 状态通知 ==
+
+VideoServer -[#green]> JT1078Server : 实时视频传输状态通知
+JT1078Server -[#green]> Device : 0x9105实时视频传输状态通知
+
+== 关闭流程 ==
+
+Client -[#0000FF]> WebServer : 关闭实时视频传输
+WebServer -[#0000FF]> JT1078Server : 关闭实时视频传输
+JT1078Server -[#0000FF]> VideoServer : 关闭实时视频传输
+JT1078Server -[#0000FF]> Device : 0x9102实时视频传输控制(关闭)
+
+@enduml
