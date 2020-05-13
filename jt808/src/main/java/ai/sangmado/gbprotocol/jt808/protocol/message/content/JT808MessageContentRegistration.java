@@ -1,8 +1,8 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 
 import java.util.HashMap;
 import java.util.Map;
