@@ -1,13 +1,12 @@
 package ai.sangmado.gbprotocol.gb19056.protocol.exceptions;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
-import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 
 /**
  * 不支持协议版本异常
  */
-public class UnsupportedGB19056ProtocolVersionException extends UnsupportedJT808ProtocolVersionException {
-    static final long serialVersionUID = 332473492136885947L;
+public class UnsupportedGB19056ProtocolVersionException extends RuntimeException {
+    static final long serialVersionUID = 6188340483471357278L;
 
     public UnsupportedGB19056ProtocolVersionException() {
         this("暂不支持该协议版本");

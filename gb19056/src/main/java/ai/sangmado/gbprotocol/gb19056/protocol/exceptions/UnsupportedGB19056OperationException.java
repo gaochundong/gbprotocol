@@ -1,12 +1,10 @@
 package ai.sangmado.gbprotocol.gb19056.protocol.exceptions;
 
-import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
-
 /**
  * 不支持协议操作异常
  */
-public class UnsupportedGB19056OperationException extends UnsupportedJT808OperationException {
-    static final long serialVersionUID = -7008748926473349560L;
+public class UnsupportedGB19056OperationException extends RuntimeException {
+    static final long serialVersionUID = -8189267007359958827L;
 
     public UnsupportedGB19056OperationException() {
         this("暂不支持该协议操作");

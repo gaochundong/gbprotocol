@@ -1,0 +1,18 @@
+@startuml
+skinparam backgroundColor #EEEBDC
+skinparam handwritten false
+
+title GB17691 Q.1 车载终端与管理平台通信协议栈
+
+participant 车载终端
+participant 管理平台
+
+车载终端 -> 管理平台 : 车辆登出(0x04)
+车载终端 -> 管理平台 : 实时信息上报(0x02)
+车载终端 -> 管理平台 : 车辆登入(0x01)
+车载终端 <-> 管理平台 : 本标准所规定的协议
+车载终端 <-> 管理平台 : TCP
+车载终端 <-> 管理平台 : IP
+车载终端 <-> 管理平台 : 底层承载
+
+@enduml

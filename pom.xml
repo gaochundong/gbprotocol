@@ -20,6 +20,7 @@
         <module>gb32960</module>
         <module>jt905</module>
         <module>gb19056</module>
+        <module>gb17691</module>
     </modules>
 
     <properties>
@@ -115,6 +116,20 @@
             <dependency>
                 <groupId>ai.sangmado.gbprotocol</groupId>
                 <artifactId>jt905</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--gb19056-->
+            <dependency>
+                <groupId>ai.sangmado.gbprotocol</groupId>
+                <artifactId>gb19056</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!--gb17691-->
+            <dependency>
+                <groupId>ai.sangmado.gbprotocol</groupId>
+                <artifactId>gb17691</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
