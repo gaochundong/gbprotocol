@@ -23,8 +23,11 @@ public class JT808MessageContentRegistration {
     }
 
     static {
+        registerDecoder(JT808_Message_Content_0x0001.MESSAGE_ID, JT808_Message_Content_0x0001::decode);
         registerDecoder(JT808_Message_Content_0x0100.MESSAGE_ID, JT808_Message_Content_0x0100::decode);
+        registerDecoder(JT808_Message_Content_0x0102.MESSAGE_ID, JT808_Message_Content_0x0102::decode);
         registerDecoder(JT808_Message_Content_0x0200.MESSAGE_ID, JT808_Message_Content_0x0200::decode);
+        registerDecoder(JT808_Message_Content_0x8001.MESSAGE_ID, JT808_Message_Content_0x8001::decode);
         registerDecoder(JT808_Message_Content_0x8100.MESSAGE_ID, JT808_Message_Content_0x8100::decode);
         registerDecoder(JT808_Message_Content_0x8103.MESSAGE_ID, JT808_Message_Content_0x8103::decode);
     }
