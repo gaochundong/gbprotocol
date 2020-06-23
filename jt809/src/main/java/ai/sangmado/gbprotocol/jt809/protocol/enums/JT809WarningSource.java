@@ -1,5 +1,7 @@
 package ai.sangmado.gbprotocol.jt809.protocol.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -15,8 +17,10 @@ public enum JT809WarningSource {
     GovernmentPlatform(1, "政府监管平台"),
     Others(1, "其他");
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     JT809WarningSource(int value, String description) {

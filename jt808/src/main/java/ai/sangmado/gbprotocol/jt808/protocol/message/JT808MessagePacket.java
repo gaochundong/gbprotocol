@@ -15,6 +15,8 @@ import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferRe
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByteBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByteBufferWriter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +36,7 @@ public class JT808MessagePacket implements IJT808Message {
      */
     @Getter
     @Setter
+    @JsonProperty(index = 100)
     private byte beginMarker = 0x7e;
 
     /**
@@ -41,6 +44,7 @@ public class JT808MessagePacket implements IJT808Message {
      */
     @Getter
     @Setter
+    @JsonProperty(index = 200)
     private JT808MessageHeader header;
 
     /**
@@ -48,6 +52,7 @@ public class JT808MessagePacket implements IJT808Message {
      */
     @Getter
     @Setter
+    @JsonProperty(index = 300)
     private JT808MessageContent content;
 
     /**
@@ -56,6 +61,7 @@ public class JT808MessagePacket implements IJT808Message {
      */
     @Getter
     @Setter
+    @JsonProperty(index = 400)
     private int checksum;
 
     /**
@@ -63,6 +69,7 @@ public class JT808MessagePacket implements IJT808Message {
      */
     @Getter
     @Setter
+    @JsonProperty(index = 500)
     private byte endMarker = 0x7e;
 
     /**
@@ -71,6 +78,7 @@ public class JT808MessagePacket implements IJT808Message {
      * @return 协议版本
      */
     @Override
+    @JsonIgnore
     public JT808ProtocolVersion getProtocolVersion() {
         return this.header.getProtocolVersion();
     }
@@ -81,6 +89,7 @@ public class JT808MessagePacket implements IJT808Message {
      * @return 消息ID
      */
     @Override
+    @JsonIgnore
     public JT808MessageId getMessageId() {
         return this.header.getMessageId();
     }

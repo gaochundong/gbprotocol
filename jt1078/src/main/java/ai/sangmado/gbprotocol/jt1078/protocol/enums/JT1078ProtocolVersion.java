@@ -2,6 +2,8 @@ package ai.sangmado.gbprotocol.jt1078.protocol.enums;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.jt1078.protocol.exceptions.UnsupportedJT1078ProtocolVersionException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +18,13 @@ import java.util.Map;
 public class JT1078ProtocolVersion implements IProtocolVersion {
     public static final JT1078ProtocolVersion V2016 = new JT1078ProtocolVersion("V2016", 2016, "JT/T 1078 2016 版本");
 
+    @JsonIgnore
     private String name;
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     public JT1078ProtocolVersion(String name, int value, String description) {

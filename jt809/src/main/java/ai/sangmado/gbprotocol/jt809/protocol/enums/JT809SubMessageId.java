@@ -3,6 +3,8 @@ package ai.sangmado.gbprotocol.jt809.protocol.enums;
 import ai.sangmado.gbprotocol.gbcommon.enums.IMessageId;
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.jt809.protocol.exceptions.UnsupportedJT809MessageException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -83,30 +85,37 @@ public class JT809SubMessageId implements IMessageId {
     /**
      * 消息ID名称
      */
+    @JsonIgnore
     private String name;
     /**
      * 消息ID值
      */
+    @JsonInclude
     private Integer value;
     /**
      * 消息ID来自版本
      */
+    @JsonIgnore
     private IProtocolVersion since;
     /**
      * 消息业务数据类型标识
      */
+    @JsonIgnore
     private String type;
     /**
      * 消息种类
      */
+    @JsonIgnore
     private String category;
     /**
      * 消息链路
      */
+    @JsonIgnore
     private String link;
     /**
      * 消息ID描述
      */
+    @JsonIgnore
     private String description;
 
     public JT809SubMessageId(String name, int value, IProtocolVersion since, String type, String category, String link, String description) {

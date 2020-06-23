@@ -1,5 +1,7 @@
 package ai.sangmado.gbprotocol.jt808.protocol.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -17,8 +19,10 @@ public enum JT808DeviceRegistrationResult {
     NoDeviceWithinDatabase(0x04, "数据库中无该终端"),
     ;
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     JT808DeviceRegistrationResult(int value, String description) {

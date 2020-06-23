@@ -2,6 +2,8 @@ package ai.sangmado.gbprotocol.jt809db32t3610.protocol.enums;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.jt809db32t3610.protocol.exceptions.UnsupportedJT809DB32T3610ProtocolVersionException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +18,13 @@ import java.util.Map;
 public class JT809DB32T3610ProtocolVersion implements IProtocolVersion {
     public static final JT809DB32T3610ProtocolVersion V2019 = new JT809DB32T3610ProtocolVersion("V2019", 2019, "DB32/T3610 2019 版本");
 
+    @JsonIgnore
     private String name;
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     public JT809DB32T3610ProtocolVersion(String name, int value, String description) {

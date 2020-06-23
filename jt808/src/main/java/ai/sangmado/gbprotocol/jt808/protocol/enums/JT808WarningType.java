@@ -1,6 +1,8 @@
 package ai.sangmado.gbprotocol.jt808.protocol.enums;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -49,12 +51,16 @@ public enum JT808WarningType {
     JT808_Warning_31(1 << 31, V2013, ResetAfterAck, "非法开门报警，终端未设置区域时，不判断非法开门，收到应答后清零"),
     ;
 
+    @JsonInclude
     private Long value;
 
+    @JsonIgnore
     private IProtocolVersion since;
 
+    @JsonIgnore
     private JT808WarningDisposition disposition;
 
+    @JsonIgnore
     private String description;
 
     JT808WarningType(long value, IProtocolVersion since, JT808WarningDisposition disposition, String description) {

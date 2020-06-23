@@ -1,5 +1,7 @@
 package ai.sangmado.gbprotocol.jt808.protocol.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -10,8 +12,10 @@ public enum JT808MessageContentEncryptionMode {
     None(0, "不加密"),
     RSA(1 << 10, "RSA算法加密");
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     JT808MessageContentEncryptionMode(int value, String description) {

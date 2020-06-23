@@ -7,6 +7,7 @@ import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.CharMatcher;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
     }
 
     @Override
+    @JsonProperty(index = 100)
     public JT808ProtocolVersion getProtocolVersion() {
         return PROTOCOL_VERSION;
     }

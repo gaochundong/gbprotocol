@@ -2,6 +2,8 @@ package ai.sangmado.gbprotocol.jt808.protocol.enums;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +20,13 @@ public class JT808ProtocolVersion implements IProtocolVersion {
     public static final JT808ProtocolVersion V2013 = new JT808ProtocolVersion("V2013", 2013, "JT/T 808 2013 版本");
     public static final JT808ProtocolVersion V2019 = new JT808ProtocolVersion("V2019", 2019, "JT/T 808 2019 版本");
 
+    @JsonIgnore
     private String name;
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     public JT808ProtocolVersion(String name, int value, String description) {

@@ -1,5 +1,7 @@
 package ai.sangmado.gbprotocol.jt808.protocol.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -13,8 +15,10 @@ public enum JT808WarningDisposition {
     ResetAfterAck(0, "收到应答后清零"),
     UntilLifted(1, "标志维持至报警条件解除");
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     JT808WarningDisposition(int value, String description) {

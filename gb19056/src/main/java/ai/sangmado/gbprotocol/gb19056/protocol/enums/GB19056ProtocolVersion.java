@@ -2,6 +2,8 @@ package ai.sangmado.gbprotocol.gb19056.protocol.enums;
 
 import ai.sangmado.gbprotocol.gb19056.protocol.exceptions.UnsupportedGB19056ProtocolVersionException;
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,10 +19,13 @@ public class GB19056ProtocolVersion implements IProtocolVersion {
     public static final GB19056ProtocolVersion V2003 = new GB19056ProtocolVersion("V2003", 2003, "GB19056 2003 版本");
     public static final GB19056ProtocolVersion V2012 = new GB19056ProtocolVersion("V2012", 2012, "GB19056 2012 版本");
 
+    @JsonIgnore
     private String name;
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     public GB19056ProtocolVersion(String name, int value, String description) {

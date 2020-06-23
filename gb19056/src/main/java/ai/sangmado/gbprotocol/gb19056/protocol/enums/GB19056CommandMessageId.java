@@ -3,6 +3,8 @@ package ai.sangmado.gbprotocol.gb19056.protocol.enums;
 import ai.sangmado.gbprotocol.gb19056.protocol.exceptions.UnsupportedGB19056MessageException;
 import ai.sangmado.gbprotocol.gbcommon.enums.IMessageId;
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,18 +54,22 @@ public class GB19056CommandMessageId implements IMessageId {
     /**
      * 消息ID名称
      */
+    @JsonIgnore
     private String name;
     /**
      * 消息ID值
      */
+    @JsonInclude
     private Integer value;
     /**
      * 消息ID来自版本
      */
+    @JsonIgnore
     private IProtocolVersion since;
     /**
      * 消息ID描述
      */
+    @JsonIgnore
     private String description;
 
     public GB19056CommandMessageId(String name, int value, IProtocolVersion since, String description) {

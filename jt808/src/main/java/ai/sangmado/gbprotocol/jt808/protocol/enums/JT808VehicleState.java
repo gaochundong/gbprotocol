@@ -1,5 +1,7 @@
 package ai.sangmado.gbprotocol.jt808.protocol.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -44,10 +46,13 @@ public enum JT808VehicleState {
     JT808_Vehicle_State_31(1 << 31, JT808ProtocolVersion.V2011, "保留"),
     ;
 
+    @JsonInclude
     private Long value;
 
+    @JsonIgnore
     private JT808ProtocolVersion since;
 
+    @JsonIgnore
     private String description;
 
     JT808VehicleState(long value, JT808ProtocolVersion since, String description) {

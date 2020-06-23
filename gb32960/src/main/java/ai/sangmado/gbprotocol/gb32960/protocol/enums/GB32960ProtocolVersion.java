@@ -2,6 +2,8 @@ package ai.sangmado.gbprotocol.gb32960.protocol.enums;
 
 import ai.sangmado.gbprotocol.gb32960.protocol.exceptions.UnsupportedGB32960ProtocolVersionException;
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +18,13 @@ import java.util.Map;
 public class GB32960ProtocolVersion implements IProtocolVersion {
     public static final GB32960ProtocolVersion V2016 = new GB32960ProtocolVersion("V2016", 2016, "GB/T 32960 2016 版本");
 
+    @JsonIgnore
     private String name;
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     public GB32960ProtocolVersion(String name, int value, String description) {

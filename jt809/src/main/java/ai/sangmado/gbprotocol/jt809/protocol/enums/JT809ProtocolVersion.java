@@ -2,6 +2,8 @@ package ai.sangmado.gbprotocol.jt809.protocol.enums;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.jt809.protocol.exceptions.UnsupportedJT809ProtocolVersionException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +20,13 @@ public class JT809ProtocolVersion implements IProtocolVersion {
     public static final JT809ProtocolVersion V2013 = new JT809ProtocolVersion("V2013", 2013, "JT/T 809 2013 版本");
     public static final JT809ProtocolVersion V2019 = new JT809ProtocolVersion("V2019", 2019, "JT/T 809 2019 版本");
 
+    @JsonIgnore
     private String name;
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     public JT809ProtocolVersion(String name, int value, String description) {

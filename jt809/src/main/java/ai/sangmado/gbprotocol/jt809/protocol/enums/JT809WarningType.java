@@ -1,6 +1,8 @@
 package ai.sangmado.gbprotocol.jt809.protocol.enums;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -46,12 +48,16 @@ public enum JT809WarningType {
     JT809_Warning_0xA0FF(0xA0FF, JT809ProtocolVersion.V2019, false, "其他非位置相关报警"),
     ;
 
+    @JsonInclude
     private Long value;
 
+    @JsonIgnore
     private IProtocolVersion since;
 
+    @JsonIgnore
     private Boolean locationBased;
 
+    @JsonIgnore
     private String description;
 
     JT809WarningType(long value, IProtocolVersion since, boolean locationBased, String description) {

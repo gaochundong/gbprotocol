@@ -7,6 +7,8 @@ import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageFormatte
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByteBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Lists;
 
 import java.nio.ByteBuffer;
@@ -23,6 +25,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      *
      * @return 消息ID
      */
+    @JsonProperty(index = 100)
     public abstract JT808MessageId getMessageId();
 
     /**
@@ -31,6 +34,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @param ctx 协议规范上下文
      * @return 消息体长度
      */
+    @JsonIgnore
     public int getContentLength(ISpecificationContext ctx) {
         PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
@@ -50,6 +54,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @param ctx 协议规范上下文
      * @return 是否能够按条件进行分包
      */
+    @JsonIgnore
     public boolean couldSplitAccordingly(ISpecificationContext ctx) {
         return false;
     }
@@ -60,6 +65,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @param ctx 协议规范上下文
      * @return 分包长度
      */
+    @JsonIgnore
     public int getSplitByLength(ISpecificationContext ctx) {
         throw new UnsupportedJT808OperationException("未设置分包长度");
     }

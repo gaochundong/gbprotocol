@@ -2,6 +2,8 @@ package ai.sangmado.gbprotocol.jt905.protocol.enums;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.jt905.protocol.exceptions.UnsupportedJT905ProtocolVersionException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,10 +18,13 @@ import java.util.Map;
 public class JT905ProtocolVersion implements IProtocolVersion {
     public static final JT905ProtocolVersion V2014 = new JT905ProtocolVersion("V2014", 2014, "JT/T 905 2014 版本");
 
+    @JsonIgnore
     private String name;
 
+    @JsonInclude
     private Integer value;
 
+    @JsonIgnore
     private String description;
 
     public JT905ProtocolVersion(String name, int value, String description) {

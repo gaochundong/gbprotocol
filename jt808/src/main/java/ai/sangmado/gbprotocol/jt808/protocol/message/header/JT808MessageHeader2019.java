@@ -7,6 +7,7 @@ import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808Operatio
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.CharMatcher;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
      * 协议版本号
      * 每次关键修订递增，初始版本为1。
      */
+    @JsonProperty(index = 700)
     private Byte versionNumber = 1;
 
     @Builder
@@ -41,6 +43,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
     }
 
     @Override
+    @JsonProperty(index = 100)
     public JT808ProtocolVersion getProtocolVersion() {
         return PROTOCOL_VERSION;
     }
