@@ -36,13 +36,13 @@ public class JT808_Message_Content_0x0001 extends JT808MessageContent {
     /**
      * 结果
      */
-    private JT808DeviceCommonReplyResult replyResult;
+    private JT808DeviceCommonReplyResult result;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getAckSerialNumber());
         writer.writeWord(getAckId());
-        writer.writeByte(getReplyResult().getValue());
+        writer.writeByte(getResult().getValue());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class JT808_Message_Content_0x0001 extends JT808MessageContent {
         setAckSerialNumber(reader.readWord());
         setAckId(reader.readWord());
         JT808DeviceCommonReplyResult replyResult = JT808DeviceCommonReplyResult.cast(reader.readByte());
-        setReplyResult(replyResult);
+        setResult(replyResult);
     }
 
     public static JT808_Message_Content_0x0001 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
