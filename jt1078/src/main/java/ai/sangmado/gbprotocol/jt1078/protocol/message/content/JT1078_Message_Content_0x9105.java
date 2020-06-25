@@ -2,9 +2,9 @@ package ai.sangmado.gbprotocol.jt1078.protocol.message.content;
 
 import ai.sangmado.gbprotocol.jt1078.protocol.enums.JT1078MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
-import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import lombok.*;
 
 /**
@@ -33,17 +33,21 @@ public class JT1078_Message_Content_0x9105 extends JT808MessageContent {
     private Integer logicalChannelNumber;
     /**
      * 丢包率
+     * <p>
+     * 当前传输通道的丢包率，数值乘以100之后取整数部分
      */
     private Integer packetLossRate;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
-
+        writer.writeByte(getLogicalChannelNumber());
+        writer.writeByte(getPacketLossRate());
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-
+        setLogicalChannelNumber(reader.readByte() & 0xFF);
+        setPacketLossRate(reader.readByte() & 0xFF);
     }
 
     public static JT1078_Message_Content_0x9105 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {

@@ -44,6 +44,7 @@
         <!--test-->
         <junit.version>5.6.0</junit.version>
         <mockito.version>3.2.4</mockito.version>
+        <slf4j-simple.version>1.6.2</slf4j-simple.version>
 
         <!--plugins-->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -215,6 +216,12 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j-simple.version}</version>
                 <scope>test</scope>
             </dependency>
 

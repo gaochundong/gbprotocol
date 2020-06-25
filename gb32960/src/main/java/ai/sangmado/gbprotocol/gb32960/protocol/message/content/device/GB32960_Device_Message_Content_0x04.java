@@ -32,7 +32,7 @@ public class GB32960_Device_Message_Content_0x04 extends GB32960DeviceMessageCon
     /**
      * 登出流水号
      */
-    private Integer sequenceNumber;
+    private Integer serialNumber;
 
     @Override
     public void serialize(ISpecificationContext ctx, IGB32960MessageBufferWriter writer) {

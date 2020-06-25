@@ -8,9 +8,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 平台查询服务器时间应答
+ *
+ * @since V2019
  */
 @Getter
 @Setter
@@ -19,6 +22,9 @@ import java.time.LocalDateTime;
 @Builder
 public class JT808_Message_Content_0x8004 extends JT808MessageContent {
     public static final JT808MessageId MESSAGE_ID = JT808MessageId.JT808_Message_0x8004;
+
+    private static final String TIMESTAMP_PATTERN = "yyMMddHHmmss";
+    private static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern(TIMESTAMP_PATTERN);
 
     @Override
     public JT808MessageId getMessageId() {
@@ -35,12 +41,12 @@ public class JT808_Message_Content_0x8004 extends JT808MessageContent {
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
-
+        writer.writeBCD(TIMESTAMP_FORMATTER.format(getServerTime()));
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-
+        setServerTime(LocalDateTime.parse(reader.readBCD(6), TIMESTAMP_FORMATTER));
     }
 
     public static JT808_Message_Content_0x8004 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {

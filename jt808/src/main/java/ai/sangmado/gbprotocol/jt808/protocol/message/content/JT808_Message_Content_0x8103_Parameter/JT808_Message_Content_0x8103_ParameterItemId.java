@@ -3,6 +3,8 @@ package ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Cont
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808MessageException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -117,18 +119,22 @@ public class JT808_Message_Content_0x8103_ParameterItemId implements Comparable<
     /**
      * 参数项ID名称
      */
+    @JsonIgnore
     private String name;
     /**
      * 参数项ID值
      */
+    @JsonInclude
     private Long value;
     /**
      * 参数项ID来自版本
      */
+    @JsonIgnore
     private IProtocolVersion since;
     /**
      * 参数项ID描述
      */
+    @JsonIgnore
     private String description;
 
     public JT808_Message_Content_0x8103_ParameterItemId(String name, long value, IProtocolVersion since, String description) {

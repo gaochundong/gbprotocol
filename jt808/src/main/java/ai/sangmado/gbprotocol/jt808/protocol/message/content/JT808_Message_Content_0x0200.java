@@ -1,8 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808VehicleState;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808WarningType;
@@ -10,16 +8,17 @@ import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808Operatio
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformation;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationId;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationRegistration;
-import com.google.common.base.CharMatcher;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.google.common.base.Strings.nullToEmpty;
-import static com.google.common.base.Strings.padStart;
 
 /**
  * 终端􏰉􏱀􏰏􏰙􏱁位置信息汇报
@@ -35,6 +34,9 @@ import static com.google.common.base.Strings.padStart;
 @Builder
 public class JT808_Message_Content_0x0200 extends JT808MessageContent {
     public static final JT808MessageId MESSAGE_ID = JT808MessageId.JT808_Message_0x0200;
+
+    private static final String TIMESTAMP_PATTERN = "yyMMddHHmmss";
+    private static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern(TIMESTAMP_PATTERN);
 
     @Override
     public JT808MessageId getMessageId() {
@@ -63,22 +65,23 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
      * 高程
      * 海拔高度，单位为米(m)
      */
-    private Long altitude;
+    private Integer altitude;
     /**
      * 速度
      * 单位为1/10公里每小时(1/10km/h)
      */
-    private Long speed;
+    private Integer speed;
     /**
      * 方向
      * 0~359，正北为0，顺时针
      */
-    private Long direction;
+    private Integer direction;
     /**
      * 时间
-     * BCD[6]，YYMMDDhhmmss(GMT+8时间，本标准中之后涉及的时间均采用此时区)
+     * BCD[6]，YY-MM-DD-hh-mm-ss(GMT+8时间，本标准中之后涉及的时间均采用此时区)
      */
-    private String timestamp;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    private LocalDateTime timestamp;
     /**
      * 位置附加信息列表
      */
@@ -90,12 +93,10 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
         writer.writeDWord(getState().getValue());
         writer.writeDWord(getLatitude());
         writer.writeDWord(getLongitude());
-        writer.writeDWord(getAltitude());
-        writer.writeDWord(getSpeed());
-        writer.writeDWord(getDirection());
-
-        final char padChar = '0';
-        writer.writeBCD(padStart(nullToEmpty(getTimestamp()), 6 * 2, padChar));
+        writer.writeWord(getAltitude());
+        writer.writeWord(getSpeed());
+        writer.writeWord(getDirection());
+        writer.writeBCD(TIMESTAMP_FORMATTER.format(getTimestamp()));
 
         // 针对附加信息排序后再写入
         if (getAdditionalInformationList() != null && getAdditionalInformationList().size() > 0) {
@@ -114,12 +115,10 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
         setState(JT808VehicleState.cast(reader.readDWord()));
         setLatitude(reader.readDWord());
         setLongitude(reader.readDWord());
-        setAltitude(reader.readDWord());
-        setSpeed(reader.readDWord());
-        setDirection(reader.readDWord());
-
-        final String padChar = "0";
-        setTimestamp(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(6)));
+        setAltitude(reader.readWord());
+        setSpeed(reader.readWord());
+        setDirection(reader.readWord());
+        setTimestamp(LocalDateTime.parse(reader.readBCD(6), TIMESTAMP_FORMATTER));
 
         // 通过读取附加信息ID进行判断
         // 格式：附加信息ID+附加信息长度+附加信息

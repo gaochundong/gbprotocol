@@ -31,7 +31,7 @@ public class JT1078_Message_Content_0x1205 extends JT808MessageContent {
     /**
      * 流水号
      */
-    private Integer sequenceNumber;
+    private Integer serialNumber;
     /**
      * 音视频资源总数
      */

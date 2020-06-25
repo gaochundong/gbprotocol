@@ -1,6 +1,7 @@
 package ai.sangmado.gbprotocol.jt1078.protocol.message.content;
 
 import ai.sangmado.gbprotocol.jt1078.protocol.enums.JT1078MessageId;
+import ai.sangmado.gbprotocol.jt1078.protocol.enums.OperationResult;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
@@ -30,23 +31,26 @@ public class JT1078_Message_Content_0x1206 extends JT808MessageContent {
      * <p>
      * 对应平台文件上传消息的流水号
      */
-    private Integer sequenceNumber;
+    private Integer ackSerialNumber;
     /**
      * 结果
      * <p>
      * 0：成功；
      * 1：失败
      */
-    private Integer result;
+    private OperationResult result;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
-
+        writer.writeWord(getAckSerialNumber());
+        writer.writeByte(getResult().getValue());
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-
+        setAckSerialNumber(reader.readWord());
+        OperationResult result = OperationResult.cast(reader.readByte() & 0xFF);
+        setResult(result);
     }
 
     public static JT1078_Message_Content_0x1206 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {

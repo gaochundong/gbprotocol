@@ -3,8 +3,10 @@ package ai.sangmado.gbprotocol.gb19056.protocol.enums;
 import ai.sangmado.gbprotocol.gb19056.protocol.exceptions.UnsupportedGB19056MessageException;
 import ai.sangmado.gbprotocol.gbcommon.enums.IMessageId;
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
+import ai.sangmado.gbprotocol.gbcommon.serializer.IntegerToHex2StringSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,6 +62,7 @@ public class GB19056ReplyMessageId implements IMessageId {
      * 消息ID值
      */
     @JsonInclude
+    @JsonSerialize(using = IntegerToHex2StringSerializer.class, as = Object.class)
     private Integer value;
     /**
      * 消息ID来自版本

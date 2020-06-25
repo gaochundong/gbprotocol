@@ -33,7 +33,7 @@ public class GB32960_Device_Message_Content_0x01 extends GB32960DeviceMessageCon
     /**
      * 登入流水号
      */
-    private Integer sequenceNumber;
+    private Integer serialNumber;
 
     /**
      * SIM卡ICCID

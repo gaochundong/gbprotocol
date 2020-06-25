@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
 import java.nio.ByteBuffer;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,6 +30,8 @@ public class JT808_Message_0x0200_Test {
 
     private IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
     private ISpecificationContext ctx = new JT808ProtocolSpecificationContext().withBufferPool(bufferPool);
+    private static final String TIMESTAMP_PATTERN = "yyMMddHHmmss";
+    private static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern(TIMESTAMP_PATTERN);
 
     @BeforeEach
     public void setup() {
@@ -44,10 +48,10 @@ public class JT808_Message_0x0200_Test {
         JT808VehicleState state = JT808VehicleState.JT808_Vehicle_State_0;
         Long latitude = 30L;
         Long longitude = 20L;
-        Long altitude = 666L;
-        Long speed = 50L;
-        Long direction = 44L;
-        String timestamp = "200210112233";
+        Integer altitude = 666;
+        Integer speed = 50;
+        Integer direction = 44;
+        LocalDateTime timestamp = LocalDateTime.parse("200210112233", TIMESTAMP_FORMATTER);
 
         JT808MessageHeader header = JT808MessageHeaderFactory
                 .buildWith(ctx)

@@ -1,8 +1,12 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
+import ai.sangmado.gbprotocol.gbcommon.serializer.IntegerToHex2StringSerializer;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808MessageException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,18 +44,23 @@ public class JT808_Message_Content_0x0200_AdditionalInformationId implements Com
     /**
      * 附件信息ID名称
      */
+    @JsonIgnore
     private String name;
     /**
      * 附件信息ID值
      */
+    @JsonInclude
+    @JsonSerialize(using = IntegerToHex2StringSerializer.class, as = Object.class)
     private Integer value;
     /**
      * 附件信息ID来自版本
      */
+    @JsonIgnore
     private IProtocolVersion since;
     /**
      * 附件信息ID描述
      */
+    @JsonIgnore
     private String description;
 
     public JT808_Message_Content_0x0200_AdditionalInformationId(String name, int value, IProtocolVersion since, String description) {

@@ -32,7 +32,7 @@ public class JT808_Message_Content_0x0001 extends JT808MessageContent {
      * 应答ID
      * 对应的平台消息的ID
      */
-    private Integer ackId;
+    private JT808MessageId ackId;
     /**
      * 结果
      */
@@ -41,14 +41,14 @@ public class JT808_Message_Content_0x0001 extends JT808MessageContent {
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getAckSerialNumber());
-        writer.writeWord(getAckId());
+        writer.writeWord(getAckId().getValue());
         writer.writeByte(getResult().getValue());
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         setAckSerialNumber(reader.readWord());
-        setAckId(reader.readWord());
+        setAckId(JT808MessageId.cast(reader.readWord()));
         JT808DeviceCommonReplyResult replyResult = JT808DeviceCommonReplyResult.cast(reader.readByte());
         setResult(replyResult);
     }

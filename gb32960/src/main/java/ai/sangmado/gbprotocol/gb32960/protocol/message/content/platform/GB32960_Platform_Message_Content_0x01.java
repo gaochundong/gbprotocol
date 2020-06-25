@@ -35,7 +35,7 @@ public class GB32960_Platform_Message_Content_0x01 extends GB32960PlatformMessag
     /**
      * 登入流水号
      */
-    private Integer sequenceNumber;
+    private Integer serialNumber;
 
     /**
      * SIM卡ICCID

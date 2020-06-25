@@ -34,5 +34,7 @@ public class JT808MessageContentRegistration {
         registerDecoder(JT808_Message_Content_0x8004.MESSAGE_ID, JT808_Message_Content_0x8004::decode);
         registerDecoder(JT808_Message_Content_0x8100.MESSAGE_ID, JT808_Message_Content_0x8100::decode);
         registerDecoder(JT808_Message_Content_0x8103.MESSAGE_ID, JT808_Message_Content_0x8103::decode);
+        registerDecoder(JT808_Message_Content_0x8201.MESSAGE_ID, JT808_Message_Content_0x8201::decode);
+        registerDecoder(JT808_Message_Content_0x8204.MESSAGE_ID, JT808_Message_Content_0x8204::decode);
     }
 }

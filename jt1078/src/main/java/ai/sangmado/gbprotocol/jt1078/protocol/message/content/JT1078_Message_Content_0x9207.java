@@ -30,7 +30,7 @@ public class JT1078_Message_Content_0x9207 extends JT808MessageContent {
      * <p>
      * 对应平台文件上传消息的流水号
      */
-    private Integer sequenceNumber;
+    private Integer ackSerialNumber;
     /**
      * 上传控制
      * <p>

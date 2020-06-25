@@ -32,7 +32,7 @@ public class GB32960_Platform_Message_Content_0x04 extends GB32960PlatformMessag
     /**
      * 登出流水号
      */
-    private Integer sequenceNumber;
+    private Integer serialNumber;
 
     @Override
     public void serialize(ISpecificationContext ctx, IGB32960MessageBufferWriter writer) {
