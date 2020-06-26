@@ -37,7 +37,6 @@
         <lombok.version>1.18.8</lombok.version>
         <jackson.version>2.10.1</jackson.version>
         <guava.version>28.1-jre</guava.version>
-        <netty.version>4.1.45.Final</netty.version>
         <slf4j.version>1.7.30</slf4j.version>
         <logback.version>1.2.3</logback.version>
 
@@ -167,13 +166,6 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
-            </dependency>
-
-            <!--netty-->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-all</artifactId>
-                <version>${netty.version}</version>
             </dependency>
 
             <!--logging-->

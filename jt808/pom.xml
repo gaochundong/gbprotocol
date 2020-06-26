@@ -46,12 +46,6 @@
             <artifactId>guava</artifactId>
         </dependency>
 
-        <!--netty-->
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-        </dependency>
-
         <!--logging-->
         <dependency>
             <groupId>org.slf4j</groupId>
