@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 终端位置信息汇报 - 位置附加信息 - 驾驶员状态监测系统报警信息
+ * 终端位置信息汇报 - 位置附加信息 - 驾驶员行为监测功能报警信息
  */
 @NoArgsConstructor
 public class JT808DB32T3610_Message_Content_0x0200_AI_0x65 extends JT808_Message_Content_0x0200_AdditionalInformation {

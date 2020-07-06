@@ -1,5 +1,6 @@
 package ai.sangmado.gbprotocol.jt1078.protocol.message.content.JT1078_Message_Content_0x8103_Parameter;
 
+import ai.sangmado.gbprotocol.jt1078.protocol.enums.LogicalChannelNumber;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItem;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemId;
@@ -54,7 +55,7 @@ public class JT1078_Message_Content_0x8103_PI_0x0077 extends JT808_Message_Conte
         /**
          * 逻辑通道号
          */
-        private Integer logicalChannelNumber;
+        private LogicalChannelNumber logicalChannelNumber;
         /**
          * 实时流编码模式
          * <p>

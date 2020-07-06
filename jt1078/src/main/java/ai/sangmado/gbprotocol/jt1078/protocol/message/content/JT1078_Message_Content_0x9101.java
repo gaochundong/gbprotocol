@@ -1,10 +1,15 @@
 package ai.sangmado.gbprotocol.jt1078.protocol.message.content;
 
+import ai.sangmado.gbprotocol.jt1078.protocol.enums.ChannelStreamType;
 import ai.sangmado.gbprotocol.jt1078.protocol.enums.JT1078MessageId;
+import ai.sangmado.gbprotocol.jt1078.protocol.enums.LogicalChannelNumber;
+import ai.sangmado.gbprotocol.jt1078.protocol.enums.StreamingDataType;
+import ai.sangmado.gbprotocol.jt1078.protocol.exceptions.UnsupportedJT1078ProtocolVersionException;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
-import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import lombok.*;
 
 /**
@@ -31,42 +36,70 @@ public class JT1078_Message_Content_0x9101 extends JT808MessageContent {
     /**
      * 服务器IP地址长度
      */
-    private Integer serverIPAddressLength;
+    private Integer streamingServerIPAddressLength;
     /**
      * 服务器IP地址
      */
-    private String serverIPAddress;
+    private String streamingServerIPAddress;
     /**
      * 服务器视频通道监听端口号(TCP)
      */
-    private Integer serverVideoChannelTcpPort;
+    private Integer streamingServerTcpPort;
     /**
      * 服务器视频通道监听端口号（UDP）
      */
-    private Integer serverVideoChannelUdpPort;
+    private Integer streamingServerUdpPort;
     /**
      * 逻辑通道号
      */
-    private Integer logicalChannelNumber;
+    private LogicalChannelNumber logicalChannelNumber;
     /**
      * 数据类型
      * 0:音视频 1:视频 2:双向对讲 3:监听 4:中心广播 5:透传
      */
-    private Integer dataType;
+    private StreamingDataType streamingDataType;
     /**
      * 码流类型
      * 0:主码流 1:子码流
+     * <p>
+     * 通常主码流分辨率高用于设备本地录像，子码流分辨率低用于远程直播节省流量费
      */
-    private Integer streamType;
+    private ChannelStreamType channelStreamType;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
-
+        if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
+            writer.writeByte(getStreamingServerIPAddressLength());
+            writer.writeString(getStreamingServerIPAddress());
+            writer.writeWord(getStreamingServerTcpPort());
+            writer.writeWord(getStreamingServerUdpPort());
+            writer.writeByte(getLogicalChannelNumber().getValue());
+            writer.writeByte(getStreamingDataType().getValue());
+            writer.writeByte(getChannelStreamType().getValue());
+        } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2019)) {
+            // 目前 JT1078 是基于 JT808 V2011 版本进行扩展，暂不支持
+            throw new UnsupportedJT1078ProtocolVersionException(ctx.getProtocolVersion());
+        } else {
+            throw new UnsupportedJT1078ProtocolVersionException(ctx.getProtocolVersion());
+        }
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-
+        if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
+            setStreamingServerIPAddressLength(reader.readByte() & 0xFF);
+            setStreamingServerIPAddress(reader.readString(getStreamingServerIPAddressLength()));
+            setStreamingServerTcpPort(reader.readWord());
+            setStreamingServerUdpPort(reader.readWord());
+            setLogicalChannelNumber(LogicalChannelNumber.cast(reader.readByte() & 0xFF));
+            setStreamingDataType(StreamingDataType.cast(reader.readByte() & 0xFF));
+            setChannelStreamType(ChannelStreamType.cast(reader.readByte() & 0xFF));
+        } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2019)) {
+            // 目前 JT1078 是基于 JT808 V2011 版本进行扩展，暂不支持
+            throw new UnsupportedJT1078ProtocolVersionException(ctx.getProtocolVersion());
+        } else {
+            throw new UnsupportedJT1078ProtocolVersionException(ctx.getProtocolVersion());
+        }
     }
 
     public static JT1078_Message_Content_0x9101 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {

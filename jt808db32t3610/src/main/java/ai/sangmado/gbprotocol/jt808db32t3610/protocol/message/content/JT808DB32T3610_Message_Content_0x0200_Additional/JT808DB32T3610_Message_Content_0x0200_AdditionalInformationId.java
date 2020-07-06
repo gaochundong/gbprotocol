@@ -18,10 +18,11 @@ import java.util.Map;
 @Getter
 @Setter
 public class JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId extends JT808_Message_Content_0x0200_AdditionalInformationId {
-    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x64 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x64", 0x64, JT808DB32T3610ProtocolVersion.V2019, "高级驾驶辅助系统报警信息");
-    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x65 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x65", 0x65, JT808DB32T3610ProtocolVersion.V2019, "驾驶员状态监测系统报警信息");
-    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x66 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x66", 0x66, JT808DB32T3610ProtocolVersion.V2019, "胎压监测系统报警信息");
-    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x67 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x67", 0x67, JT808DB32T3610ProtocolVersion.V2019, "盲区监测系统报警信息");
+    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x64 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x64", 0x64, JT808DB32T3610ProtocolVersion.V2019, "驾驶辅助功能报警信息");
+    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x65 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x65", 0x65, JT808DB32T3610ProtocolVersion.V2019, "驾驶员行为监测功能报警信息");
+    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x66 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x66", 0x66, JT808DB32T3610ProtocolVersion.V2019, "轮胎状态监测报警信息");
+    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x67 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x67", 0x67, JT808DB32T3610ProtocolVersion.V2019, "变道决策辅助报警信息");
+    public static final JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId JT808DB32T3610_0x0200_0x70 = new JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId("JT808DB32T3610_0x200_0x70", 0x70, JT808DB32T3610ProtocolVersion.V2019, "激烈驾驶报警信息");
 
     public JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId(String name, int value, IProtocolVersion since, String description) {
         super(name, value, since, description);
@@ -34,6 +35,7 @@ public class JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId exten
         mapping.put(JT808DB32T3610_0x0200_0x65.getValue(), JT808DB32T3610_0x0200_0x65);
         mapping.put(JT808DB32T3610_0x0200_0x66.getValue(), JT808DB32T3610_0x0200_0x66);
         mapping.put(JT808DB32T3610_0x0200_0x67.getValue(), JT808DB32T3610_0x0200_0x67);
+        mapping.put(JT808DB32T3610_0x0200_0x70.getValue(), JT808DB32T3610_0x0200_0x70);
     }
 
     public static JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId cast(int value) {

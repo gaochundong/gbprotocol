@@ -50,6 +50,7 @@ public class JT808DB32T3610MessageExtension {
         JT808_Message_Content_0x0200_AdditionalInformationRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x0200_AI_0x65.ADDITIONAL_INFORMATION_ID, JT808DB32T3610_Message_Content_0x0200_AI_0x65::decode);
         JT808_Message_Content_0x0200_AdditionalInformationRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x0200_AI_0x66.ADDITIONAL_INFORMATION_ID, JT808DB32T3610_Message_Content_0x0200_AI_0x66::decode);
         JT808_Message_Content_0x0200_AdditionalInformationRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x0200_AI_0x67.ADDITIONAL_INFORMATION_ID, JT808DB32T3610_Message_Content_0x0200_AI_0x67::decode);
+        JT808_Message_Content_0x0200_AdditionalInformationRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x0200_AI_0x70.ADDITIONAL_INFORMATION_ID, JT808DB32T3610_Message_Content_0x0200_AI_0x70::decode);
     }
 
     /**
@@ -62,5 +63,6 @@ public class JT808DB32T3610MessageExtension {
         JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xF365.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xF365::decode);
         JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xF366.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xF366::decode);
         JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xF367.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xF367::decode);
+        JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xF370.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xF370::decode);
     }
 }

@@ -7,6 +7,7 @@ import ai.sangmado.gbprotocol.jt1078.protocol.message.extension.JT1078MessageExt
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.JT808ProtocolSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.message.JT808MessagePacket;
 import ai.sangmado.gbprotocol.jt808.protocol.message.JT808MessagePacketBuilder;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
@@ -33,7 +34,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JT1078_Message_0x8103_Test {
 
     private IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private ISpecificationContext ctx = new JT808ProtocolSpecificationContext().withBufferPool(bufferPool);
+    private ISpecificationContext ctx = new JT808ProtocolSpecificationContext()
+            .withProtocolVersion(JT808ProtocolVersion.V2011)
+            .withBufferPool(bufferPool);
 
     @BeforeEach
     public void setup() {
@@ -90,7 +93,7 @@ public class JT1078_Message_0x8103_Test {
         JT808MessagePacket sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
-        assertEquals(65, buf.limit());
+        assertEquals(60, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
         JT808MessagePacket dePacket = new JT808MessagePacket();

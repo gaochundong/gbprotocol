@@ -19,10 +19,11 @@ import static ai.sangmado.gbprotocol.jt808db32t3610.protocol.enums.JT808DB32T361
 @Getter
 @Setter
 public class JT808DB32T3610_Message_Content_0x8103_ParameterItemId extends JT808_Message_Content_0x8103_ParameterItemId {
-    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF364 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF364", 0xF364, V2019, "高级驾驶辅助系统参数");
-    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF365 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF365", 0xF365, V2019, "驾驶员状态监测系统参数");
-    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF366 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF366", 0xF366, V2019, "胎压监测系统参数");
-    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF367 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF367", 0xF367, V2019, "盲区监测系统参数");
+    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF364 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF364", 0xF364, V2019, "驾驶辅助功能参数");
+    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF365 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF365", 0xF365, V2019, "驾驶员行为监测功能参数");
+    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF366 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF366", 0xF366, V2019, "轮胎状态监测功能参数");
+    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF367 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF367", 0xF367, V2019, "变道决策辅助功能参数");
+    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF370 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF370", 0xF370, V2019, "激烈驾驶检测功能参数");
 
     public JT808DB32T3610_Message_Content_0x8103_ParameterItemId(String name, long value, IProtocolVersion since, String description) {
         super(name, value, since, description);
@@ -35,6 +36,7 @@ public class JT808DB32T3610_Message_Content_0x8103_ParameterItemId extends JT808
         mapping.put(JT808DB32T3610_0x8103_0xF365.getValue(), JT808DB32T3610_0x8103_0xF365);
         mapping.put(JT808DB32T3610_0x8103_0xF366.getValue(), JT808DB32T3610_0x8103_0xF366);
         mapping.put(JT808DB32T3610_0x8103_0xF367.getValue(), JT808DB32T3610_0x8103_0xF367);
+        mapping.put(JT808DB32T3610_0x8103_0xF370.getValue(), JT808DB32T3610_0x8103_0xF370);
     }
 
     public static JT808DB32T3610_Message_Content_0x8103_ParameterItemId cast(long value) {

@@ -5,6 +5,7 @@ import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArrayFactory;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.JT808ProtocolSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808VehicleState;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808WarningType;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
@@ -29,7 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JT808_Message_0x0200_Test {
 
     private IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private ISpecificationContext ctx = new JT808ProtocolSpecificationContext().withBufferPool(bufferPool);
+    private ISpecificationContext ctx = new JT808ProtocolSpecificationContext()
+            .withProtocolVersion(JT808ProtocolVersion.V2019)
+            .withBufferPool(bufferPool);
+
     private static final String TIMESTAMP_PATTERN = "yyMMddHHmmss";
     private static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern(TIMESTAMP_PATTERN);
 
@@ -78,7 +82,7 @@ public class JT808_Message_0x0200_Test {
         JT808MessagePacket sePacket = packets.get(0);
         sePacket.serialize(ctx, writer);
         buf.flip();
-        assertEquals(54, buf.limit());
+        assertEquals(48, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
         JT808MessagePacket dePacket = new JT808MessagePacket();

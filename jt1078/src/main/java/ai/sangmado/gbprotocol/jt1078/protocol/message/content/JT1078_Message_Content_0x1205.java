@@ -1,6 +1,7 @@
 package ai.sangmado.gbprotocol.jt1078.protocol.message.content;
 
 import ai.sangmado.gbprotocol.jt1078.protocol.enums.JT1078MessageId;
+import ai.sangmado.gbprotocol.jt1078.protocol.enums.LogicalChannelNumber;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
@@ -54,7 +55,7 @@ public class JT1078_Message_Content_0x1205 extends JT808MessageContent {
          * <p>
          * 按照JTT1076-2016中的表2：营运车辆车载视频终端音视频通道定义表；
          */
-        private Integer logicalChannelNumber;
+        private LogicalChannelNumber logicalChannelNumber;
         /**
          * 开始时间
          * <p>

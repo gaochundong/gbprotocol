@@ -1,11 +1,11 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import com.google.common.base.CharMatcher;
 import lombok.*;
 
@@ -21,6 +21,7 @@ import static com.google.common.base.Strings.*;
 @Builder
 public class JT808_Message_Content_0x0100 extends JT808MessageContent {
     public static final JT808MessageId MESSAGE_ID = JT808MessageId.JT808_Message_0x0100;
+    private String padSpace;
 
     @Override
     public JT808MessageId getMessageId() {
@@ -64,6 +65,15 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
      * 2011版本 按照 JT/T415-2006 的 5.4.12。未上牌时，取值为 0。
      * 2013版本 按照 JT/T415-2006 的 5.4.12。未上牌时，取值为 0。
      * 2019版本 按照 JT/T697.7-2014 中的规定。未上牌时，取值为 0。
+     * <p>
+     * 参考：
+     * - 0x01: 蓝色
+     * - 0x02: 黄色
+     * - 0x03: 黑色
+     * - 0x04: 白色
+     * - 0x05: 绿色
+     * - 0x06: 黄绿色
+     * - 0x09: 其它
      */
     private Integer plateColor;
     /**
@@ -77,8 +87,13 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
         writer.writeWord(getProvinceId());
         writer.writeWord(getCityId());
 
-        final char padChar = '0';
-        if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
+        final char padSpace = ' '; // 看起来是发现了后补空格是很愚蠢的办法
+        final char padChar = '0';  // 看起来是发现了后补0x00也是很愚蠢的办法，改进为了前补 ^_^
+        if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011)) {
+            writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, padSpace));
+            writer.writeString(padEnd(nullToEmpty(getDeviceModel()), 8, padSpace));
+            writer.writeString(padEnd(nullToEmpty(getDeviceId()), 7, padSpace));
+        } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
             writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, padChar));
             writer.writeString(padEnd(nullToEmpty(getDeviceModel()), 20, padChar));
             writer.writeString(padEnd(nullToEmpty(getDeviceId()), 7, padChar));
@@ -99,8 +114,13 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
         setProvinceId(reader.readWord());
         setCityId(reader.readWord());
 
-        final String padChar = "0";
-        if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
+        final String padSpace = " "; // 看起来是发现了后补空格是很愚蠢的办法
+        final String padChar = "0";  // 看起来是发现了后补0x00也是很愚蠢的办法，改进为了前补 ^_^
+        if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011)) {
+            setManufacturerId(CharMatcher.anyOf(padSpace).trimTrailingFrom(reader.readString(5)));
+            setDeviceModel(CharMatcher.anyOf(padSpace).trimTrailingFrom(reader.readString(8)));
+            setDeviceId(CharMatcher.anyOf(padSpace).trimTrailingFrom(reader.readString(7)));
+        } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
             setManufacturerId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(5)));
             setDeviceModel(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(20)));
             setDeviceId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(7)));

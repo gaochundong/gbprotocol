@@ -1,10 +1,12 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
+import ai.sangmado.gbprotocol.gbcommon.serializer.LongToHex4StringSerializer;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -125,6 +127,7 @@ public class JT808_Message_Content_0x8103_ParameterItemId implements Comparable<
      * 参数项ID值
      */
     @JsonInclude
+    @JsonSerialize(using = LongToHex4StringSerializer.class, as = Object.class)
     private Long value;
     /**
      * 参数项ID来自版本

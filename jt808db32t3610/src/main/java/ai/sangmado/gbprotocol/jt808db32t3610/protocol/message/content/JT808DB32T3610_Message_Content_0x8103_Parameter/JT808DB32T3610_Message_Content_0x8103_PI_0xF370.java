@@ -1,21 +1,21 @@
 package ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_0x8103_Parameter;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItem;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemId;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 平台设置终端参数 - 参数项 - 驾驶员行为监测功能参数
+ * 平台设置终端参数 - 参数项 - 激烈驾驶检测功能参数
  */
 @NoArgsConstructor
-public class JT808DB32T3610_Message_Content_0x8103_PI_0xF365 extends JT808_Message_Content_0x8103_ParameterItem {
+public class JT808DB32T3610_Message_Content_0x8103_PI_0xF370 extends JT808_Message_Content_0x8103_ParameterItem {
     public static final JT808_Message_Content_0x8103_ParameterItemId PARAMETER_ITEM_ID =
-            JT808DB32T3610_Message_Content_0x8103_ParameterItemId.JT808DB32T3610_0x8103_0xF365;
+            JT808DB32T3610_Message_Content_0x8103_ParameterItemId.JT808DB32T3610_0x8103_0xF370;
 
     @Override
     public JT808_Message_Content_0x8103_ParameterItemId getParameterItemId() {
@@ -44,8 +44,8 @@ public class JT808DB32T3610_Message_Content_0x8103_PI_0xF365 extends JT808_Messa
 
     }
 
-    public static JT808DB32T3610_Message_Content_0x8103_PI_0xF365 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        JT808DB32T3610_Message_Content_0x8103_PI_0xF365 content = new JT808DB32T3610_Message_Content_0x8103_PI_0xF365();
+    public static JT808DB32T3610_Message_Content_0x8103_PI_0xF370 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808DB32T3610_Message_Content_0x8103_PI_0xF370 content = new JT808DB32T3610_Message_Content_0x8103_PI_0xF370();
         content.deserialize(ctx, reader);
         return content;
     }

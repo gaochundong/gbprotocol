@@ -1,21 +1,21 @@
 package ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_0x0200_Additional;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformation;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationId;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 终端位置信息汇报 - 位置附加信息 - 变道决策辅助报警信息
+ * 终端位置信息汇报 - 位置附加信息 - 激烈驾驶报警信息
  */
 @NoArgsConstructor
-public class JT808DB32T3610_Message_Content_0x0200_AI_0x67 extends JT808_Message_Content_0x0200_AdditionalInformation {
+public class JT808DB32T3610_Message_Content_0x0200_AI_0x70 extends JT808_Message_Content_0x0200_AdditionalInformation {
     public static final JT808_Message_Content_0x0200_AdditionalInformationId ADDITIONAL_INFORMATION_ID =
-            JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId.JT808DB32T3610_0x0200_0x67;
+            JT808DB32T3610_Message_Content_0x0200_AdditionalInformationId.JT808DB32T3610_0x0200_0x70;
 
     @Override
     public JT808_Message_Content_0x0200_AdditionalInformationId getAdditionalInformationId() {
@@ -39,8 +39,8 @@ public class JT808DB32T3610_Message_Content_0x0200_AI_0x67 extends JT808_Message
 
     }
 
-    public static JT808DB32T3610_Message_Content_0x0200_AI_0x67 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        JT808DB32T3610_Message_Content_0x0200_AI_0x67 content = new JT808DB32T3610_Message_Content_0x0200_AI_0x67();
+    public static JT808DB32T3610_Message_Content_0x0200_AI_0x70 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808DB32T3610_Message_Content_0x0200_AI_0x70 content = new JT808DB32T3610_Message_Content_0x0200_AI_0x70();
         content.deserialize(ctx, reader);
         return content;
     }

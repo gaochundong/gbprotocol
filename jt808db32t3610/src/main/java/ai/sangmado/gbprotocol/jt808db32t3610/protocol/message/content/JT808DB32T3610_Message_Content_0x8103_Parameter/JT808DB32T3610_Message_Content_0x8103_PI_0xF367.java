@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 平台设置终端参数 - 参数项 - 盲区监测系统参数
+ * 平台设置终端参数 - 参数项 - 变道决策辅助功能参数
  */
 @NoArgsConstructor
 public class JT808DB32T3610_Message_Content_0x8103_PI_0xF367 extends JT808_Message_Content_0x8103_ParameterItem {

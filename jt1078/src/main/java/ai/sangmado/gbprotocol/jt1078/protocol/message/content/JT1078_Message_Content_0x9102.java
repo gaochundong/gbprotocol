@@ -1,10 +1,12 @@
 package ai.sangmado.gbprotocol.jt1078.protocol.message.content;
 
-import ai.sangmado.gbprotocol.jt1078.protocol.enums.JT1078MessageId;
+import ai.sangmado.gbprotocol.jt1078.protocol.enums.*;
+import ai.sangmado.gbprotocol.jt1078.protocol.exceptions.UnsupportedJT1078ProtocolVersionException;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
-import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import lombok.*;
 
 /**
@@ -28,7 +30,7 @@ public class JT1078_Message_Content_0x9102 extends JT808MessageContent {
     /**
      * 逻辑通道号
      */
-    private Integer logicalChannelNumber;
+    private LogicalChannelNumber logicalChannelNumber;
     /**
      * 控制指令
      * <p>
@@ -39,7 +41,7 @@ public class JT1078_Message_Content_0x9102 extends JT808MessageContent {
      * 3:恢复暂停前流的发送,与暂停前的流类型一致
      * 4:关闭双向对讲
      */
-    private Integer controlCommand;
+    private ChannelControlCommand channelControlCommand;
     /**
      * 关闭音视频类型
      * <p>
@@ -47,24 +49,45 @@ public class JT1078_Message_Content_0x9102 extends JT808MessageContent {
      * 1:只关闭该通道有关的音频，保留该通道有关的视频
      * 2:只关闭该通道有关的视频，保留该通道有关的音频
      */
-    private Integer disableMediaData;
+    private ChannelCloseKind channelCloseKind;
     /**
      * 切换码流类型
      * <p>
-     * 将之前申请的码流切换为新申请的码流，音频与切换前保持一致。新申请的码流为：
+     * 将之前申请的码流切换为新申请的码流，音频与切换前保持一致。
+     * 新申请的码流为：
      * 0:主码流
      * 1:子码流
      */
-    private Integer switchToStreamType;
+    private ChannelSwitchStreamKind channelSwitchStreamKind;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
-
+        if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
+            writer.writeByte(getLogicalChannelNumber().getValue());
+            writer.writeByte(getChannelControlCommand().getValue());
+            writer.writeByte(getChannelCloseKind() == null ? 0 : getChannelCloseKind().getValue());
+            writer.writeByte(getChannelSwitchStreamKind() == null ? 0 : getChannelSwitchStreamKind().getValue());
+        } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2019)) {
+            // 目前 JT1078 是基于 JT808 V2011 版本进行扩展，暂不支持
+            throw new UnsupportedJT1078ProtocolVersionException(ctx.getProtocolVersion());
+        } else {
+            throw new UnsupportedJT1078ProtocolVersionException(ctx.getProtocolVersion());
+        }
     }
 
     @Override
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-
+        if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
+            setLogicalChannelNumber(LogicalChannelNumber.cast(reader.readByte() & 0xFF));
+            setChannelControlCommand(ChannelControlCommand.cast(reader.readByte() & 0xFF));
+            setChannelCloseKind(ChannelCloseKind.cast(reader.readByte() & 0xFF));
+            setChannelSwitchStreamKind(ChannelSwitchStreamKind.cast(reader.readByte() & 0xFF));
+        } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2019)) {
+            // 目前 JT1078 是基于 JT808 V2011 版本进行扩展，暂不支持
+            throw new UnsupportedJT1078ProtocolVersionException(ctx.getProtocolVersion());
+        } else {
+            throw new UnsupportedJT1078ProtocolVersionException(ctx.getProtocolVersion());
+        }
     }
 
     public static JT1078_Message_Content_0x9102 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {

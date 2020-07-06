@@ -30,7 +30,7 @@ public class JT808_Message_Content_0x0102 extends JT808MessageContent {
     /**
      * 鉴权码长度
      *
-     * @since V2019
+     * @since V2019 新增字段
      */
     private Integer authCodeLength;
     /**
@@ -38,13 +38,13 @@ public class JT808_Message_Content_0x0102 extends JT808MessageContent {
      * <p>
      * 终端重连后上报鉴权码
      *
-     * @since V2011
+     * @since V2011 V2013 保持一致
      */
     private String authCode;
     /**
      * 终端IMEI
      *
-     * @since V2019
+     * @since V2019 新增字段
      */
     private String deviceImei;
     /**
@@ -52,7 +52,7 @@ public class JT808_Message_Content_0x0102 extends JT808MessageContent {
      * <p>
      * 厂家自定义版本号，位数不足时，后补0x00
      *
-     * @since V2019
+     * @since V2019 新增字段
      */
     private String softwareVersion;
 
@@ -60,7 +60,7 @@ public class JT808_Message_Content_0x0102 extends JT808MessageContent {
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
         final char padChar = '0';
         if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
-            writer.writeString(getAuthCode());
+            writer.writeString(getAuthCode()); // V2011 V2013 仅有此一个字段
         } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2019)) {
             writer.writeByte(getAuthCodeLength());
             writer.writeString(getAuthCode());
@@ -75,7 +75,7 @@ public class JT808_Message_Content_0x0102 extends JT808MessageContent {
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         final String padChar = "0";
         if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
-            setAuthCode(reader.readStringRemaining());
+            setAuthCode(reader.readStringRemaining()); // V2011 V2013 仅有此一个字段
         } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2019)) {
             setAuthCodeLength(reader.readByte() & 0xFF);
             setAuthCode(reader.readString(getAuthCodeLength()));
