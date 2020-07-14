@@ -30,11 +30,16 @@ public class JT808MessageContentRegistration {
         registerDecoder(JT808_Message_Content_0x0100.MESSAGE_ID, JT808_Message_Content_0x0100::decode);
         registerDecoder(JT808_Message_Content_0x0102.MESSAGE_ID, JT808_Message_Content_0x0102::decode);
         registerDecoder(JT808_Message_Content_0x0200.MESSAGE_ID, JT808_Message_Content_0x0200::decode);
+        registerDecoder(JT808_Message_Content_0x0805.MESSAGE_ID, JT808_Message_Content_0x0805::decode);
+        registerDecoder(JT808_Message_Content_0x0900.MESSAGE_ID, JT808_Message_Content_0x0900::decode);
+
         registerDecoder(JT808_Message_Content_0x8001.MESSAGE_ID, JT808_Message_Content_0x8001::decode);
         registerDecoder(JT808_Message_Content_0x8004.MESSAGE_ID, JT808_Message_Content_0x8004::decode);
         registerDecoder(JT808_Message_Content_0x8100.MESSAGE_ID, JT808_Message_Content_0x8100::decode);
         registerDecoder(JT808_Message_Content_0x8103.MESSAGE_ID, JT808_Message_Content_0x8103::decode);
         registerDecoder(JT808_Message_Content_0x8201.MESSAGE_ID, JT808_Message_Content_0x8201::decode);
         registerDecoder(JT808_Message_Content_0x8204.MESSAGE_ID, JT808_Message_Content_0x8204::decode);
+        registerDecoder(JT808_Message_Content_0x8801.MESSAGE_ID, JT808_Message_Content_0x8801::decode);
+        registerDecoder(JT808_Message_Content_0x8900.MESSAGE_ID, JT808_Message_Content_0x8900::decode);
     }
 }

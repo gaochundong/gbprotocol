@@ -6,10 +6,15 @@ import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Conte
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationRegistration;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemId;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemRegistration;
+import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_Passthrough_MessageType;
+import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_Passthrough_Registration;
 import ai.sangmado.gbprotocol.jt808db32t3610.protocol.enums.JT808DB32T3610MessageId;
 import ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_0x0200_Additional.*;
 import ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.*;
 import ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_0x8103_Parameter.*;
+import ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_Passthrough_Message.JT808DB32T3610_Message_Content_Passthrough_MessageType;
+import ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_Passthrough_Message.JT808DB32T3610_Message_Content_Passthrough_Message_0xF7;
+import ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_Passthrough_Message.JT808DB32T3610_Message_Content_Passthrough_Message_0xF8;
 
 import java.util.ArrayList;
 
@@ -25,6 +30,7 @@ public class JT808DB32T3610MessageExtension {
         extend_Message_Content_Definitions();
         extend_Message_Content_0x0200_AdditionalInformation_Definitions();
         extend_Message_Content_0x8103_ParameterItem_Definitions();
+        extend_Message_Content_Passthrough_Message_Definitions();
     }
 
     /**
@@ -64,5 +70,19 @@ public class JT808DB32T3610MessageExtension {
         JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xF366.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xF366::decode);
         JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xF367.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xF367::decode);
         JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xF370.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xF370::decode);
+
+        JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xFF00.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xFF00::decode);
+        JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xFF01.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xFF01::decode);
+        JT808_Message_Content_0x8103_ParameterItemRegistration.registerDecoder(JT808DB32T3610_Message_Content_0x8103_PI_0xFF02.PARAMETER_ITEM_ID, JT808DB32T3610_Message_Content_0x8103_PI_0xFF02::decode);
+    }
+
+    /**
+     * DB32/T3610 协议扩展0x0900/0x8900透传消息体定义
+     */
+    private static void extend_Message_Content_Passthrough_Message_Definitions() {
+        JT808_Message_Content_Passthrough_MessageType.putExtensions(new ArrayList<>(JT808DB32T3610_Message_Content_Passthrough_MessageType.get_JT808DB32T3610_Message_Content_Passthrough_MessageType_List()));
+
+        JT808_Message_Content_Passthrough_Registration.registerDecoder(JT808DB32T3610_Message_Content_Passthrough_Message_0xF7.MESSAGE_TYPE, JT808DB32T3610_Message_Content_Passthrough_Message_0xF7::decode);
+        JT808_Message_Content_Passthrough_Registration.registerDecoder(JT808DB32T3610_Message_Content_Passthrough_Message_0xF8.MESSAGE_TYPE, JT808DB32T3610_Message_Content_Passthrough_Message_0xF8::decode);
     }
 }

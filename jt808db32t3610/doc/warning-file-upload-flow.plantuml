@@ -1,0 +1,39 @@
+@startuml
+skinparam backgroundColor #EEEBDC
+skinparam handwritten false
+
+title 苏标报警附件文件上传流程
+
+entity Device #red
+boundary MessageServer
+boundary StorageServer
+
+==下发上传指令和服务间服务器地址==
+
+Device -> MessageServer : 0x0200 位置附件信息上传(苏标主动安全扩展)
+MessageServer -> Device : 0x8001 平台通用应答
+MessageServer -> Device : 0x9208 报警附件上传指令(包含附件服务器地址)
+Device -> MessageServer : 0x0001 终端通用应答
+
+==连接并上传文件至附件服务器==
+
+Device -> StorageServer : 0x1210 报警附件信息消息(包含附件数量和描述信息)
+StorageServer -> Device : 0x8001 平台通用应答
+|||
+loop n个文件
+    Device -> StorageServer : 0x1211 文件信息上传(包含文件描述信息)
+    StorageServer -> Device : 0x8001 平台通用应答
+    |||
+    Device -[#0000FF]-> StorageServer : 文件数据上传(文件码流负载包格式)
+    activate StorageServer #DarkSalmon
+    Device -[#0000FF]-> StorageServer : 文件数据上传(文件码流负载包格式)
+    Device -[#0000FF]-> StorageServer : 文件数据上传(文件码流负载包格式)
+    deactivate StorageServer
+    |||
+    Device -> StorageServer : 0x1212 文件上传完成消息(包含文件描述信息)
+    StorageServer -> Device : 0x9212 文件上传完成消息应答(包含上传结果)
+end
+|||
+Device -[#red]> StorageServer !! : 全部文件发送完成后，终端主动与附件服务器断开连接
+
+@enduml

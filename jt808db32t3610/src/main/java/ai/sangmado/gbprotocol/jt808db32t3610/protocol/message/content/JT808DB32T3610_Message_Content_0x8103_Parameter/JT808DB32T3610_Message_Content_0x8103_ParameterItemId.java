@@ -25,6 +25,10 @@ public class JT808DB32T3610_Message_Content_0x8103_ParameterItemId extends JT808
     public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF367 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF367", 0xF367, V2019, "变道决策辅助功能参数");
     public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xF370 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xF370", 0xF370, V2019, "激烈驾驶检测功能参数");
 
+    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xFF00 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xFF00", 0xFF00, V2019, "终端MAC地址");
+    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xFF01 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xFF01", 0xFF01, V2019, "扩展制造商ID, 主动安全智能防控终端制造商编码");
+    public static final JT808DB32T3610_Message_Content_0x8103_ParameterItemId JT808DB32T3610_0x8103_0xFF02 = new JT808DB32T3610_Message_Content_0x8103_ParameterItemId("JT808DB32T3610_0x8103_0xFF02", 0xFF02, V2019, "扩展终端型号, 主动安全智能防控终端型号");
+
     public JT808DB32T3610_Message_Content_0x8103_ParameterItemId(String name, long value, IProtocolVersion since, String description) {
         super(name, value, since, description);
     }
@@ -37,6 +41,10 @@ public class JT808DB32T3610_Message_Content_0x8103_ParameterItemId extends JT808
         mapping.put(JT808DB32T3610_0x8103_0xF366.getValue(), JT808DB32T3610_0x8103_0xF366);
         mapping.put(JT808DB32T3610_0x8103_0xF367.getValue(), JT808DB32T3610_0x8103_0xF367);
         mapping.put(JT808DB32T3610_0x8103_0xF370.getValue(), JT808DB32T3610_0x8103_0xF370);
+
+        mapping.put(JT808DB32T3610_0x8103_0xFF00.getValue(), JT808DB32T3610_0x8103_0xFF00);
+        mapping.put(JT808DB32T3610_0x8103_0xFF01.getValue(), JT808DB32T3610_0x8103_0xFF01);
+        mapping.put(JT808DB32T3610_0x8103_0xFF02.getValue(), JT808DB32T3610_0x8103_0xFF02);
     }
 
     public static JT808DB32T3610_Message_Content_0x8103_ParameterItemId cast(long value) {
