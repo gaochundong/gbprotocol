@@ -3,8 +3,8 @@ package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_Passthrough_MessageType;
-import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_Passthrough_Base;
-import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_Passthrough_Registration;
+import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_0x0900_Base;
+import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_0x0900_Registration;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import lombok.*;
@@ -37,7 +37,7 @@ public class JT808_Message_Content_0x0900 extends JT808MessageContent {
     /**
      * 透传消息内容
      */
-    private JT808_Message_Content_Passthrough_Base passthroughMessageContent;
+    private JT808_Message_Content_0x0900_Base passthroughMessageContent;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
@@ -49,8 +49,8 @@ public class JT808_Message_Content_0x0900 extends JT808MessageContent {
     public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
         setPassthroughMessageType(JT808_Message_Content_Passthrough_MessageType.cast(reader.readByte() & 0xFF));
 
-        JT808_Message_Content_Passthrough_Base passthroughMessageContent =
-                JT808_Message_Content_Passthrough_Registration.getDecoders()
+        JT808_Message_Content_0x0900_Base passthroughMessageContent =
+                JT808_Message_Content_0x0900_Registration.getDecoders()
                         .get(getPassthroughMessageType()).apply(ctx, reader);
         setPassthroughMessageContent(passthroughMessageContent);
     }

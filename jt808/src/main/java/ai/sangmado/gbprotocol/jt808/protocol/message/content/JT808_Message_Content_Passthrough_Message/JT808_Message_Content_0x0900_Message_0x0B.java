@@ -11,7 +11,7 @@ import lombok.Setter;
  * 透传消息 - 道路运输证IC卡信息
  */
 @NoArgsConstructor
-public class JT808_Message_Content_Passthrough_Message_0x0B extends JT808_Message_Content_Passthrough_Base {
+public class JT808_Message_Content_0x0900_Message_0x0B extends JT808_Message_Content_0x0900_Base {
     public static final JT808_Message_Content_Passthrough_MessageType MESSAGE_TYPE =
             JT808_Message_Content_Passthrough_MessageType.JT808_Passthrough_Message_0x0B;
 
@@ -37,8 +37,8 @@ public class JT808_Message_Content_Passthrough_Message_0x0B extends JT808_Messag
 
     }
 
-    public static JT808_Message_Content_Passthrough_Message_0x0B decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        JT808_Message_Content_Passthrough_Message_0x0B content = new JT808_Message_Content_Passthrough_Message_0x0B();
+    public static JT808_Message_Content_0x0900_Message_0x0B decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808_Message_Content_0x0900_Message_0x0B content = new JT808_Message_Content_0x0900_Message_0x0B();
         content.deserialize(ctx, reader);
         return content;
     }

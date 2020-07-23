@@ -11,7 +11,7 @@ import lombok.Setter;
  * 透传消息 - GNSS模块详细定位数据
  */
 @NoArgsConstructor
-public class JT808_Message_Content_Passthrough_Message_0x00 extends JT808_Message_Content_Passthrough_Base {
+public class JT808_Message_Content_0x0900_Message_0x00 extends JT808_Message_Content_0x0900_Base {
     public static final JT808_Message_Content_Passthrough_MessageType MESSAGE_TYPE =
             JT808_Message_Content_Passthrough_MessageType.JT808_Passthrough_Message_0x00;
 
@@ -37,8 +37,8 @@ public class JT808_Message_Content_Passthrough_Message_0x00 extends JT808_Messag
 
     }
 
-    public static JT808_Message_Content_Passthrough_Message_0x00 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        JT808_Message_Content_Passthrough_Message_0x00 content = new JT808_Message_Content_Passthrough_Message_0x00();
+    public static JT808_Message_Content_0x0900_Message_0x00 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808_Message_Content_0x0900_Message_0x00 content = new JT808_Message_Content_0x0900_Message_0x00();
         content.deserialize(ctx, reader);
         return content;
     }

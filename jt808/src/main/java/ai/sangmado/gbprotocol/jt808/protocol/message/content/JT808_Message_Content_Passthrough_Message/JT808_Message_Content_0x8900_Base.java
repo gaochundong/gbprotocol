@@ -4,10 +4,10 @@ import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageFormatte
 import lombok.NoArgsConstructor;
 
 /**
- * 透传消息抽象类
+ * 透传消息抽象类 - 0x8900
  */
 @NoArgsConstructor
-public abstract class JT808_Message_Content_Passthrough_Base implements IJT808MessageFormatter {
+public abstract class JT808_Message_Content_0x8900_Base implements IJT808MessageFormatter {
 
     /**
      * 获取透传消息类型
