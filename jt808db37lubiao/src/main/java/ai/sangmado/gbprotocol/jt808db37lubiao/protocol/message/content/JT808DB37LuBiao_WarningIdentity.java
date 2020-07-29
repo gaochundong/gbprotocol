@@ -1,4 +1,4 @@
-package ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content;
+package ai.sangmado.gbprotocol.jt808db37lubiao.protocol.message.content;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JT808DB32T3610_WarningIdentity implements IJT808MessageFormatter {
+public class JT808DB37LuBiao_WarningIdentity implements IJT808MessageFormatter {
 
     /**
      * 终端ID
@@ -59,8 +59,8 @@ public class JT808DB32T3610_WarningIdentity implements IJT808MessageFormatter {
 
     }
 
-    public static JT808DB32T3610_WarningIdentity decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        JT808DB32T3610_WarningIdentity content = new JT808DB32T3610_WarningIdentity();
+    public static JT808DB37LuBiao_WarningIdentity decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808DB37LuBiao_WarningIdentity content = new JT808DB37LuBiao_WarningIdentity();
         content.deserialize(ctx, reader);
         return content;
     }

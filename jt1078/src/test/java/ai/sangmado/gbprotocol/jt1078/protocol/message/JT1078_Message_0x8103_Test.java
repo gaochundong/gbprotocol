@@ -8,8 +8,8 @@ import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.JT808ProtocolSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
-import ai.sangmado.gbprotocol.jt808.protocol.message.JT808MessagePacket;
-import ai.sangmado.gbprotocol.jt808.protocol.message.JT808MessagePacketBuilder;
+import ai.sangmado.gbprotocol.jt808.protocol.message.JT808Message;
+import ai.sangmado.gbprotocol.jt808.protocol.message.JT808MessageAssembler;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_PI_0x0001;
@@ -84,27 +84,27 @@ public class JT1078_Message_0x8103_Test {
                 .itemList(itemList)
                 .build();
 
-        List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
-        assertEquals(1, packets.size());
+        List<JT808Message> messages = JT808MessageAssembler.assemble(ctx, header, content);
+        assertEquals(1, messages.size());
 
         byte[] bufArray = new byte[512];
         ByteBuffer buf = ByteBuffer.wrap(bufArray);
         IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter(ctx, buf);
-        JT808MessagePacket sePacket = packets.get(0);
-        sePacket.serialize(ctx, writer);
+        JT808Message srcMessage = messages.get(0);
+        srcMessage.serialize(ctx, writer);
         buf.flip();
         assertEquals(60, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
-        JT808MessagePacket dePacket = new JT808MessagePacket();
-        dePacket.deserialize(ctx, reader);
-        assertEquals(messageId, dePacket.getHeader().getMessageId());
-        assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());
-        assertEquals(serialNumber, dePacket.getHeader().getSerialNumber());
-        assertEquals(itemList.size(), ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemCount());
-        assertEquals(JT808_Message_Content_0x8103_PI_0x0001.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemList().get(0).getParameterItemId());
-        assertEquals(JT808_Message_Content_0x8103_PI_0x0002.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemList().get(1).getParameterItemId());
-        assertEquals(JT1078_Message_Content_0x8103_PI_0x0075.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemList().get(2).getParameterItemId());
-        assertEquals(pi3.getRealtimeStreamTargetBitRate(), ((JT1078_Message_Content_0x8103_PI_0x0075) (((JT808_Message_Content_0x8103) (dePacket.getContent())).getItemList().get(2))).getRealtimeStreamTargetBitRate());
+        JT808Message dstMessage = new JT808Message();
+        dstMessage.deserialize(ctx, reader);
+        assertEquals(messageId, dstMessage.getHeader().getMessageId());
+        assertEquals(phoneNumber, dstMessage.getHeader().getPhoneNumber());
+        assertEquals(serialNumber, dstMessage.getHeader().getSerialNumber());
+        assertEquals(itemList.size(), ((JT808_Message_Content_0x8103) (dstMessage.getContent())).getItemCount());
+        assertEquals(JT808_Message_Content_0x8103_PI_0x0001.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dstMessage.getContent())).getItemList().get(0).getParameterItemId());
+        assertEquals(JT808_Message_Content_0x8103_PI_0x0002.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dstMessage.getContent())).getItemList().get(1).getParameterItemId());
+        assertEquals(JT1078_Message_Content_0x8103_PI_0x0075.PARAMETER_ITEM_ID, ((JT808_Message_Content_0x8103) (dstMessage.getContent())).getItemList().get(2).getParameterItemId());
+        assertEquals(pi3.getRealtimeStreamTargetBitRate(), ((JT1078_Message_Content_0x8103_PI_0x0075) (((JT808_Message_Content_0x8103) (dstMessage.getContent())).getItemList().get(2))).getRealtimeStreamTargetBitRate());
     }
 }

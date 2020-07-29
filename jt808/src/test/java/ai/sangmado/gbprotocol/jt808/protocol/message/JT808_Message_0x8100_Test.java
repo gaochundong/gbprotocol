@@ -57,25 +57,25 @@ public class JT808_Message_0x8100_Test {
                 .ackSerialNumber(ackSerialNumber)
                 .build();
 
-        List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
-        assertEquals(1, packets.size());
+        List<JT808Message> messages = JT808MessageAssembler.assemble(ctx, header, content);
+        assertEquals(1, messages.size());
 
         byte[] bufArray = new byte[512];
         ByteBuffer buf = ByteBuffer.wrap(bufArray);
         IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter(ctx, buf);
-        JT808MessagePacket sePacket = packets.get(0);
-        sePacket.serialize(ctx, writer);
+        JT808Message srcMessage = messages.get(0);
+        srcMessage.serialize(ctx, writer);
         buf.flip();
         assertEquals(32, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
-        JT808MessagePacket dePacket = new JT808MessagePacket();
-        dePacket.deserialize(ctx, reader);
-        assertEquals(messageId, dePacket.getHeader().getMessageId());
-        assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());
-        assertEquals(serialNumber, dePacket.getHeader().getSerialNumber());
-        assertEquals(registrationResult, ((JT808_Message_Content_0x8100) (dePacket.getContent())).getRegistrationResult());
-        assertEquals(authCode, ((JT808_Message_Content_0x8100) (dePacket.getContent())).getAuthCode());
-        assertEquals(ackSerialNumber, ((JT808_Message_Content_0x8100) (dePacket.getContent())).getAckSerialNumber());
+        JT808Message dstMessage = new JT808Message();
+        dstMessage.deserialize(ctx, reader);
+        assertEquals(messageId, dstMessage.getHeader().getMessageId());
+        assertEquals(phoneNumber, dstMessage.getHeader().getPhoneNumber());
+        assertEquals(serialNumber, dstMessage.getHeader().getSerialNumber());
+        assertEquals(registrationResult, ((JT808_Message_Content_0x8100) (dstMessage.getContent())).getRegistrationResult());
+        assertEquals(authCode, ((JT808_Message_Content_0x8100) (dstMessage.getContent())).getAuthCode());
+        assertEquals(ackSerialNumber, ((JT808_Message_Content_0x8100) (dstMessage.getContent())).getAckSerialNumber());
     }
 }

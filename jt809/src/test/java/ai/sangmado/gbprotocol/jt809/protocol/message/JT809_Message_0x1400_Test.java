@@ -78,26 +78,26 @@ public class JT809_Message_0x1400_Test {
                 .encryptionKey(encryptionKey)
                 .build();
 
-        List<JT809MessagePacket> packets = JT809MessagePacketBuilder.buildPackets(ctx, header, content);
-        assertEquals(1, packets.size());
+        List<JT809Message> messages = JT809MessageAssembler.assemble(ctx, header, content);
+        assertEquals(1, messages.size());
 
         byte[] bufArray = new byte[512];
         ByteBuffer buf = ByteBuffer.wrap(bufArray);
         IJT809MessageBufferWriter writer = new JT809MessageByteBufferWriter(ctx, buf);
-        JT809MessagePacket sePacket = packets.get(0);
-        sePacket.serialize(ctx, writer);
+        JT809Message srcMessage = messages.get(0);
+        srcMessage.serialize(ctx, writer);
         buf.flip();
         assertEquals(76, buf.limit());
 
         IJT809MessageBufferReader reader = new JT809MessageByteBufferReader(ctx, buf);
-        JT809MessagePacket dePacket = new JT809MessagePacket();
-        dePacket.deserialize(ctx, reader);
+        JT809Message dstMessage = new JT809Message();
+        dstMessage.deserialize(ctx, reader);
 
-        Assertions.assertEquals(messageId, dePacket.getHeader().getMessageId());
-        Assertions.assertEquals(messageSequenceNumber, dePacket.getHeader().getMessageSequenceNumber());
-        Assertions.assertEquals(gnssCenterId, dePacket.getHeader().getGnssCenterId());
+        Assertions.assertEquals(messageId, dstMessage.getHeader().getMessageId());
+        Assertions.assertEquals(messageSequenceNumber, dstMessage.getHeader().getMessageSequenceNumber());
+        Assertions.assertEquals(gnssCenterId, dstMessage.getHeader().getGnssCenterId());
 
-        JT809_Message_Content_0x1400_Sub_0x1402 deSubMessage = (JT809_Message_Content_0x1400_Sub_0x1402) ((JT809_Message_Content_0x1400) (dePacket.getContent())).getSubMessage();
+        JT809_Message_Content_0x1400_Sub_0x1402 deSubMessage = (JT809_Message_Content_0x1400_Sub_0x1402) ((JT809_Message_Content_0x1400) (dstMessage.getContent())).getSubMessage();
         Assertions.assertEquals(subMessage.getWarningType(), deSubMessage.getWarningType());
     }
 }

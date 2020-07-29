@@ -1,10 +1,10 @@
-package ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content;
+package ai.sangmado.gbprotocol.jt808db37lubiao.protocol.message.content;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
-import ai.sangmado.gbprotocol.jt808db32t3610.protocol.enums.JT808DB32T3610MessageId;
+import ai.sangmado.gbprotocol.jt808db37lubiao.protocol.enums.JT808DB37LuBiaoMessageId;
 import lombok.*;
 
 /**
@@ -17,11 +17,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JT808DB32T3610_Message_Content_0x9208 extends JT808MessageContent {
-    public static final JT808DB32T3610MessageId MESSAGE_ID = JT808DB32T3610MessageId.JT808DB32T3610_Message_0x9208;
+public class JT808DB37LuBiao_Message_Content_0x9208 extends JT808MessageContent {
+    public static final JT808DB37LuBiaoMessageId MESSAGE_ID = JT808DB37LuBiaoMessageId.JT808DB37LuBiao_Message_0x9208;
 
     @Override
-    public JT808DB32T3610MessageId getMessageId() {
+    public JT808DB37LuBiaoMessageId getMessageId() {
         return MESSAGE_ID;
     }
 
@@ -44,7 +44,7 @@ public class JT808DB32T3610_Message_Content_0x9208 extends JT808MessageContent {
     /**
      * 报警标识号
      */
-    private JT808DB32T3610_WarningIdentity warningIdentity;
+    private JT808DB37LuBiao_WarningIdentity warningIdentity;
     /**
      * 报警编号
      * <p>
@@ -69,8 +69,8 @@ public class JT808DB32T3610_Message_Content_0x9208 extends JT808MessageContent {
 
     }
 
-    public static JT808DB32T3610_Message_Content_0x9208 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        JT808DB32T3610_Message_Content_0x9208 content = new JT808DB32T3610_Message_Content_0x9208();
+    public static JT808DB37LuBiao_Message_Content_0x9208 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808DB37LuBiao_Message_Content_0x9208 content = new JT808DB37LuBiao_Message_Content_0x9208();
         content.deserialize(ctx, reader);
         return content;
     }

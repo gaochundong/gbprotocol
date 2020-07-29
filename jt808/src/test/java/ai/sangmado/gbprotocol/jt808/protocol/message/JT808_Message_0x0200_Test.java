@@ -73,31 +73,31 @@ public class JT808_Message_0x0200_Test {
                 .timestamp(timestamp)
                 .build();
 
-        List<JT808MessagePacket> packets = JT808MessagePacketBuilder.buildPackets(ctx, header, content);
-        assertEquals(1, packets.size());
+        List<JT808Message> message = JT808MessageAssembler.assemble(ctx, header, content);
+        assertEquals(1, message.size());
 
         byte[] bufArray = new byte[512];
         ByteBuffer buf = ByteBuffer.wrap(bufArray);
         IJT808MessageBufferWriter writer = new JT808MessageByteBufferWriter(ctx, buf);
-        JT808MessagePacket sePacket = packets.get(0);
-        sePacket.serialize(ctx, writer);
+        JT808Message srcMessage = message.get(0);
+        srcMessage.serialize(ctx, writer);
         buf.flip();
         assertEquals(48, buf.limit());
 
         IJT808MessageBufferReader reader = new JT808MessageByteBufferReader(ctx, buf);
-        JT808MessagePacket dePacket = new JT808MessagePacket();
-        dePacket.deserialize(ctx, reader);
-        assertEquals(messageId, dePacket.getHeader().getMessageId());
-        assertEquals(phoneNumber, dePacket.getHeader().getPhoneNumber());
-        assertEquals(serialNumber, dePacket.getHeader().getSerialNumber());
-        assertEquals(warningType, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getWarningType());
-        assertEquals(state, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getState());
-        assertEquals(latitude, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getLatitude());
-        assertEquals(longitude, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getLongitude());
-        assertEquals(latitude, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getLatitude());
-        assertEquals(altitude, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getAltitude());
-        assertEquals(speed, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getSpeed());
-        assertEquals(direction, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getDirection());
-        assertEquals(timestamp, ((JT808_Message_Content_0x0200) (dePacket.getContent())).getTimestamp());
+        JT808Message dstMessage = new JT808Message();
+        dstMessage.deserialize(ctx, reader);
+        assertEquals(messageId, dstMessage.getHeader().getMessageId());
+        assertEquals(phoneNumber, dstMessage.getHeader().getPhoneNumber());
+        assertEquals(serialNumber, dstMessage.getHeader().getSerialNumber());
+        assertEquals(warningType, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getWarningType());
+        assertEquals(state, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getState());
+        assertEquals(latitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getLatitude());
+        assertEquals(longitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getLongitude());
+        assertEquals(latitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getLatitude());
+        assertEquals(altitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getAltitude());
+        assertEquals(speed, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getSpeed());
+        assertEquals(direction, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getDirection());
+        assertEquals(timestamp, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getTimestamp());
     }
 }

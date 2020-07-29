@@ -11,17 +11,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static ai.sangmado.gbprotocol.jt808db32t3610.protocol.enums.JT808DB32T3610ProtocolVersion.V2019;
+
 /**
  * DB32/T3610 消息ID
  */
 @Getter
 @Setter
 public class JT808DB32T3610MessageId extends JT808MessageId {
-    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x1210 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x1210", 0x1210, JT808DB32T3610ProtocolVersion.V2019, "报警附件信息消息");
-    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x1211 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x1211", 0x1211, JT808DB32T3610ProtocolVersion.V2019, "文件信息上传");
-    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x1212 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x1212", 0x1212, JT808DB32T3610ProtocolVersion.V2019, "文件上传完成消息");
-    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x9208 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x9208", 0x9208, JT808DB32T3610ProtocolVersion.V2019, "报警附件上传指令");
-    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x9212 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x9212", 0x9212, JT808DB32T3610ProtocolVersion.V2019, "文件上传完成消息应答");
+    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x1210 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x1210", 0x1210, V2019, "报警附件信息消息");
+    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x1211 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x1211", 0x1211, V2019, "文件信息上传");
+    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x1212 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x1212", 0x1212, V2019, "文件上传完成消息");
+    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x9208 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x9208", 0x9208, V2019, "报警附件上传指令");
+    public static final JT808DB32T3610MessageId JT808DB32T3610_Message_0x9212 = new JT808DB32T3610MessageId("JT808DB32T3610_Message_0x9212", 0x9212, V2019, "文件上传完成消息应答");
 
     public JT808DB32T3610MessageId(String name, int value, IProtocolVersion since, String description) {
         super(name, value, since, description);
