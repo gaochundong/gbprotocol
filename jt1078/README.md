@@ -4,7 +4,11 @@ JT/T1078 Global navigation satellite system for operating vehicles - Video commu
 
 JT/T1078 道路运输车辆卫星定位系统 视频通信协议
 
-## 实时音视频传输流程
+## 组件间交互图
+
+![组件间交互图](doc/images/jt1078-component-flow.png)
+
+## 实时音视频消息流程图
 
 ![JT1078实时视频传输流程](doc/images/jt1078-message-flow.png)
 

@@ -1,5 +1,5 @@
 @startuml
-skinparam backgroundColor #EEEBDC
+skinparam backgroundColor White
 skinparam handwritten false
 
 title JT1078实时视频传输流程
