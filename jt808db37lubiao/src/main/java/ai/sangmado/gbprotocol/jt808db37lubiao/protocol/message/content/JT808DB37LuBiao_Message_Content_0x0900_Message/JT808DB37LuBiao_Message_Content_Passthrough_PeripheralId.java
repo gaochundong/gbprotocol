@@ -1,4 +1,4 @@
-package ai.sangmado.gbprotocol.jt808db37lubiao.protocol.message.content.JT808DB37LuBiao_Message_Content_Passthrough_Message;
+package ai.sangmado.gbprotocol.jt808db37lubiao.protocol.message.content.JT808DB37LuBiao_Message_Content_0x0900_Message;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.gbcommon.serializer.IntegerToHex2StringSerializer;

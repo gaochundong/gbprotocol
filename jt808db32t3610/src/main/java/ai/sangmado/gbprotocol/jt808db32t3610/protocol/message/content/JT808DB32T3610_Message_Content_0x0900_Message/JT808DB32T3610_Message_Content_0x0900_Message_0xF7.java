@@ -1,4 +1,4 @@
-package ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_Passthrough_Message;
+package ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_0x0900_Message;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_0x0900_Base;
@@ -12,12 +12,12 @@ import lombok.Setter;
  * 透传消息 - 状态查询
  */
 @NoArgsConstructor
-public class JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7 extends JT808_Message_Content_0x0900_Base {
-    public static final JT808DB23HeiBiao_Message_Content_Passthrough_MessageType MESSAGE_TYPE =
-            JT808DB23HeiBiao_Message_Content_Passthrough_MessageType.JT808DB23HeiBiao_Passthrough_Message_0xF7;
+public class JT808DB32T3610_Message_Content_0x0900_Message_0xF7 extends JT808_Message_Content_0x0900_Base {
+    public static final JT808DB32T3610_Message_Content_Passthrough_MessageType MESSAGE_TYPE =
+            JT808DB32T3610_Message_Content_Passthrough_MessageType.JT808DB32T3610_Passthrough_Message_0xF7;
 
     @Override
-    public JT808DB23HeiBiao_Message_Content_Passthrough_MessageType getPassthroughMessageType() {
+    public JT808DB32T3610_Message_Content_Passthrough_MessageType getPassthroughMessageType() {
         return MESSAGE_TYPE;
     }
 
@@ -26,7 +26,7 @@ public class JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7 extends JT808_
      */
     @Getter
     @Setter
-    private JT808DB23HeiBiao_Message_Content_Passthrough_PeripheralId peripheralId;
+    private JT808DB32T3610_Message_Content_Passthrough_PeripheralId peripheralId;
     /**
      * 消息长度
      */
@@ -56,8 +56,8 @@ public class JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7 extends JT808_
 
     }
 
-    public static JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7 content = new JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7();
+    public static JT808DB32T3610_Message_Content_0x0900_Message_0xF7 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808DB32T3610_Message_Content_0x0900_Message_0xF7 content = new JT808DB32T3610_Message_Content_0x0900_Message_0xF7();
         content.deserialize(ctx, reader);
         return content;
     }

@@ -12,9 +12,9 @@ import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.enums.JT808DB23HeiBiaoMe
 import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_0x0200_Additional.*;
 import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.*;
 import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_0x8103_Parameter.*;
-import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_Passthrough_Message.JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7;
-import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_Passthrough_Message.JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF8;
-import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_Passthrough_Message.JT808DB23HeiBiao_Message_Content_Passthrough_MessageType;
+import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_0x0900_Message.JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7;
+import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_0x0900_Message.JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF8;
+import ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_0x0900_Message.JT808DB23HeiBiao_Message_Content_Passthrough_MessageType;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class JT808DB23HeiBiaoMessageExtension {
         extend_Message_Content_Definitions();
         extend_Message_Content_0x0200_AdditionalInformation_Definitions();
         extend_Message_Content_0x8103_ParameterItem_Definitions();
-        extend_Message_Content_Passthrough_Message_Definitions();
+        extend_Message_Content_0x0900_Message_Definitions();
     }
 
     /**
@@ -84,7 +84,7 @@ public class JT808DB23HeiBiaoMessageExtension {
     /**
      * 黑标 协议扩展0x0900/0x8900透传消息体定义
      */
-    private static void extend_Message_Content_Passthrough_Message_Definitions() {
+    private static void extend_Message_Content_0x0900_Message_Definitions() {
         JT808_Message_Content_Passthrough_MessageType.putExtensions(new ArrayList<>(JT808DB23HeiBiao_Message_Content_Passthrough_MessageType.get_JT808DB23HeiBiao_Message_Content_Passthrough_MessageType_List()));
 
         JT808_Message_Content_0x0900_Registration.registerDecoder(JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7.MESSAGE_TYPE, JT808DB23HeiBiao_Message_Content_0x0900_Message_0xF7::decode);

@@ -1,4 +1,4 @@
-package ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_Passthrough_Message;
+package ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_0x0900_Message;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808MessageException;

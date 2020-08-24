@@ -1,4 +1,4 @@
-package ai.sangmado.gbprotocol.jt808db37lubiao.protocol.message.content.JT808DB37LuBiao_Message_Content_Passthrough_Message;
+package ai.sangmado.gbprotocol.jt808db51chuanbiao.protocol.message.content.JT808DB51ChuanBiao_Message_Content_0x0900_Message;
 
 import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_0x0900_Base;
@@ -12,12 +12,12 @@ import lombok.Setter;
  * 透传消息 - 信息查询
  */
 @NoArgsConstructor
-public class JT808DB37LuBiao_Message_Content_0x0900_Message_0xF8 extends JT808_Message_Content_0x0900_Base {
-    public static final JT808DB37LuBiao_Message_Content_Passthrough_MessageType MESSAGE_TYPE =
-            JT808DB37LuBiao_Message_Content_Passthrough_MessageType.JT808DB37LuBiao_Passthrough_Message_0xF8;
+public class JT808DB51ChuanBiao_Message_Content_0x0900_Message_0xF8 extends JT808_Message_Content_0x0900_Base {
+    public static final JT808DB51ChuanBiao_Message_Content_Passthrough_MessageType MESSAGE_TYPE =
+            JT808DB51ChuanBiao_Message_Content_Passthrough_MessageType.JT808DB51ChuanBiao_Passthrough_Message_0xF8;
 
     @Override
-    public JT808DB37LuBiao_Message_Content_Passthrough_MessageType getPassthroughMessageType() {
+    public JT808DB51ChuanBiao_Message_Content_Passthrough_MessageType getPassthroughMessageType() {
         return MESSAGE_TYPE;
     }
 
@@ -26,7 +26,7 @@ public class JT808DB37LuBiao_Message_Content_0x0900_Message_0xF8 extends JT808_M
      */
     @Getter
     @Setter
-    private JT808DB37LuBiao_Message_Content_Passthrough_PeripheralId peripheralId;
+    private JT808DB51ChuanBiao_Message_Content_Passthrough_PeripheralId peripheralId;
     /**
      * 消息长度
      */
@@ -116,8 +116,8 @@ public class JT808DB37LuBiao_Message_Content_0x0900_Message_0xF8 extends JT808_M
 
     }
 
-    public static JT808DB37LuBiao_Message_Content_0x0900_Message_0xF8 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
-        JT808DB37LuBiao_Message_Content_0x0900_Message_0xF8 content = new JT808DB37LuBiao_Message_Content_0x0900_Message_0xF8();
+    public static JT808DB51ChuanBiao_Message_Content_0x0900_Message_0xF8 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+        JT808DB51ChuanBiao_Message_Content_0x0900_Message_0xF8 content = new JT808DB51ChuanBiao_Message_Content_0x0900_Message_0xF8();
         content.deserialize(ctx, reader);
         return content;
     }
