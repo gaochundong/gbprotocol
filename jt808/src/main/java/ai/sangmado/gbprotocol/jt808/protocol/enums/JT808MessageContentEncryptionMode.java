@@ -7,19 +7,26 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * JT/T 808 消息体加密方式
+ */
 @Getter
 public enum JT808MessageContentEncryptionMode {
-    None(0, "不加密"),
-    RSA(1 << 10, "RSA算法加密");
+    None(0, JT808ProtocolVersion.V2011, "不加密"),
+    RSA(1 << 10, JT808ProtocolVersion.V2011, "RSA算法加密");
 
     @JsonInclude
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final JT808ProtocolVersion since;
 
-    JT808MessageContentEncryptionMode(int value, String description) {
+    @JsonIgnore
+    private final String description;
+
+    JT808MessageContentEncryptionMode(int value, JT808ProtocolVersion since, String description) {
         this.value = value;
+        this.since = since;
         this.description = description;
     }
 

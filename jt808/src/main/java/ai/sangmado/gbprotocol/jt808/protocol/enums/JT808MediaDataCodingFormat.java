@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 终端注册结果
+ * JT/T 808 多媒体格式编码
  */
 @Getter
-public enum JT808DeviceRegistrationResult {
-    Success(0x00, JT808ProtocolVersion.V2011, "成功"),
-    VehicleAlreadyRegistered(0x01, JT808ProtocolVersion.V2011, "车辆已被注册"),
-    NoVehicleWithinDatabase(0x02, JT808ProtocolVersion.V2011, "数据库中无该车辆"),
-    DeviceAlreadyRegistered(0x03, JT808ProtocolVersion.V2011, "终端已被注册"),
-    NoDeviceWithinDatabase(0x04, JT808ProtocolVersion.V2011, "数据库中无该终端"),
+public enum JT808MediaDataCodingFormat {
+    JPEG(0, JT808ProtocolVersion.V2011, "JPEG"),
+    TIF(1, JT808ProtocolVersion.V2011, "TIF"),
+    MP3(2, JT808ProtocolVersion.V2011, "MP3"),
+    WAV(3, JT808ProtocolVersion.V2011, "WAV"),
+    WMV(4, JT808ProtocolVersion.V2011, "WMV"),
     ;
 
     @JsonInclude
@@ -28,7 +28,7 @@ public enum JT808DeviceRegistrationResult {
     @JsonIgnore
     private final String description;
 
-    JT808DeviceRegistrationResult(int value, JT808ProtocolVersion since, String description) {
+    JT808MediaDataCodingFormat(int value, JT808ProtocolVersion since, String description) {
         this.value = value;
         this.since = since;
         this.description = description;
@@ -39,29 +39,29 @@ public enum JT808DeviceRegistrationResult {
         return this.name();
     }
 
-    private static final Map<Integer, JT808DeviceRegistrationResult> mapping = new HashMap<>();
+    private static final Map<Integer, JT808MediaDataCodingFormat> mapping = new HashMap<>();
 
     static {
-        for (JT808DeviceRegistrationResult item : values()) {
+        for (JT808MediaDataCodingFormat item : values()) {
             mapping.put(item.getValue(), item);
         }
     }
 
-    public static JT808DeviceRegistrationResult cast(int value) {
-        JT808DeviceRegistrationResult item = mapping.get(value);
+    public static JT808MediaDataCodingFormat cast(int value) {
+        JT808MediaDataCodingFormat item = mapping.get(value);
         if (item == null) {
             throw new IllegalArgumentException(String.format(
                     "Cannot cast integer [%s] to [%s] enum.",
-                    value, JT808DeviceRegistrationResult.class.getSimpleName()));
+                    value, JT808MediaDataCodingFormat.class.getSimpleName()));
         }
         return item;
     }
 
-    public static JT808DeviceRegistrationResult parse(String name) {
+    public static JT808MediaDataCodingFormat parse(String name) {
         if (name == null || name.length() == 0) {
             return null;
         }
-        for (JT808DeviceRegistrationResult item : values()) {
+        for (JT808MediaDataCodingFormat item : values()) {
             if (item.name().equalsIgnoreCase(name)) {
                 return item;
             }

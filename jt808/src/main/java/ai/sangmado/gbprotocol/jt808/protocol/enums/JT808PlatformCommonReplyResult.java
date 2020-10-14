@@ -12,21 +12,25 @@ import java.util.Map;
  */
 @Getter
 public enum JT808PlatformCommonReplyResult {
-    Success(0x00, "成功/确认"),
-    Failed(0x01, "失败"),
-    InvalidMessage(0x02, "消息有误"),
-    NotSupported(0x03, "不支持"),
-    WarningHandled(0x04, "报警处理确认"),
+    Success(0x00, JT808ProtocolVersion.V2011, "成功/确认"),
+    Failed(0x01, JT808ProtocolVersion.V2011, "失败"),
+    InvalidMessage(0x02, JT808ProtocolVersion.V2011, "消息有误"),
+    NotSupported(0x03, JT808ProtocolVersion.V2011, "不支持"),
+    WarningHandled(0x04, JT808ProtocolVersion.V2011, "报警处理确认"),
     ;
 
     @JsonInclude
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final JT808ProtocolVersion since;
 
-    JT808PlatformCommonReplyResult(int value, String description) {
+    @JsonIgnore
+    private final String description;
+
+    JT808PlatformCommonReplyResult(int value, JT808ProtocolVersion since, String description) {
         this.value = value;
+        this.since = since;
         this.description = description;
     }
 

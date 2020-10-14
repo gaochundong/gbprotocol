@@ -12,17 +12,21 @@ import java.util.Map;
  */
 @Getter
 public enum JT808WarningDisposition {
-    ResetAfterAck(0, "收到应答后清零"),
-    UntilLifted(1, "标志维持至报警条件解除");
+    ResetAfterAck(0, JT808ProtocolVersion.V2011, "收到应答后清零"),
+    UntilLifted(1, JT808ProtocolVersion.V2011, "标志维持至报警条件解除");
 
     @JsonInclude
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final JT808ProtocolVersion since;
 
-    JT808WarningDisposition(int value, String description) {
+    @JsonIgnore
+    private final String description;
+
+    JT808WarningDisposition(int value, JT808ProtocolVersion since, String description) {
         this.value = value;
+        this.since = since;
         this.description = description;
     }
 
