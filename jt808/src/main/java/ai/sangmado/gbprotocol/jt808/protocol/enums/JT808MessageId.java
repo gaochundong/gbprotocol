@@ -42,7 +42,7 @@ public class JT808MessageId implements IMessageId {
     public static final JT808MessageId JT808_Message_0x0608 = new JT808MessageId("JT808_Message_0x0608", 0x0608, V2019, "终端查询区域或线路数据应答");
     public static final JT808MessageId JT808_Message_0x0700 = new JT808MessageId("JT808_Message_0x0700", 0x0700, V2011, "终端行驶记录数据上传");
     public static final JT808MessageId JT808_Message_0x0701 = new JT808MessageId("JT808_Message_0x0701", 0x0701, V2011, "终端电子运单上报");
-    public static final JT808MessageId JT808_Message_0x0702 = new JT808MessageId("JT808_Message_0x0702", 0x0702, V2013, "终端驾驶员身份信息采集上报");
+    public static final JT808MessageId JT808_Message_0x0702 = new JT808MessageId("JT808_Message_0x0702", 0x0702, V2011, "终端驾驶员身份信息采集上报");
     public static final JT808MessageId JT808_Message_0x0704 = new JT808MessageId("JT808_Message_0x0704", 0x0704, V2013, "终端定位数据批量上传");
     public static final JT808MessageId JT808_Message_0x0705 = new JT808MessageId("JT808_Message_0x0705", 0x0705, V2013, "终端CAN总线数据上传");
     public static final JT808MessageId JT808_Message_0x0800 = new JT808MessageId("JT808_Message_0x0800", 0x0800, V2011, "终端多媒体事件信息上传");

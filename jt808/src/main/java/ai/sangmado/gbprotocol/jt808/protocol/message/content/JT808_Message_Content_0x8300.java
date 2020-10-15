@@ -6,6 +6,7 @@ import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808TextMessageSendFlag;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808TextMessageTextType;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 /**
@@ -26,8 +27,10 @@ public class JT808_Message_Content_0x8300 extends JT808MessageContent {
 
     /**
      * 文本信息标志位
+     *
+     * @see JT808TextMessageSendFlag 按照不同的bit的值进行判断
      */
-    private JT808TextMessageSendFlag textFlag;
+    private Integer textFlag;
     /**
      * 文本类型
      *
@@ -40,6 +43,25 @@ public class JT808_Message_Content_0x8300 extends JT808MessageContent {
      * 最长为1024 字节，经GBK 编码
      */
     private String textContent;
+
+    /* -- 如下为拆解标志位字段-- */
+
+    @JsonIgnore
+    private Boolean isServiceMessage;
+    @JsonIgnore
+    private Boolean isEmergencyMessage;
+    @JsonIgnore
+    private Boolean isNotificationMessage;
+    @JsonIgnore
+    private Boolean isTerminalScreenDisplayEnabled;
+    @JsonIgnore
+    private Boolean isTerminalTtsEnabled;
+    @JsonIgnore
+    private Boolean isTerminalAdvertisingDisplayEnabled;
+    @JsonIgnore
+    private Boolean isCentralNavigatorInfo;
+    @JsonIgnore
+    private Boolean isCanFailureInfo;
 
     @Override
     public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
