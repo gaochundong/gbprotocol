@@ -2,7 +2,7 @@ package ai.sangmado.gbprotocol.jt809.protocol.serialization.impl;
 
 import ai.sangmado.gbprotocol.gbcommon.utils.BCD;
 import ai.sangmado.gbprotocol.gbcommon.utils.Bits;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
 import com.google.common.primitives.UnsignedLong;
 
@@ -13,11 +13,11 @@ import java.nio.ByteOrder;
  * 基于 ByteBuffer 的 JT809 读取层实现
  */
 public class JT809MessageByteBufferReader implements IJT809MessageBufferReader {
-    private ISpecificationContext ctx;
-    private ByteBuffer buf;
+    private final IVersionedSpecificationContext ctx;
+    private final ByteBuffer buf;
     private int markedIndex = 0;
 
-    public JT809MessageByteBufferReader(ISpecificationContext ctx, ByteBuffer buf) {
+    public JT809MessageByteBufferReader(IVersionedSpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

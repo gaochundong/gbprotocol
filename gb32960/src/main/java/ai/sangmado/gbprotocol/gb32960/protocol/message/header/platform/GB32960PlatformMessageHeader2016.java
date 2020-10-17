@@ -1,8 +1,8 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.message.header.platform;
 
-import ai.sangmado.gbprotocol.gb32960.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960PlatformCommandId;
+import ai.sangmado.gbprotocol.gb32960.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960MessageContentEncryptionMode;
+import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960PlatformCommandId;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960ProtocolVersion;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960ReplyId;
 import ai.sangmado.gbprotocol.gb32960.protocol.exceptions.UnsupportedGB32960OperationException;
@@ -52,7 +52,7 @@ public class GB32960PlatformMessageHeader2016 extends GB32960PlatformMessageHead
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IGB32960MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IGB32960MessageBufferWriter writer) {
         writer.writeByte(getCommandId().getValue());
         writer.writeByte(getReplyId().getValue());
         writer.writeString(getVin());
@@ -61,7 +61,7 @@ public class GB32960PlatformMessageHeader2016 extends GB32960PlatformMessageHead
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IGB32960MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IGB32960MessageBufferReader reader) {
         setCommandId(GB32960PlatformCommandId.cast(reader.readByte()));
         setReplyId(GB32960ReplyId.cast(reader.readByte()));
         setVin(reader.readString(100));
@@ -69,7 +69,7 @@ public class GB32960PlatformMessageHeader2016 extends GB32960PlatformMessageHead
         setContentLength(reader.readWord());
     }
 
-    public static GB32960PlatformMessageHeader2016 decode(ISpecificationContext ctx, IGB32960MessageBufferReader reader) {
+    public static GB32960PlatformMessageHeader2016 decode(IVersionedSpecificationContext ctx, IGB32960MessageBufferReader reader) {
         GB32960PlatformMessageHeader2016 header = new GB32960PlatformMessageHeader2016();
         header.deserialize(ctx, reader);
         return header;

@@ -2,7 +2,6 @@ package ai.sangmado.gbprotocol.jt809.protocol;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionOptions;
-import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809ProtocolVersion;
 
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
@@ -11,13 +10,6 @@ import java.nio.charset.Charset;
  * 协议上下文
  */
 public interface ISpecificationContext extends Cloneable {
-
-    /**
-     * 获取协议版本
-     *
-     * @return 协议版本
-     */
-    JT809ProtocolVersion getProtocolVersion();
 
     /**
      * 获取字节序

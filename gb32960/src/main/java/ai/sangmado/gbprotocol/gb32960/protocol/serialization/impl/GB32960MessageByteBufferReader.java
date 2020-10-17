@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.serialization.impl;
 
-import ai.sangmado.gbprotocol.gb32960.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.gb32960.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.gb32960.protocol.serialization.IGB32960MessageBufferReader;
 import ai.sangmado.gbprotocol.gbcommon.utils.Bits;
 import com.google.common.primitives.UnsignedLong;
@@ -12,11 +12,11 @@ import java.nio.ByteOrder;
  * 基于 ByteBuffer 的 GB32960 读取层实现
  */
 public class GB32960MessageByteBufferReader implements IGB32960MessageBufferReader {
-    private ISpecificationContext ctx;
+    private final IVersionedSpecificationContext ctx;
     private ByteBuffer buf;
     private int markedIndex = 0;
 
-    public GB32960MessageByteBufferReader(ISpecificationContext ctx, ByteBuffer buf) {
+    public GB32960MessageByteBufferReader(IVersionedSpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

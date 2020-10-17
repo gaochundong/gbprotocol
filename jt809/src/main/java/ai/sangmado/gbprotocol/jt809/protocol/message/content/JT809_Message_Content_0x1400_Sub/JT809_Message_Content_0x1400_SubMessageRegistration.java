@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809_Message_Content_0x1400_Sub;
 
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809SubMessageId;
 
@@ -13,13 +13,13 @@ import java.util.function.BiFunction;
  */
 public class JT809_Message_Content_0x1400_SubMessageRegistration {
 
-    private static final Map<JT809SubMessageId, BiFunction<ISpecificationContext, IJT809MessageBufferReader, JT809_Message_Content_0x1400_SubMessage>> decoders = new HashMap<>(300);
+    private static final Map<JT809SubMessageId, BiFunction<IVersionedSpecificationContext, IJT809MessageBufferReader, JT809_Message_Content_0x1400_SubMessage>> decoders = new HashMap<>(300);
 
-    public static Map<JT809SubMessageId, BiFunction<ISpecificationContext, IJT809MessageBufferReader, JT809_Message_Content_0x1400_SubMessage>> getDecoders() {
+    public static Map<JT809SubMessageId, BiFunction<IVersionedSpecificationContext, IJT809MessageBufferReader, JT809_Message_Content_0x1400_SubMessage>> getDecoders() {
         return decoders;
     }
 
-    public static void registerDecoder(JT809SubMessageId messageId, BiFunction<ISpecificationContext, IJT809MessageBufferReader, JT809_Message_Content_0x1400_SubMessage> contentDecoder) {
+    public static void registerDecoder(JT809SubMessageId messageId, BiFunction<IVersionedSpecificationContext, IJT809MessageBufferReader, JT809_Message_Content_0x1400_SubMessage> contentDecoder) {
         decoders.put(messageId, contentDecoder);
     }
 

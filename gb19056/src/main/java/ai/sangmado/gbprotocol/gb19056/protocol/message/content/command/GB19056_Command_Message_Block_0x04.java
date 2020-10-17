@@ -2,7 +2,7 @@ package ai.sangmado.gbprotocol.gb19056.protocol.message.content.command;
 
 import ai.sangmado.gbprotocol.gb19056.protocol.enums.GB19056CommandMessageId;
 import ai.sangmado.gbprotocol.gb19056.protocol.message.content.GB19056MessageBlock;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import lombok.Getter;
@@ -22,16 +22,16 @@ public class GB19056_Command_Message_Block_0x04 extends GB19056MessageBlock<GB19
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 
-    public static GB19056_Command_Message_Block_0x04 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static GB19056_Command_Message_Block_0x04 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         GB19056_Command_Message_Block_0x04 content = new GB19056_Command_Message_Block_0x04();
         content.deserialize(ctx, reader);
         return content;

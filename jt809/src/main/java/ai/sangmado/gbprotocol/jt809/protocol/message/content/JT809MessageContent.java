@@ -3,7 +3,7 @@ package ai.sangmado.gbprotocol.jt809.protocol.message.content;
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageFormatter;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.impl.JT809MessageByteBufferWriter;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageId;
 
@@ -27,7 +27,7 @@ public abstract class JT809MessageContent implements IJT809MessageFormatter {
      * @param ctx 协议规范上下文
      * @return 消息体长度
      */
-    public int getContentLength(ISpecificationContext ctx) {
+    public int getContentLength(IVersionedSpecificationContext ctx) {
         PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
             ByteBuffer buf = ByteBuffer.wrap(pba.array());

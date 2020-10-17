@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
@@ -83,7 +83,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
     private String plateNumber;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getProvinceId());
         writer.writeWord(getCityId());
 
@@ -110,7 +110,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         setProvinceId(reader.readWord());
         setCityId(reader.readWord());
 
@@ -136,7 +136,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
         setPlateNumber(reader.readStringRemaining());
     }
 
-    public static JT808_Message_Content_0x0100 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808_Message_Content_0x0100 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808_Message_Content_0x0100 content = new JT808_Message_Content_0x0100();
         content.deserialize(ctx, reader);
         return content;

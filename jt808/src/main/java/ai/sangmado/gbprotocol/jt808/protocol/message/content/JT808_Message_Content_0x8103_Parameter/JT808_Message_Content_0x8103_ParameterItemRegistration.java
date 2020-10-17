@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 
 import java.util.HashMap;
@@ -12,13 +12,13 @@ import java.util.function.BiFunction;
  */
 public class JT808_Message_Content_0x8103_ParameterItemRegistration {
 
-    private static final Map<JT808_Message_Content_0x8103_ParameterItemId, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808_Message_Content_0x8103_ParameterItem>> decoders = new HashMap<>(300);
+    private static final Map<JT808_Message_Content_0x8103_ParameterItemId, BiFunction<IVersionedSpecificationContext, IJT808MessageBufferReader, JT808_Message_Content_0x8103_ParameterItem>> decoders = new HashMap<>(300);
 
-    public static Map<JT808_Message_Content_0x8103_ParameterItemId, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808_Message_Content_0x8103_ParameterItem>> getDecoders() {
+    public static Map<JT808_Message_Content_0x8103_ParameterItemId, BiFunction<IVersionedSpecificationContext, IJT808MessageBufferReader, JT808_Message_Content_0x8103_ParameterItem>> getDecoders() {
         return decoders;
     }
 
-    public static void registerDecoder(JT808_Message_Content_0x8103_ParameterItemId messageId, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808_Message_Content_0x8103_ParameterItem> contentDecoder) {
+    public static void registerDecoder(JT808_Message_Content_0x8103_ParameterItemId messageId, BiFunction<IVersionedSpecificationContext, IJT808MessageBufferReader, JT808_Message_Content_0x8103_ParameterItem> contentDecoder) {
         decoders.put(messageId, contentDecoder);
     }
 

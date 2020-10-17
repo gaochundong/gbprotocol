@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.message.content.platform;
 
-import ai.sangmado.gbprotocol.gb32960.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.gb32960.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960PlatformCommandId;
 import ai.sangmado.gbprotocol.gb32960.protocol.serialization.IGB32960MessageBufferWriter;
 import ai.sangmado.gbprotocol.gb32960.protocol.serialization.IGB32960MessageFormatter;
@@ -27,7 +27,7 @@ public abstract class GB32960PlatformMessageContent implements IGB32960MessageFo
      * @param ctx 协议规范上下文
      * @return 数据单元长度
      */
-    public int getContentLength(ISpecificationContext ctx) {
+    public int getContentLength(IVersionedSpecificationContext ctx) {
         PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
             ByteBuffer buf = ByteBuffer.wrap(pba.array());

@@ -1,7 +1,6 @@
 package ai.sangmado.gbprotocol.gb32960.protocol;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
-import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960ProtocolVersion;
 
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
@@ -10,13 +9,6 @@ import java.nio.charset.Charset;
  * 协议上下文
  */
 public interface ISpecificationContext extends Cloneable {
-
-    /**
-     * 获取协议版本
-     *
-     * @return 协议版本
-     */
-    GB32960ProtocolVersion getProtocolVersion();
 
     /**
      * 获取字节序

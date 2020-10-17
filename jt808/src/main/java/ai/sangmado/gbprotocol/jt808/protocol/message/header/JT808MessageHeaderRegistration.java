@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.header;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 
@@ -12,13 +12,13 @@ import java.util.function.BiFunction;
  * JT808 消息头注册器
  */
 public class JT808MessageHeaderRegistration {
-    private static final Map<JT808ProtocolVersion, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808MessageHeader>> decoders = new HashMap<>(3);
+    private static final Map<JT808ProtocolVersion, BiFunction<IVersionedSpecificationContext, IJT808MessageBufferReader, JT808MessageHeader>> decoders = new HashMap<>(3);
 
-    public static Map<JT808ProtocolVersion, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808MessageHeader>> getDecoders() {
+    public static Map<JT808ProtocolVersion, BiFunction<IVersionedSpecificationContext, IJT808MessageBufferReader, JT808MessageHeader>> getDecoders() {
         return decoders;
     }
 
-    public static void register(JT808ProtocolVersion protocolVersion, BiFunction<ISpecificationContext, IJT808MessageBufferReader, JT808MessageHeader> headerDecoder) {
+    public static void register(JT808ProtocolVersion protocolVersion, BiFunction<IVersionedSpecificationContext, IJT808MessageBufferReader, JT808MessageHeader> headerDecoder) {
         decoders.put(protocolVersion, headerDecoder);
     }
 

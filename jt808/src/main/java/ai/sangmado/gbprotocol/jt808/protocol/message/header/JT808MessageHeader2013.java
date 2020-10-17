@@ -1,12 +1,12 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.header;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
-import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
+import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.CharMatcher;
 import lombok.Builder;
@@ -55,7 +55,7 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeWord(getMessageId().getValue());
 
         final char padChar = '0';
@@ -75,7 +75,7 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         setMessageId(JT808MessageId.cast(reader.readWord()));
 
         final String padChar = "0";
@@ -99,7 +99,7 @@ public class JT808MessageHeader2013 extends JT808MessageHeader {
         }
     }
 
-    public static JT808MessageHeader2013 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808MessageHeader2013 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808MessageHeader2013 header = new JT808MessageHeader2013();
         header.deserialize(ctx, reader);
         return header;

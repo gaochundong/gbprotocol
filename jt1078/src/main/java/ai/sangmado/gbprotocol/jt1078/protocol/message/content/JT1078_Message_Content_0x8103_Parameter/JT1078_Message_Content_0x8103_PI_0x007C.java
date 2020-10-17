@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt1078.protocol.message.content.JT1078_Message_Content_0x8103_Parameter;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItem;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemId;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
@@ -75,16 +75,16 @@ public class JT1078_Message_Content_0x8103_PI_0x007C extends JT808_Message_Conte
     private Integer dailyWakingParameters;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 
-    public static JT1078_Message_Content_0x8103_PI_0x007C decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT1078_Message_Content_0x8103_PI_0x007C decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT1078_Message_Content_0x8103_PI_0x007C content = new JT1078_Message_Content_0x8103_PI_0x007C();
         content.deserialize(ctx, reader);
         return content;

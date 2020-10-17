@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter.JT808_Message_Content_0x8103_ParameterItemId;
@@ -42,7 +42,7 @@ public class JT808_Message_Content_0x8106 extends JT808MessageContent {
     private List<JT808_Message_Content_0x8103_ParameterItemId> itemList;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
         if (getItemList() == null || getItemList().size() == 0) {
             throw new UnsupportedJT808OperationException("参数列表为空");
         }
@@ -60,7 +60,7 @@ public class JT808_Message_Content_0x8106 extends JT808MessageContent {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         setItemCount(reader.readByte() & 0xFF);
 
         // 按数量读取参数ID
@@ -75,7 +75,7 @@ public class JT808_Message_Content_0x8106 extends JT808MessageContent {
         }
     }
 
-    public static JT808_Message_Content_0x8106 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808_Message_Content_0x8106 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808_Message_Content_0x8106 content = new JT808_Message_Content_0x8106();
         content.deserialize(ctx, reader);
         return content;

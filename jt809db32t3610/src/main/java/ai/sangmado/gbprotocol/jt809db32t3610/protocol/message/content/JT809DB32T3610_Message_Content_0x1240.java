@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt809db32t3610.protocol.message.content;
 
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809MessageContent;
@@ -32,16 +32,16 @@ public class JT809DB32T3610_Message_Content_0x1240 extends JT809MessageContent {
     private Integer xxx;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT809MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
 
     }
 
-    public static JT809DB32T3610_Message_Content_0x1240 decode(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public static JT809DB32T3610_Message_Content_0x1240 decode(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         JT809DB32T3610_Message_Content_0x1240 content = new JT809DB32T3610_Message_Content_0x1240();
         content.deserialize(ctx, reader);
         return content;

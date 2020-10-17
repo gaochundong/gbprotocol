@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x8103_Parameter;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import lombok.Getter;
@@ -33,20 +33,20 @@ public class JT808_Message_Content_0x8103_PI_0x0004 extends JT808_Message_Conten
     private Long udpReplyTimeout;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeDWord(getParameterItemId().getValue());
         writer.writeByte(getParameterItemLength());
         writer.writeDWord(getUdpReplyTimeout());
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         reader.readDWord();
         reader.readByte();
         setUdpReplyTimeout(reader.readDWord());
     }
 
-    public static JT808_Message_Content_0x8103_PI_0x0004 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808_Message_Content_0x8103_PI_0x0004 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808_Message_Content_0x8103_PI_0x0004 content = new JT808_Message_Content_0x8103_PI_0x0004();
         content.deserialize(ctx, reader);
         return content;

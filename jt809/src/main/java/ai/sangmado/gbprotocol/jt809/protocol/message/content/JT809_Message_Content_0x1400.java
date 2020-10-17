@@ -3,7 +3,7 @@ package ai.sangmado.gbprotocol.jt809.protocol.message.content;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809_Message_Content_0x1400_Sub.JT809_Message_Content_0x1400_SubMessage;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809_Message_Content_0x1400_Sub.JT809_Message_Content_0x1400_SubMessageRegistration;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageId;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809SubMessageId;
@@ -32,14 +32,14 @@ public class JT809_Message_Content_0x1400 extends JT809MessageContent {
     private JT809_Message_Content_0x1400_SubMessage subMessage;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT809MessageBufferWriter writer) {
         writer.writeUInt16(getMessageId().getValue());
         writer.writeUInt32(subMessage.getContentLength(ctx));
         subMessage.serialize(ctx, writer);
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         reader.readUInt16();
         reader.readUInt32();
 
@@ -53,7 +53,7 @@ public class JT809_Message_Content_0x1400 extends JT809MessageContent {
         this.subMessage = JT809_Message_Content_0x1400_SubMessageRegistration.getDecoders().get(subMessageId).apply(ctx, reader);
     }
 
-    public static JT809_Message_Content_0x1400 decode(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public static JT809_Message_Content_0x1400 decode(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         JT809_Message_Content_0x1400 content = new JT809_Message_Content_0x1400();
         content.deserialize(ctx, reader);
         return content;

@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.serialization.impl;
 
-import ai.sangmado.gbprotocol.gb32960.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.gb32960.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.gb32960.protocol.serialization.IGB32960MessageBufferWriter;
 import com.google.common.primitives.UnsignedLong;
 
@@ -13,10 +13,10 @@ import static ai.sangmado.gbprotocol.gbcommon.utils.Bits.*;
  * 基于 ByteBuffer 的 GB32960 写入层实现
  */
 public class GB32960MessageByteBufferWriter implements IGB32960MessageBufferWriter {
-    private ISpecificationContext ctx;
-    private ByteBuffer buf;
+    private final IVersionedSpecificationContext ctx;
+    private final ByteBuffer buf;
 
-    public GB32960MessageByteBufferWriter(ISpecificationContext ctx, ByteBuffer buf) {
+    public GB32960MessageByteBufferWriter(IVersionedSpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

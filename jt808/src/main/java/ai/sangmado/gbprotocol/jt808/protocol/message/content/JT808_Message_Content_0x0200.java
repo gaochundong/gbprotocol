@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808VehicleState;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808WarningType;
@@ -88,7 +88,7 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
     private List<JT808_Message_Content_0x0200_AdditionalInformation> additionalInformationList;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
         writer.writeDWord(getWarningType().getValue());
         writer.writeDWord(getState().getValue());
         writer.writeDWord(getLatitude());
@@ -110,7 +110,7 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         setWarningType(JT808WarningType.cast(reader.readDWord()));
         setState(JT808VehicleState.cast(reader.readDWord()));
         setLatitude(reader.readDWord());
@@ -139,7 +139,7 @@ public class JT808_Message_Content_0x0200 extends JT808MessageContent {
         }
     }
 
-    public static JT808_Message_Content_0x0200 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808_Message_Content_0x0200 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808_Message_Content_0x0200 content = new JT808_Message_Content_0x0200();
         content.deserialize(ctx, reader);
         return content;

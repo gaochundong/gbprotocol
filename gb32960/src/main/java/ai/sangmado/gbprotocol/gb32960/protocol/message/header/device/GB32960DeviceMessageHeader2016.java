@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.message.header.device;
 
-import ai.sangmado.gbprotocol.gb32960.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.gb32960.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960DeviceCommandId;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960MessageContentEncryptionMode;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960ProtocolVersion;
@@ -52,7 +52,7 @@ public class GB32960DeviceMessageHeader2016 extends GB32960DeviceMessageHeader {
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IGB32960MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IGB32960MessageBufferWriter writer) {
         writer.writeByte(getCommandId().getValue());
         writer.writeByte(getReplyId().getValue());
         writer.writeString(getVin());
@@ -61,7 +61,7 @@ public class GB32960DeviceMessageHeader2016 extends GB32960DeviceMessageHeader {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IGB32960MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IGB32960MessageBufferReader reader) {
         setCommandId(GB32960DeviceCommandId.cast(reader.readByte()));
         setReplyId(GB32960ReplyId.cast(reader.readByte()));
         setVin(reader.readString(100));
@@ -69,7 +69,7 @@ public class GB32960DeviceMessageHeader2016 extends GB32960DeviceMessageHeader {
         setContentLength(reader.readWord());
     }
 
-    public static GB32960DeviceMessageHeader2016 decode(ISpecificationContext ctx, IGB32960MessageBufferReader reader) {
+    public static GB32960DeviceMessageHeader2016 decode(IVersionedSpecificationContext ctx, IGB32960MessageBufferReader reader) {
         GB32960DeviceMessageHeader2016 header = new GB32960DeviceMessageHeader2016();
         header.deserialize(ctx, reader);
         return header;

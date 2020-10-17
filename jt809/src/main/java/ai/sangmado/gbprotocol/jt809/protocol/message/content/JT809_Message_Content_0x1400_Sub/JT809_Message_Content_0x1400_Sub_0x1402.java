@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809_Message_Content_0x1400_Sub;
 
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809SubMessageId;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809WarningSource;
@@ -122,7 +122,7 @@ public class JT809_Message_Content_0x1400_Sub_0x1402 extends JT809_Message_Conte
     private String warningInfoContent;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT809MessageBufferWriter writer) {
         writer.writeUInt16(getSubMessageId().getValue());
         writer.writeUInt32(1 + 2 + 4 + 4 + getWarningInfoContent().getBytes(ctx.getCharset()).length);
 
@@ -135,7 +135,7 @@ public class JT809_Message_Content_0x1400_Sub_0x1402 extends JT809_Message_Conte
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         reader.readUInt16();
         reader.readUInt32();
 
@@ -147,7 +147,7 @@ public class JT809_Message_Content_0x1400_Sub_0x1402 extends JT809_Message_Conte
         setWarningInfoContent(reader.readString(getWarningInfoLength().intValue()));
     }
 
-    public static JT809_Message_Content_0x1400_Sub_0x1402 decode(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public static JT809_Message_Content_0x1400_Sub_0x1402 decode(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         JT809_Message_Content_0x1400_Sub_0x1402 content = new JT809_Message_Content_0x1400_Sub_0x1402();
         content.deserialize(ctx, reader);
         return content;

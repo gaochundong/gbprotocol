@@ -2,7 +2,7 @@ package ai.sangmado.gbprotocol.jt809.protocol.message;
 
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809MessageContent;
 import ai.sangmado.gbprotocol.jt809.protocol.message.header.JT809MessageHeader;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 public final class JT809MessageAssembler {
 
     public static List<JT809Message> assemble(
-            ISpecificationContext ctx, JT809MessageHeader header, JT809MessageContent content) {
+            IVersionedSpecificationContext ctx, JT809MessageHeader header, JT809MessageContent content) {
 
         header.setMessageLength(header.getMessageLengthWithoutContent() + content.getContentLength(ctx));
 

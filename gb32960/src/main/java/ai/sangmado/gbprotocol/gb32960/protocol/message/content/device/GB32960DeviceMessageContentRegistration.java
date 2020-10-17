@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.message.content.device;
 
-import ai.sangmado.gbprotocol.gb32960.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.gb32960.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960DeviceCommandId;
 import ai.sangmado.gbprotocol.gb32960.protocol.serialization.IGB32960MessageBufferReader;
 
@@ -12,13 +12,13 @@ import java.util.function.BiFunction;
  * GB32960 数据单元注册器 (终端)
  */
 public class GB32960DeviceMessageContentRegistration {
-    private static final Map<GB32960DeviceCommandId, BiFunction<ISpecificationContext, IGB32960MessageBufferReader, GB32960DeviceMessageContent>> decoders = new HashMap<>(300);
+    private static final Map<GB32960DeviceCommandId, BiFunction<IVersionedSpecificationContext, IGB32960MessageBufferReader, GB32960DeviceMessageContent>> decoders = new HashMap<>(300);
 
-    public static Map<GB32960DeviceCommandId, BiFunction<ISpecificationContext, IGB32960MessageBufferReader, GB32960DeviceMessageContent>> getDecoders() {
+    public static Map<GB32960DeviceCommandId, BiFunction<IVersionedSpecificationContext, IGB32960MessageBufferReader, GB32960DeviceMessageContent>> getDecoders() {
         return decoders;
     }
 
-    public static void registerDecoder(GB32960DeviceCommandId commandId, BiFunction<ISpecificationContext, IGB32960MessageBufferReader, GB32960DeviceMessageContent> contentDecoder) {
+    public static void registerDecoder(GB32960DeviceCommandId commandId, BiFunction<IVersionedSpecificationContext, IGB32960MessageBufferReader, GB32960DeviceMessageContent> contentDecoder) {
         decoders.put(commandId, contentDecoder);
     }
 

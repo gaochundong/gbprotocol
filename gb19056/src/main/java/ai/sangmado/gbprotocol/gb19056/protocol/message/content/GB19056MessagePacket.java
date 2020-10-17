@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.gb19056.protocol.message.content;
 
 import ai.sangmado.gbprotocol.gbcommon.enums.IMessageId;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageFormatter;
@@ -55,12 +55,12 @@ public class GB19056MessagePacket<T extends IMessageId> implements IJT808Message
     private int checksum;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 }

@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt905.protocol.message;
 
-import ai.sangmado.gbprotocol.jt905.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt905.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt905.protocol.enums.JT905MessageId;
 import ai.sangmado.gbprotocol.jt905.protocol.enums.JT905ProtocolVersion;
 import ai.sangmado.gbprotocol.jt905.protocol.message.content.JT905MessageContent;
@@ -76,10 +76,10 @@ public class JT905MessagePacket implements IJT905Message {
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT905MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT905MessageBufferWriter writer) {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT905MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT905MessageBufferReader reader) {
     }
 }

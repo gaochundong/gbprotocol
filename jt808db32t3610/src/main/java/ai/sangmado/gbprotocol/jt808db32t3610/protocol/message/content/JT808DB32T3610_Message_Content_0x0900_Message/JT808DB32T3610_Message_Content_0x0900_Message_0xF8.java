@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_Message_Content_0x0900_Message;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_Passthrough_Message.JT808_Message_Content_0x0900_Base;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
@@ -107,16 +107,16 @@ public class JT808DB32T3610_Message_Content_0x0900_Message_0xF8 extends JT808_Me
     private String customerCode;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 
-    public static JT808DB32T3610_Message_Content_0x0900_Message_0xF8 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808DB32T3610_Message_Content_0x0900_Message_0xF8 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808DB32T3610_Message_Content_0x0900_Message_0xF8 content = new JT808DB32T3610_Message_Content_0x0900_Message_0xF8();
         content.deserialize(ctx, reader);
         return content;

@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content.JT808DB23HeiBiao_Message_Content_0x0200_Additional;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformation;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationId;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
@@ -30,16 +30,16 @@ public class JT808DB23HeiBiao_Message_Content_0x0200_AI_0x32 extends JT808_Messa
     private Integer xxx;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 
-    public static JT808DB23HeiBiao_Message_Content_0x0200_AI_0x32 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808DB23HeiBiao_Message_Content_0x0200_AI_0x32 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808DB23HeiBiao_Message_Content_0x0200_AI_0x32 content = new JT808DB23HeiBiao_Message_Content_0x0200_AI_0x32();
         content.deserialize(ctx, reader);
         return content;

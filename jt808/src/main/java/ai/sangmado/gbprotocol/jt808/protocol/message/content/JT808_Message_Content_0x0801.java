@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MediaDataActionCode;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MediaDataCodingFormat;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MediaDataType;
@@ -62,16 +62,16 @@ public class JT808_Message_Content_0x0801 extends JT808MessageContent {
     private byte[] mediaData;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 
-    public static JT808_Message_Content_0x0801 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808_Message_Content_0x0801 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808_Message_Content_0x0801 content = new JT808_Message_Content_0x0801();
         content.deserialize(ctx, reader);
         return content;

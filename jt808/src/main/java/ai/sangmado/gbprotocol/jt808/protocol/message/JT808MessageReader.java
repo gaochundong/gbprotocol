@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808MessageException;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
@@ -29,7 +29,7 @@ public final class JT808MessageReader {
      * @return 消息头
      */
     public static JT808MessageHeader readMessageHeader(
-            ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+            IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         if (!JT808MessageHeaderRegistration.getDecoders().containsKey(ctx.getProtocolVersion())) {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
@@ -49,7 +49,7 @@ public final class JT808MessageReader {
      * @return 消息体
      */
     public static JT808MessageContent readMessageContent(
-            ISpecificationContext ctx, IJT808MessageBufferReader reader, JT808MessageHeader header) {
+            IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader, JT808MessageHeader header) {
         if (!JT808MessageContentRegistration.getDecoders().containsKey(header.getMessageId())) {
             throw new UnsupportedJT808MessageException(header.getMessageId());
         }

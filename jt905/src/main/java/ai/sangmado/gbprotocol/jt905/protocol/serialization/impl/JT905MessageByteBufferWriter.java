@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.jt905.protocol.serialization.impl;
 
 import ai.sangmado.gbprotocol.gbcommon.utils.BCD;
-import ai.sangmado.gbprotocol.jt905.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt905.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt905.protocol.serialization.IJT905MessageBufferWriter;
 
 import java.nio.ByteBuffer;
@@ -13,10 +13,10 @@ import static ai.sangmado.gbprotocol.gbcommon.utils.Bits.*;
  * 基于 ByteBuffer 的 JT905 写入层实现
  */
 public class JT905MessageByteBufferWriter implements IJT905MessageBufferWriter {
-    private ISpecificationContext ctx;
-    private ByteBuffer buf;
+    private final IVersionedSpecificationContext ctx;
+    private final ByteBuffer buf;
 
-    public JT905MessageByteBufferWriter(ISpecificationContext ctx, ByteBuffer buf) {
+    public JT905MessageByteBufferWriter(IVersionedSpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

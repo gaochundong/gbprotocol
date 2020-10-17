@@ -2,7 +2,7 @@ package ai.sangmado.gbprotocol.gb19056.protocol.message.jt808;
 
 import ai.sangmado.gbprotocol.gb19056.protocol.message.content.GB19056MessagePacket;
 import ai.sangmado.gbprotocol.gbcommon.enums.IMessageId;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
@@ -35,16 +35,16 @@ public class JT808_Message_Content_0x8701<T extends IMessageId> extends JT808Mes
     private GB19056MessagePacket<T> packet;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 
-    public static <T extends IMessageId> JT808_Message_Content_0x8701<T> decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static <T extends IMessageId> JT808_Message_Content_0x8701<T> decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808_Message_Content_0x8701<T> content = new JT808_Message_Content_0x8701<>();
         content.deserialize(ctx, reader);
         return content;

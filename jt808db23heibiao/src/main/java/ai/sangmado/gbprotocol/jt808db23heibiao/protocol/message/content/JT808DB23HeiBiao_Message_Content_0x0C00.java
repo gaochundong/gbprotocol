@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808db23heibiao.protocol.message.content;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
@@ -75,16 +75,16 @@ public class JT808DB23HeiBiao_Message_Content_0x0C00 extends JT808MessageContent
     private String facePhotoCaptureFlag;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
 
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
 
     }
 
-    public static JT808DB23HeiBiao_Message_Content_0x0C00 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT808DB23HeiBiao_Message_Content_0x0C00 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT808DB23HeiBiao_Message_Content_0x0C00 content = new JT808DB23HeiBiao_Message_Content_0x0C00();
         content.deserialize(ctx, reader);
         return content;

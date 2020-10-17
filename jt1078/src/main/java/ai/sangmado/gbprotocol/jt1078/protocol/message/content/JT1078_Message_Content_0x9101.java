@@ -5,7 +5,7 @@ import ai.sangmado.gbprotocol.jt1078.protocol.enums.JT1078MessageId;
 import ai.sangmado.gbprotocol.jt1078.protocol.enums.LogicalChannelNumber;
 import ai.sangmado.gbprotocol.jt1078.protocol.enums.StreamingDataType;
 import ai.sangmado.gbprotocol.jt1078.protocol.exceptions.UnsupportedJT1078ProtocolVersionException;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
@@ -67,7 +67,7 @@ public class JT1078_Message_Content_0x9101 extends JT808MessageContent {
     private ChannelStreamType channelStreamType;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
         if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
             writer.writeByte(getStreamingServerIPAddressLength());
             writer.writeString(getStreamingServerIPAddress());
@@ -85,7 +85,7 @@ public class JT1078_Message_Content_0x9101 extends JT808MessageContent {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011) || ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
             setStreamingServerIPAddressLength(reader.readByte() & 0xFF);
             setStreamingServerIPAddress(reader.readString(getStreamingServerIPAddressLength()));
@@ -102,7 +102,7 @@ public class JT1078_Message_Content_0x9101 extends JT808MessageContent {
         }
     }
 
-    public static JT1078_Message_Content_0x9101 decode(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public static JT1078_Message_Content_0x9101 decode(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         JT1078_Message_Content_0x9101 content = new JT1078_Message_Content_0x9101();
         content.deserialize(ctx, reader);
         return content;

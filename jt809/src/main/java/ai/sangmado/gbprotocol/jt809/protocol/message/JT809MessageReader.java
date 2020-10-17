@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.jt809.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.exceptions.UnsupportedJT809MessageException;
 import ai.sangmado.gbprotocol.jt809.protocol.exceptions.UnsupportedJT809ProtocolVersionException;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809MessageContent;
@@ -28,7 +28,7 @@ public final class JT809MessageReader {
      * @return 消息头
      */
     public static JT809MessageHeader readMessageHeader(
-            ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+            IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         if (!JT809MessageHeaderRegistration.getDecoders().containsKey(ctx.getProtocolVersion())) {
             throw new UnsupportedJT809ProtocolVersionException(ctx.getProtocolVersion());
         }
@@ -47,7 +47,7 @@ public final class JT809MessageReader {
      * @return 消息体
      */
     public static JT809MessageContent readMessageContent(
-            ISpecificationContext ctx, IJT809MessageBufferReader reader, JT809MessageHeader header) {
+            IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader, JT809MessageHeader header) {
         if (!JT809MessageContentRegistration.getDecoders().containsKey(header.getMessageId())) {
             throw new UnsupportedJT809MessageException(header.getMessageId());
         }

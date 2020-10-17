@@ -2,8 +2,8 @@ package ai.sangmado.gbprotocol.jt808.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArrayFactory;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt808.protocol.JT808ProtocolSpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.JT808ProtocolVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
@@ -25,8 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JT808_Message_0x0100_Test {
 
-    private IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private ISpecificationContext ctx = new JT808ProtocolSpecificationContext()
+    private final IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
+    private IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
             .withProtocolVersion(JT808ProtocolVersion.V2019)
             .withBufferPool(bufferPool);
 

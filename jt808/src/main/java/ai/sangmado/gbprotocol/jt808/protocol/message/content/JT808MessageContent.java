@@ -1,12 +1,12 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
+import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageFormatter;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.impl.JT808MessageByteBufferWriter;
-import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
-import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808OperationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Lists;
@@ -35,7 +35,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @return 消息体长度
      */
     @JsonIgnore
-    public int getContentLength(ISpecificationContext ctx) {
+    public int getContentLength(IVersionedSpecificationContext ctx) {
         PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
             ByteBuffer buf = ByteBuffer.wrap(pba.array());
@@ -55,7 +55,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @return 是否能够按条件进行分包
      */
     @JsonIgnore
-    public boolean couldSplitAccordingly(ISpecificationContext ctx) {
+    public boolean couldSplitAccordingly(IVersionedSpecificationContext ctx) {
         return false;
     }
 
@@ -66,7 +66,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @return 分包长度
      */
     @JsonIgnore
-    public int getSplitByLength(ISpecificationContext ctx) {
+    public int getSplitByLength(IVersionedSpecificationContext ctx) {
         throw new UnsupportedJT808OperationException("未设置分包长度");
     }
 
@@ -76,7 +76,7 @@ public abstract class JT808MessageContent implements IJT808MessageFormatter {
      * @param ctx 协议规范上下文
      * @return 分包列表
      */
-    public List<JT808MessageContent> split(ISpecificationContext ctx) {
+    public List<JT808MessageContent> split(IVersionedSpecificationContext ctx) {
         // 是否配置允许分包
         if (!couldSplitAccordingly(ctx)) {
             throw new UnsupportedJT808OperationException("不适当的分包函数调用");

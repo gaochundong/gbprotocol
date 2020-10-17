@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.jt808.protocol.serialization.impl;
 
 import ai.sangmado.gbprotocol.gbcommon.utils.BCD;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 
 import java.nio.ByteBuffer;
@@ -11,11 +11,11 @@ import java.nio.ByteOrder;
  * 基于 ByteBuffer 的 JT808 读取层实现
  */
 public class JT808MessageByteBufferReader implements IJT808MessageBufferReader {
-    private ISpecificationContext ctx;
-    private ByteBuffer buf;
+    private final IVersionedSpecificationContext ctx;
+    private final ByteBuffer buf;
     private int markedIndex = 0;
 
-    public JT808MessageByteBufferReader(ISpecificationContext ctx, ByteBuffer buf) {
+    public JT808MessageByteBufferReader(IVersionedSpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

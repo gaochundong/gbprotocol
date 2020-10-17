@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.jt809.protocol.message.header;
 
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferReader;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionMode;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageId;
@@ -62,7 +62,7 @@ public class JT809MessageHeader2011 extends JT809MessageHeader {
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT809MessageBufferWriter writer) {
         writer.writeUInt32(getMessageLength());
         writer.writeUInt32(getMessageSequenceNumber());
         writer.writeUInt16(getMessageId().getValue());
@@ -73,7 +73,7 @@ public class JT809MessageHeader2011 extends JT809MessageHeader {
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         setMessageLength(reader.readUInt32());
         setMessageSequenceNumber(reader.readUInt32());
         setMessageId(JT809MessageId.cast(reader.readUInt16()));
@@ -83,7 +83,7 @@ public class JT809MessageHeader2011 extends JT809MessageHeader {
         setEncryptionKey(reader.readUInt32());
     }
 
-    public static JT809MessageHeader2011 decode(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public static JT809MessageHeader2011 decode(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         JT809MessageHeader2011 header = new JT809MessageHeader2011();
         header.deserialize(ctx, reader);
         return header;

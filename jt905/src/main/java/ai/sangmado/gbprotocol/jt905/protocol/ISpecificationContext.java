@@ -1,7 +1,6 @@
 package ai.sangmado.gbprotocol.jt905.protocol;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
-import ai.sangmado.gbprotocol.jt905.protocol.enums.JT905ProtocolVersion;
 
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
@@ -10,13 +9,6 @@ import java.nio.charset.Charset;
  * 协议上下文
  */
 public interface ISpecificationContext extends Cloneable {
-
-    /**
-     * 获取协议版本
-     *
-     * @return 协议版本
-     */
-    JT905ProtocolVersion getProtocolVersion();
 
     /**
      * 获取字节序

@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.message.header.JT808MessageHeader;
 import com.google.common.collect.Lists;
@@ -14,7 +14,7 @@ import java.util.List;
 public final class JT808MessageAssembler {
 
     public static List<JT808Message> assemble(
-            ISpecificationContext ctx, JT808MessageHeader header, JT808MessageContent content) {
+            IVersionedSpecificationContext ctx, JT808MessageHeader header, JT808MessageContent content) {
 
         // 如果配置了可以按照条件进行分包，则进行分包判断
         if (content.couldSplitAccordingly(ctx)) {
@@ -26,7 +26,7 @@ public final class JT808MessageAssembler {
     }
 
     private static List<JT808Message> split(
-            ISpecificationContext ctx, JT808MessageHeader header, JT808MessageContent content) {
+            IVersionedSpecificationContext ctx, JT808MessageHeader header, JT808MessageContent content) {
 
         List<JT808MessageContent> splitContents = content.split(ctx);
 
@@ -58,7 +58,7 @@ public final class JT808MessageAssembler {
     }
 
     private static List<JT808Message> single(
-            ISpecificationContext ctx, JT808MessageHeader header, JT808MessageContent content) {
+            IVersionedSpecificationContext ctx, JT808MessageHeader header, JT808MessageContent content) {
 
         header.getMessageContentProperty().setIsMultiplePackets(false);
         header.getMessageContentProperty().setContentLength(content.getContentLength(ctx));

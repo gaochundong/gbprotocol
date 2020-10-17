@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.header;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageContentEncryptionMode;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
@@ -10,7 +10,7 @@ import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808Protocol
  */
 public final class JT808MessageHeaderFactory {
 
-    public static JT808MessageHeader buildWith(ISpecificationContext ctx) {
+    public static JT808MessageHeader buildWith(IVersionedSpecificationContext ctx) {
         if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011)) {
             JT808MessageHeaderMessageContentProperty2011 messageContentProperty =
                     JT808MessageHeaderMessageContentProperty2011.builder()

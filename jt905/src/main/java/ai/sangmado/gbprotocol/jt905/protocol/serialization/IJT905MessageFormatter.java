@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt905.protocol.serialization;
 
-import ai.sangmado.gbprotocol.jt905.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt905.protocol.IVersionedSpecificationContext;
 
 /**
  * JT905 消息序列化器
@@ -13,7 +13,7 @@ public interface IJT905MessageFormatter {
      * @param ctx    协议规范上下文
      * @param writer Buffer写入器
      */
-    void serialize(ISpecificationContext ctx, IJT905MessageBufferWriter writer);
+    void serialize(IVersionedSpecificationContext ctx, IJT905MessageBufferWriter writer);
 
     /**
      * 从Buffer读取数据并反序列化后构建JT905消息对象
@@ -21,5 +21,5 @@ public interface IJT905MessageFormatter {
      * @param ctx    协议规范上下文
      * @param reader Buffer读取器
      */
-    void deserialize(ISpecificationContext ctx, IJT905MessageBufferReader reader);
+    void deserialize(IVersionedSpecificationContext ctx, IJT905MessageBufferReader reader);
 }

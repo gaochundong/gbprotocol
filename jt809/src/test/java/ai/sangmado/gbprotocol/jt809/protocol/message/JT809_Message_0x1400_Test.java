@@ -2,8 +2,8 @@ package ai.sangmado.gbprotocol.jt809.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.IBufferPool;
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArrayFactory;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
-import ai.sangmado.gbprotocol.jt809.protocol.JT809ProtocolSpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.JT809ProtocolVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.*;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809MessageContent;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809_Message_Content_0x1400;
@@ -26,9 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JT809_Message_0x1400_Test {
 
-    private JT809MessageContentEncryptionOptions encryptionOptions = new JT809MessageContentEncryptionOptions();
-    private IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private ISpecificationContext ctx = new JT809ProtocolSpecificationContext()
+    private final JT809MessageContentEncryptionOptions encryptionOptions = new JT809MessageContentEncryptionOptions();
+    private final IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
+    private IVersionedSpecificationContext ctx = new JT809ProtocolVersionedSpecificationContext()
             .withProtocolVersion(JT809ProtocolVersion.V2011)
             .withBufferPool(bufferPool)
             .withMessageContentEncryptionOptions(encryptionOptions);

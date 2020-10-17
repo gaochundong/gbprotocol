@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.message;
 
-import ai.sangmado.gbprotocol.gb32960.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.gb32960.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960DeviceCommandId;
 import ai.sangmado.gbprotocol.gb32960.protocol.enums.GB32960ProtocolVersion;
 import ai.sangmado.gbprotocol.gb32960.protocol.message.content.device.GB32960DeviceMessageContent;
@@ -75,12 +75,12 @@ public class GB32960DeviceMessagePacket implements IGB32960DeviceMessage {
     }
 
     @Override
-    public void serialize(ISpecificationContext ctx, IGB32960MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IGB32960MessageBufferWriter writer) {
         // 这个协议很流氓，平台和终端的消息ID是一样的
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IGB32960MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IGB32960MessageBufferReader reader) {
         // 这个协议很流氓，平台和终端的消息ID是一样的
     }
 }

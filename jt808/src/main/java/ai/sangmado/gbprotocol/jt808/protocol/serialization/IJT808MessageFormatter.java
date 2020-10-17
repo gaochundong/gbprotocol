@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.jt808.protocol.serialization;
 
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 
 /**
  * JT808 消息序列化器
@@ -13,7 +13,7 @@ public interface IJT808MessageFormatter {
      * @param ctx    协议规范上下文
      * @param writer Buffer写入器
      */
-    void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer);
+    void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer);
 
     /**
      * 从Buffer读取数据并反序列化后构建JT808消息对象
@@ -21,5 +21,5 @@ public interface IJT808MessageFormatter {
      * @param ctx    协议规范上下文
      * @param reader Buffer读取器
      */
-    void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader);
+    void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader);
 }

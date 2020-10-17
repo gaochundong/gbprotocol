@@ -1,6 +1,6 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.serialization;
 
-import ai.sangmado.gbprotocol.gb32960.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.gb32960.protocol.IVersionedSpecificationContext;
 
 /**
  * GB32960 消息序列化器
@@ -13,7 +13,7 @@ public interface IGB32960MessageFormatter {
      * @param ctx    协议规范上下文
      * @param writer Buffer写入器
      */
-    void serialize(ISpecificationContext ctx, IGB32960MessageBufferWriter writer);
+    void serialize(IVersionedSpecificationContext ctx, IGB32960MessageBufferWriter writer);
 
     /**
      * 从Buffer读取数据并反序列化后构建GB32960消息对象
@@ -21,5 +21,5 @@ public interface IGB32960MessageFormatter {
      * @param ctx    协议规范上下文
      * @param reader Buffer读取器
      */
-    void deserialize(ISpecificationContext ctx, IGB32960MessageBufferReader reader);
+    void deserialize(IVersionedSpecificationContext ctx, IGB32960MessageBufferReader reader);
 }

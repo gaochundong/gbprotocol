@@ -2,7 +2,7 @@ package ai.sangmado.gbprotocol.jt809.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
 import ai.sangmado.gbprotocol.gbcommon.utils.CRC16;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.enums.JT809MessageContentEncryptionMode;
 import ai.sangmado.gbprotocol.jt809.protocol.exceptions.InvalidJT809MessageChecksumException;
 import ai.sangmado.gbprotocol.jt809.protocol.message.content.JT809MessageContent;
@@ -63,7 +63,7 @@ public class JT809Message implements IJT809Message<JT809MessageHeader, JT809Mess
     private byte endMarker = 0x5d;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT809MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT809MessageBufferWriter writer) {
         // 求出消息数据，此处需要申请Header+Content长度的内存
         PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
@@ -74,7 +74,7 @@ public class JT809Message implements IJT809Message<JT809MessageHeader, JT809Mess
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT809MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader) {
         // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
         PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
@@ -84,7 +84,7 @@ public class JT809Message implements IJT809Message<JT809MessageHeader, JT809Mess
         }
     }
 
-    private void serializeWithBuffer(ISpecificationContext ctx, IJT809MessageBufferWriter writer, ByteBuffer buf) {
+    private void serializeWithBuffer(IVersionedSpecificationContext ctx, IJT809MessageBufferWriter writer, ByteBuffer buf) {
         // 写入数据
         IJT809MessageBufferWriter bufWriter = new JT809MessageByteBufferWriter(ctx, buf);
         header.serialize(ctx, bufWriter);
@@ -113,7 +113,7 @@ public class JT809Message implements IJT809Message<JT809MessageHeader, JT809Mess
         writer.writeByte(endMarker);
     }
 
-    private void deserializeWithBuffer(ISpecificationContext ctx, IJT809MessageBufferReader reader, ByteBuffer buf) {
+    private void deserializeWithBuffer(IVersionedSpecificationContext ctx, IJT809MessageBufferReader reader, ByteBuffer buf) {
         // 反转义
         IJT809MessageBufferWriter bufWriter = new JT809MessageByteBufferWriter(ctx, buf);
         while (reader.isReadable()) {
@@ -168,7 +168,7 @@ public class JT809Message implements IJT809Message<JT809MessageHeader, JT809Mess
      * @param length        处理长度
      * @param encryptionKey 加密Key
      */
-    private static void encrypt(ISpecificationContext ctx, ByteBuffer buf, int offset, int length, long encryptionKey) {
+    private static void encrypt(IVersionedSpecificationContext ctx, ByteBuffer buf, int offset, int length, long encryptionKey) {
         if (0 == encryptionKey) {
             encryptionKey = 1;
         }
@@ -199,7 +199,7 @@ public class JT809Message implements IJT809Message<JT809MessageHeader, JT809Mess
      * @param length        处理长度
      * @param encryptionKey 加密Key
      */
-    private static void decrypt(ISpecificationContext ctx, ByteBuffer buf, int offset, int length, long encryptionKey) {
+    private static void decrypt(IVersionedSpecificationContext ctx, ByteBuffer buf, int offset, int length, long encryptionKey) {
         // 加密解密为同一算法
         encrypt(ctx, buf, offset, length, encryptionKey);
     }

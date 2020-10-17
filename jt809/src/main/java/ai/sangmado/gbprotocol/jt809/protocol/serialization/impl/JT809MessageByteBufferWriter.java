@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.jt809.protocol.serialization.impl;
 
 import ai.sangmado.gbprotocol.gbcommon.utils.BCD;
-import ai.sangmado.gbprotocol.jt809.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt809.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt809.protocol.serialization.IJT809MessageBufferWriter;
 import com.google.common.primitives.UnsignedLong;
 
@@ -14,10 +14,10 @@ import static ai.sangmado.gbprotocol.gbcommon.utils.Bits.*;
  * 基于 ByteBuffer 的 JT809 写入层实现
  */
 public class JT809MessageByteBufferWriter implements IJT809MessageBufferWriter {
-    private ISpecificationContext ctx;
-    private ByteBuffer buf;
+    private final IVersionedSpecificationContext ctx;
+    private final ByteBuffer buf;
 
-    public JT809MessageByteBufferWriter(ISpecificationContext ctx, ByteBuffer buf) {
+    public JT809MessageByteBufferWriter(IVersionedSpecificationContext ctx, ByteBuffer buf) {
         this.ctx = ctx;
         this.buf = buf;
     }

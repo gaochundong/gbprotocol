@@ -1,7 +1,7 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message;
 
 import ai.sangmado.gbprotocol.gbcommon.memory.PooledByteArray;
-import ai.sangmado.gbprotocol.jt808.protocol.ISpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.InvalidJT808MessageChecksumException;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.message.header.JT808MessageHeader;
@@ -66,7 +66,7 @@ public class JT808Message implements IJT808Message<JT808MessageHeader, JT808Mess
     private byte endMarker = 0x7e;
 
     @Override
-    public void serialize(ISpecificationContext ctx, IJT808MessageBufferWriter writer) {
+    public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
         // 求出消息数据，此处需要申请Header+Content长度的内存
         PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
@@ -77,7 +77,7 @@ public class JT808Message implements IJT808Message<JT808MessageHeader, JT808Mess
     }
 
     @Override
-    public void deserialize(ISpecificationContext ctx, IJT808MessageBufferReader reader) {
+    public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
         // 将数据进行反转义，由于反转移需要针对整个Packet，则此处需要申请Packet大小的内存
         PooledByteArray pba = ctx.getBufferPool().borrow();
         try {
@@ -87,7 +87,7 @@ public class JT808Message implements IJT808Message<JT808MessageHeader, JT808Mess
         }
     }
 
-    private void serializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferWriter writer, ByteBuffer buf) {
+    private void serializeWithBuffer(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer, ByteBuffer buf) {
         // 写入数据
         IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
         header.serialize(ctx, bufWriter);
@@ -107,7 +107,7 @@ public class JT808Message implements IJT808Message<JT808MessageHeader, JT808Mess
         writer.writeByte(endMarker);
     }
 
-    private void deserializeWithBuffer(ISpecificationContext ctx, IJT808MessageBufferReader reader, ByteBuffer buf) {
+    private void deserializeWithBuffer(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader, ByteBuffer buf) {
         // 反转义
         IJT808MessageBufferWriter bufWriter = new JT808MessageByteBufferWriter(ctx, buf);
         while (reader.isReadable()) {

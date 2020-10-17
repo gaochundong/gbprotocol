@@ -2,7 +2,6 @@ package ai.sangmado.gbprotocol.jt809.protocol.serialization;
 
 import com.google.common.primitives.UnsignedLong;
 
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
 
 /**
