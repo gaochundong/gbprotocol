@@ -1,6 +1,7 @@
 package ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional;
 
 import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808VehicleExtendedIOState;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import lombok.Setter;
 
 /**
  * 终端位置信息汇报 - 位置附加信息 - IO状态位
+ *
+ * @since V2013
  */
 @NoArgsConstructor
 public class JT808_Message_Content_0x0200_AI_0x2A extends JT808_Message_Content_0x0200_AdditionalInformation {
@@ -27,7 +30,7 @@ public class JT808_Message_Content_0x0200_AI_0x2A extends JT808_Message_Content_
      */
     @Getter
     @Setter
-    private byte[] ioState;
+    private JT808VehicleExtendedIOState extendedIOState;
 
     @Override
     public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {

@@ -56,18 +56,23 @@ public class JT808MessageHeader2011 extends JT808MessageHeader {
 
     @Override
     public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
+        // 消息ID
         writer.writeWord(getMessageId().getValue());
 
         final char padChar = '0';
         if (ctx.getProtocolVersion().equals(PROTOCOL_VERSION)) {
+            // 消息体属性
             writer.writeWord(getMessageContentProperty().marshal());
+            // 终端手机号 BCD[6]
             writer.writeBCD(padStart(nullToEmpty(getPhoneNumber()), 6 * 2, padChar));
         } else {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
+        // 消息流水号
         writer.writeWord(getSerialNumber());
 
+        // 消息包封装项
         if (getMessageContentProperty().getIsMultiplePackets()) {
             writer.writeWord(getMessagePacketProperty().getTotalPackets());
             writer.writeWord(getMessagePacketProperty().getPacketSequence());
@@ -76,6 +81,7 @@ public class JT808MessageHeader2011 extends JT808MessageHeader {
 
     @Override
     public void deserialize(IVersionedSpecificationContext ctx, IJT808MessageBufferReader reader) {
+        // 消息ID
         setMessageId(JT808MessageId.cast(reader.readWord()));
 
         final String padChar = "0";
@@ -83,14 +89,18 @@ public class JT808MessageHeader2011 extends JT808MessageHeader {
         if (ctx.getProtocolVersion().equals(PROTOCOL_VERSION)) {
             JT808MessageHeaderMessageContentProperty2011 property = new JT808MessageHeaderMessageContentProperty2011();
             property.release(contentPropertyValue);
+            // 消息体属性
             setMessageContentProperty(property);
+            // 终端手机号 BCD[6]
             setPhoneNumber(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readBCD(6)));
         } else {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
+        // 消息流水号
         setSerialNumber(reader.readWord());
 
+        // 消息包封装项
         if (getMessageContentProperty().getIsMultiplePackets()) {
             JT808MessageHeaderMessagePacketProperty property = new JT808MessageHeaderMessagePacketProperty();
             property.setTotalPackets(reader.readWord());

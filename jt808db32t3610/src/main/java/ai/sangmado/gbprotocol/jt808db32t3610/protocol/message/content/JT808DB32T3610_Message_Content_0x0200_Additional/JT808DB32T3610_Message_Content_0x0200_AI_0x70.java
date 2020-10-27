@@ -5,9 +5,16 @@ import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Conte
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0200_Additional.JT808_Message_Content_0x0200_AdditionalInformationId;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
+import ai.sangmado.gbprotocol.jt808db32t3610.protocol.enums.JT808DB32T3610ExtendedIntenseDrivingWarningType;
+import ai.sangmado.gbprotocol.jt808db32t3610.protocol.enums.JT808DB32T3610ExtendedVehicleStatus;
+import ai.sangmado.gbprotocol.jt808db32t3610.protocol.enums.JT808DB32T3610ExtendedWarningSectionFlag;
+import ai.sangmado.gbprotocol.jt808db32t3610.protocol.message.content.JT808DB32T3610_WarningIdentity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 /**
  * 终端位置信息汇报 - 位置附加信息 - 激烈驾驶报警信息
@@ -23,11 +30,104 @@ public class JT808DB32T3610_Message_Content_0x0200_AI_0x70 extends JT808_Message
     }
 
     /**
-     * xxx
+     * 报警ID
+     * <p>
+     * 按照报警先后，从0开始循环累加，不区分报警类型
      */
     @Getter
     @Setter
-    private Integer xxx;
+    private Long warningId;
+    /**
+     * 标志状态
+     * <p>
+     * 该字段仅适用于有开始和结束标志类型的报警和事件
+     */
+    @Getter
+    @Setter
+    private JT808DB32T3610ExtendedWarningSectionFlag sectionFlag;
+    /**
+     * 报警/事件类型
+     */
+    @Getter
+    @Setter
+    private JT808DB32T3610ExtendedIntenseDrivingWarningType warningType;
+    /**
+     * 报警时间阈值
+     */
+    @Getter
+    @Setter
+    private Integer warningTimeThreshold;
+    /**
+     * 报警阈值1
+     * <p>
+     * 当报警类型为0x01~0x03时，该位为报警重力加速度阈值，单位为1/100g
+     * 当报警类型为0x04~0x07时，该位为报警车速阈值，单位为km/h 。
+     */
+    @Getter
+    @Setter
+    private Integer warningThreshold1;
+    /**
+     * 报警阈值2
+     * <p>
+     * 当报警类型为0x01~0x03时，该位预留；
+     * 当报警类型为0x04~0x07时，该位为报警发动机转速阈值，单位为RPM 。
+     */
+    @Getter
+    @Setter
+    private Integer warningThreshold2;
+    /**
+     * 车速
+     * <p>
+     * 单位Km/h 。 范围0~250
+     */
+    @Getter
+    @Setter
+    private Integer speed;
+    /**
+     * 高度
+     * <p>
+     * 海拔高度，单位为米（m)
+     */
+    @Getter
+    @Setter
+    private Integer altitude;
+    /**
+     * 纬度
+     * <p>
+     * 以度为单位的纬度值乘以10的6次方，精确到百万分之一度
+     */
+    @Getter
+    @Setter
+    private Long latitude;
+    /**
+     * 经度
+     * <p>
+     * 以度为单位的纬度值乘以10的6次方，精确到百万分之一度
+     */
+    @Getter
+    @Setter
+    private Long longitude;
+    /**
+     * 日期时间
+     * <p>
+     * YY-MM-DD-hh-mm-ss (GMT+8 时间)
+     */
+    @Getter
+    @Setter
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    private LocalDateTime dateTime;
+    /**
+     * 车辆状态
+     */
+    @Getter
+    @Setter
+    private JT808DB32T3610ExtendedVehicleStatus vehicleStatus;
+    /**
+     * 报警标识号
+     */
+    @Getter
+    @Setter
+    private JT808DB32T3610_WarningIdentity warningIdentity;
 
     @Override
     public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {

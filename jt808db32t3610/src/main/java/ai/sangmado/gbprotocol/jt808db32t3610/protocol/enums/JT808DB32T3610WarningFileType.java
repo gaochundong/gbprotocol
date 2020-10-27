@@ -20,10 +20,10 @@ public enum JT808DB32T3610WarningFileType {
     ;
 
     @JsonInclude
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     JT808DB32T3610WarningFileType(int value, String description) {
         this.value = value;

@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JT1078_Message_0x8103_Test {
 
     private final IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
-            .withProtocolVersion(JT808ProtocolVersion.V2011)
+    private final IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
+            .withProtocolVersion(JT808ProtocolVersion.V2013)
             .withBufferPool(bufferPool);
 
     @BeforeEach

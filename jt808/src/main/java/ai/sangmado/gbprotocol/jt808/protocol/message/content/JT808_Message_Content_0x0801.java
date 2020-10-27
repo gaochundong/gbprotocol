@@ -13,6 +13,7 @@ import lombok.*;
  * 终端多媒体数据上传
  *
  * @since V2011
+ * @since V2013 新增位置信息汇报字段
  */
 @Getter
 @Setter

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JT808_Message_0x8100_Test {
 
     private final IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
+    private final IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
             .withProtocolVersion(JT808ProtocolVersion.V2019)
             .withBufferPool(bufferPool);
 

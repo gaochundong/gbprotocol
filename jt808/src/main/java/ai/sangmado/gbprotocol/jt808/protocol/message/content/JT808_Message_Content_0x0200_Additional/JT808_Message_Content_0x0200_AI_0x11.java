@@ -9,6 +9,8 @@ import lombok.Setter;
 
 /**
  * 终端位置信息汇报 - 位置附加信息 - 超速报警附加信息
+ *
+ * @implNote Length 1或5
  */
 @NoArgsConstructor
 public class JT808_Message_Content_0x0200_AI_0x11 extends JT808_Message_Content_0x0200_AdditionalInformation {
@@ -21,13 +23,25 @@ public class JT808_Message_Content_0x0200_AI_0x11 extends JT808_Message_Content_
     }
 
     /**
-     * 超速报警附加信息
+     * 位置类型
      * <p>
-     * 长度 1或5
+     * 0：无特定位置；
+     * 1：圆形区域；
+     * 2：矩形区域；
+     * 3：多边形区域；
+     * 4：路段
      */
     @Getter
     @Setter
-    private byte[] overSpeed;
+    private Integer positionType;
+    /**
+     * 区域或路段ID
+     * <p>
+     * 若位置类型为0，无该字段
+     */
+    @Getter
+    @Setter
+    private Long segmentId;
 
     @Override
     public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {

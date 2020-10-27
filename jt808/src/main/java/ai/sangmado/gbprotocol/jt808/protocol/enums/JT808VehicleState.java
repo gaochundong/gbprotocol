@@ -47,13 +47,13 @@ public enum JT808VehicleState {
     ;
 
     @JsonInclude
-    private Long value;
+    private final Long value;
 
     @JsonIgnore
-    private JT808ProtocolVersion since;
+    private final JT808ProtocolVersion since;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     JT808VehicleState(long value, JT808ProtocolVersion since, String description) {
         this.value = value;

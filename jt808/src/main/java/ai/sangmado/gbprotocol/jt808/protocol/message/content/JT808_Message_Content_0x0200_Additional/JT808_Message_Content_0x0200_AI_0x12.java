@@ -21,13 +21,33 @@ public class JT808_Message_Content_0x0200_AI_0x12 extends JT808_Message_Content_
     }
 
     /**
-     * 进出区域/路线报警附加信息
+     * 位置类型
      * <p>
-     * 长度 6
+     * 1：圆型区域；
+     * 2：矩形区域；
+     * 3：多边形区域；
+     * 4：路线
      */
     @Getter
     @Setter
-    private byte[] entryAreaAdditionalInformation;
+    private Integer positionType;
+    /**
+     * 区域或路段ID
+     * <p>
+     * 若位置类型为0，无该字段
+     */
+    @Getter
+    @Setter
+    private Long segmentId;
+    /**
+     * 方向
+     * <p>
+     * 0：进；
+     * 1：出
+     */
+    @Getter
+    @Setter
+    private Integer direction;
 
     @Override
     public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {

@@ -3,6 +3,7 @@ package ai.sangmado.gbprotocol.jt808.protocol.message.content;
 import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808VehiclePlateColor;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
@@ -13,6 +14,10 @@ import static com.google.common.base.Strings.*;
 
 /**
  * 终端注册
+ *
+ * @since V2011 长度至少25字节
+ * @since V2013 长度至少37字节
+ * @since V2019 长度至少76字节
  */
 @Getter
 @Setter
@@ -65,17 +70,8 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
      * 2011版本 按照 JT/T415-2006 的 5.4.12。未上牌时，取值为 0。
      * 2013版本 按照 JT/T415-2006 的 5.4.12。未上牌时，取值为 0。
      * 2019版本 按照 JT/T697.7-2014 中的规定。未上牌时，取值为 0。
-     * <p>
-     * 参考：
-     * - 0x01: 蓝色
-     * - 0x02: 黄色
-     * - 0x03: 黑色
-     * - 0x04: 白色
-     * - 0x05: 绿色
-     * - 0x06: 黄绿色
-     * - 0x09: 其它
      */
-    private Integer plateColor;
+    private JT808VehiclePlateColor plateColor;
     /**
      * 车牌号
      * 车牌颜色为 0 时，表示车辆 VIN；否则，表示公安交通管理部门颁发的机动车号牌。
@@ -105,7 +101,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
-        writer.writeByte(getPlateColor());
+        writer.writeByte(getPlateColor().getValue());
         writer.writeString(getPlateNumber());
     }
 
@@ -132,7 +128,7 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
 
-        setPlateColor(reader.readByte() & 0xFF);
+        setPlateColor(JT808VehiclePlateColor.cast(reader.readByte() & 0xFF));
         setPlateNumber(reader.readStringRemaining());
     }
 

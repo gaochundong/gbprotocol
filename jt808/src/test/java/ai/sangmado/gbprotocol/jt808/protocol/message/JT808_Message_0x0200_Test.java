@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JT808_Message_0x0200_Test {
 
     private final IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
+    private final IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
             .withProtocolVersion(JT808ProtocolVersion.V2019)
             .withBufferPool(bufferPool);
 
@@ -63,14 +63,17 @@ public class JT808_Message_0x0200_Test {
                 .withPhoneNumber(phoneNumber)
                 .withSerialNumber(serialNumber);
         JT808MessageContent content = JT808_Message_Content_0x0200.builder()
-                .warningType(warningType)
-                .state(state)
-                .latitude(latitude)
-                .longitude(longitude)
-                .altitude(altitude)
-                .speed(speed)
-                .direction(direction)
-                .timestamp(timestamp)
+                .basicInformation(
+                        JT808_Message_Content_0x0200.BasicInformation.builder()
+                                .warningType(warningType)
+                                .state(state)
+                                .latitude(latitude)
+                                .longitude(longitude)
+                                .altitude(altitude)
+                                .speed(speed)
+                                .direction(direction)
+                                .timestamp(timestamp)
+                                .build())
                 .build();
 
         List<JT808Message> message = JT808MessageAssembler.assemble(ctx, header, content);
@@ -90,14 +93,14 @@ public class JT808_Message_0x0200_Test {
         assertEquals(messageId, dstMessage.getHeader().getMessageId());
         assertEquals(phoneNumber, dstMessage.getHeader().getPhoneNumber());
         assertEquals(serialNumber, dstMessage.getHeader().getSerialNumber());
-        assertEquals(warningType, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getWarningType());
-        assertEquals(state, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getState());
-        assertEquals(latitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getLatitude());
-        assertEquals(longitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getLongitude());
-        assertEquals(latitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getLatitude());
-        assertEquals(altitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getAltitude());
-        assertEquals(speed, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getSpeed());
-        assertEquals(direction, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getDirection());
-        assertEquals(timestamp, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getTimestamp());
+        assertEquals(warningType, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getWarningType());
+        assertEquals(state, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getState());
+        assertEquals(latitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getLatitude());
+        assertEquals(longitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getLongitude());
+        assertEquals(latitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getLatitude());
+        assertEquals(altitude, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getAltitude());
+        assertEquals(speed, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getSpeed());
+        assertEquals(direction, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getDirection());
+        assertEquals(timestamp, ((JT808_Message_Content_0x0200) (dstMessage.getContent())).getBasicInformation().getTimestamp());
     }
 }

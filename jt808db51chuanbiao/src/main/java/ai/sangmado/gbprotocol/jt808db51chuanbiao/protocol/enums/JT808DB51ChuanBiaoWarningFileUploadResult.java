@@ -17,10 +17,10 @@ public enum JT808DB51ChuanBiaoWarningFileUploadResult {
     ;
 
     @JsonInclude
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     JT808DB51ChuanBiaoWarningFileUploadResult(int value, String description) {
         this.value = value;

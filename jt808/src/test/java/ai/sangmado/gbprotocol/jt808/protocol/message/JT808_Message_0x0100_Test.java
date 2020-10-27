@@ -6,6 +6,7 @@ import ai.sangmado.gbprotocol.jt808.protocol.IVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.JT808ProtocolVersionedSpecificationContext;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808MessageId;
 import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion;
+import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808VehiclePlateColor;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808MessageContent;
 import ai.sangmado.gbprotocol.jt808.protocol.message.content.JT808_Message_Content_0x0100;
 import ai.sangmado.gbprotocol.jt808.protocol.message.header.JT808MessageHeader;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JT808_Message_0x0100_Test {
 
     private final IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
+    private final IVersionedSpecificationContext ctx = new JT808ProtocolVersionedSpecificationContext()
             .withProtocolVersion(JT808ProtocolVersion.V2019)
             .withBufferPool(bufferPool);
 
@@ -47,7 +48,7 @@ public class JT808_Message_0x0100_Test {
         String deviceId = "111";
         String deviceModel = "Made in China";
         String plateNumber = "AAA-BBB-CCC";
-        Integer plateColor = 0x01;
+        JT808VehiclePlateColor plateColor = JT808VehiclePlateColor.JT808_Vehicle_Color_Blue;
 
         JT808MessageHeader header = JT808MessageHeaderFactory
                 .buildWith(ctx)

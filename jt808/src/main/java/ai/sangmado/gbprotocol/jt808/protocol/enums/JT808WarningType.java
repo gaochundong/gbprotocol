@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static ai.sangmado.gbprotocol.jt808.protocol.enums.JT808ProtocolVersion.*;
 import static ai.sangmado.gbprotocol.jt808.protocol.enums.JT808WarningDisposition.ResetAfterAck;
@@ -52,16 +53,16 @@ public enum JT808WarningType {
     ;
 
     @JsonInclude
-    private Long value;
+    private final Long value;
 
     @JsonIgnore
-    private IProtocolVersion since;
+    private final IProtocolVersion since;
 
     @JsonIgnore
-    private JT808WarningDisposition disposition;
+    private final JT808WarningDisposition disposition;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     JT808WarningType(long value, IProtocolVersion since, JT808WarningDisposition disposition, String description) {
         this.value = value;
@@ -91,6 +92,11 @@ public enum JT808WarningType {
                     value, JT808WarningType.class.getSimpleName()));
         }
         return item;
+    }
+
+    public static Optional<JT808WarningType> tryCast(long value) {
+        JT808WarningType item = mapping.get(value);
+        return Optional.ofNullable(item);
     }
 
     public static JT808WarningType parse(String name) {

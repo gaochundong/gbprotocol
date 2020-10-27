@@ -28,7 +28,7 @@ public class JT809_Message_0x1400_Test {
 
     private final JT809MessageContentEncryptionOptions encryptionOptions = new JT809MessageContentEncryptionOptions();
     private final IBufferPool bufferPool = new PooledByteArrayFactory(512, 10);
-    private IVersionedSpecificationContext ctx = new JT809ProtocolVersionedSpecificationContext()
+    private final IVersionedSpecificationContext ctx = new JT809ProtocolVersionedSpecificationContext()
             .withProtocolVersion(JT809ProtocolVersion.V2011)
             .withBufferPool(bufferPool)
             .withMessageContentEncryptionOptions(encryptionOptions);

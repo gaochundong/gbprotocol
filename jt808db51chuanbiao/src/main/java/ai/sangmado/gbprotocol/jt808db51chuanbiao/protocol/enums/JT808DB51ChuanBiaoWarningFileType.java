@@ -20,7 +20,7 @@ public enum JT808DB51ChuanBiaoWarningFileType {
     ;
 
     @JsonInclude
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
     private String description;

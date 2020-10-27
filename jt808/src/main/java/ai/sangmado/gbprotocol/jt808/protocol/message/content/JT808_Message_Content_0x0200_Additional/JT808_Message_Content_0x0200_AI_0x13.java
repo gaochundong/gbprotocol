@@ -21,13 +21,28 @@ public class JT808_Message_Content_0x0200_AI_0x13 extends JT808_Message_Content_
     }
 
     /**
-     * 路段行驶时间不足/过长报警附加信息
-     * <p>
-     * 长度 7
+     * 路段ID
      */
     @Getter
     @Setter
-    private byte[] longTimeDrivingAdditionalInformation;
+    private Long segmentId;
+    /**
+     * 路段行驶时间
+     * <p>
+     * 单位为秒（s）
+     */
+    @Getter
+    @Setter
+    private Integer segmentTripTime;
+    /**
+     * 结果
+     * <p>
+     * 0：不足；
+     * 1：过长
+     */
+    @Getter
+    @Setter
+    private Integer result;
 
     @Override
     public void serialize(IVersionedSpecificationContext ctx, IJT808MessageBufferWriter writer) {
