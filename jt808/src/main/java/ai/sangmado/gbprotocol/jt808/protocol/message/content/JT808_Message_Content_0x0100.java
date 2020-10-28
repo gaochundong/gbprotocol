@@ -7,10 +7,13 @@ import ai.sangmado.gbprotocol.jt808.protocol.enums.JT808VehiclePlateColor;
 import ai.sangmado.gbprotocol.jt808.protocol.exceptions.UnsupportedJT808ProtocolVersionException;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferReader;
 import ai.sangmado.gbprotocol.jt808.protocol.serialization.IJT808MessageBufferWriter;
+import ai.sangmado.gbprotocol.jt808.protocol.utils.BytesPadder;
+import ai.sangmado.gbprotocol.jt808.protocol.utils.StringsConverter;
 import com.google.common.base.CharMatcher;
 import lombok.*;
 
-import static com.google.common.base.Strings.*;
+import static com.google.common.base.Strings.nullToEmpty;
+import static com.google.common.base.Strings.padEnd;
 
 /**
  * 终端注册
@@ -83,20 +86,20 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
         writer.writeWord(getProvinceId());
         writer.writeWord(getCityId());
 
-        final char padSpace = ' '; // 看起来是发现了后补空格是很愚蠢的办法
-        final char padChar = '0';  // 看起来是发现了后补0x00也是很愚蠢的办法，改进为了前补 ^_^
+        final char padSpace = ' '; // 补空格
+        final byte padChar = (byte) 0x00;  // 补0x00
         if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011)) {
             writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, padSpace));
             writer.writeString(padEnd(nullToEmpty(getDeviceModel()), 8, padSpace));
             writer.writeString(padEnd(nullToEmpty(getDeviceId()), 7, padSpace));
         } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
-            writer.writeString(padEnd(nullToEmpty(getManufacturerId()), 5, padChar));
-            writer.writeString(padEnd(nullToEmpty(getDeviceModel()), 20, padChar));
-            writer.writeString(padEnd(nullToEmpty(getDeviceId()), 7, padChar));
+            writer.writeBytes(BytesPadder.padRight(StringsConverter.toBytes(ctx, getManufacturerId()), 5, padChar));
+            writer.writeBytes(BytesPadder.padRight(StringsConverter.toBytes(ctx, getDeviceModel()), 20, padChar));
+            writer.writeBytes(BytesPadder.padRight(StringsConverter.toBytes(ctx, getDeviceId()), 7, padChar));
         } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2019)) {
-            writer.writeString(padStart(nullToEmpty(getManufacturerId()), 11, padChar));
-            writer.writeString(padStart(nullToEmpty(getDeviceModel()), 30, padChar));
-            writer.writeString(padStart(nullToEmpty(getDeviceId()), 30, padChar));
+            writer.writeBytes(BytesPadder.padLeft(StringsConverter.toBytes(ctx, getManufacturerId()), 11, padChar));
+            writer.writeBytes(BytesPadder.padLeft(StringsConverter.toBytes(ctx, getDeviceModel()), 30, padChar));
+            writer.writeBytes(BytesPadder.padLeft(StringsConverter.toBytes(ctx, getDeviceId()), 30, padChar));
         } else {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }
@@ -110,20 +113,20 @@ public class JT808_Message_Content_0x0100 extends JT808MessageContent {
         setProvinceId(reader.readWord());
         setCityId(reader.readWord());
 
-        final String padSpace = " "; // 看起来是发现了后补空格是很愚蠢的办法
-        final String padChar = "0";  // 看起来是发现了后补0x00也是很愚蠢的办法，改进为了前补 ^_^
+        final String padSpace = " "; // 补空格
+        final byte padChar = (byte) 0x00;  // 补0x00
         if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2011)) {
             setManufacturerId(CharMatcher.anyOf(padSpace).trimTrailingFrom(reader.readString(5)));
             setDeviceModel(CharMatcher.anyOf(padSpace).trimTrailingFrom(reader.readString(8)));
             setDeviceId(CharMatcher.anyOf(padSpace).trimTrailingFrom(reader.readString(7)));
         } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2013)) {
-            setManufacturerId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(5)));
-            setDeviceModel(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(20)));
-            setDeviceId(CharMatcher.anyOf(padChar).trimTrailingFrom(reader.readString(7)));
+            setManufacturerId(StringsConverter.toString(ctx, BytesPadder.trimRight(reader.readBytes(5), padChar)));
+            setDeviceModel(StringsConverter.toString(ctx, BytesPadder.trimRight(reader.readBytes(20), padChar)));
+            setDeviceId(StringsConverter.toString(ctx, BytesPadder.trimRight(reader.readBytes(7), padChar)));
         } else if (ctx.getProtocolVersion().equals(JT808ProtocolVersion.V2019)) {
-            setManufacturerId(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(11)));
-            setDeviceModel(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(30)));
-            setDeviceId(CharMatcher.anyOf(padChar).trimLeadingFrom(reader.readString(30)));
+            setManufacturerId(StringsConverter.toString(ctx, BytesPadder.trimLeft(reader.readBytes(11), padChar)));
+            setDeviceModel(StringsConverter.toString(ctx, BytesPadder.trimLeft(reader.readBytes(30), padChar)));
+            setDeviceId(StringsConverter.toString(ctx, BytesPadder.trimLeft(reader.readBytes(30), padChar)));
         } else {
             throw new UnsupportedJT808ProtocolVersionException(ctx.getProtocolVersion());
         }

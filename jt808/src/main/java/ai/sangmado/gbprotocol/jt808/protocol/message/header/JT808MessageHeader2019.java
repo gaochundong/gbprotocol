@@ -17,6 +17,9 @@ import lombok.Setter;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.base.Strings.padStart;
 
+/**
+ * JT808 V2019版本 消息头
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -69,7 +72,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
         // 消息ID
         writer.writeWord(getMessageId().getValue());
 
-        final char padChar = '0';
+        final char padChar = '0'; // 补数字0
         if (ctx.getProtocolVersion().equals(PROTOCOL_VERSION)) {
             // 消息体属性
             writer.writeWord(getMessageContentProperty().marshal());
@@ -96,7 +99,7 @@ public class JT808MessageHeader2019 extends JT808MessageHeader {
         // 消息ID
         setMessageId(JT808MessageId.cast(reader.readWord()));
 
-        final String padChar = "0";
+        final String padChar = "0"; // 补数字0
         int contentPropertyValue = reader.readWord();
         if (ctx.getProtocolVersion().equals(PROTOCOL_VERSION)) {
             JT808MessageHeaderMessageContentProperty2019 property = new JT808MessageHeaderMessageContentProperty2019();
