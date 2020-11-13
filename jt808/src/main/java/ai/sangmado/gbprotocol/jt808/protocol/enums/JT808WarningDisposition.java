@@ -2,6 +2,7 @@ package ai.sangmado.gbprotocol.jt808.protocol.enums;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public enum JT808WarningDisposition {
     UntilLifted(1, JT808ProtocolVersion.V2011, "标志维持至报警条件解除");
 
     @JsonInclude
+    @JsonValue
     private final Integer value;
 
     @JsonIgnore

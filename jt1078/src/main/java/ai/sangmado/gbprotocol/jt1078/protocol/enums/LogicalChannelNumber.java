@@ -35,16 +35,16 @@ public enum LogicalChannelNumber {
 
     @JsonInclude
     @JsonValue
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String channelName;
+    private final String channelName;
 
     @JsonIgnore
-    private String channelType;
+    private final String channelType;
 
     @JsonIgnore
-    private String monitorArea;
+    private final String monitorArea;
 
     LogicalChannelNumber(int value, String channelName, String channelType, String monitorArea) {
         this.value = value;

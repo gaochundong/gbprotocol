@@ -3,6 +3,7 @@ package ai.sangmado.gbprotocol.jt808.protocol.enums;
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -53,6 +54,7 @@ public enum JT808WarningType {
     ;
 
     @JsonInclude
+    @JsonValue
     private final Long value;
 
     @JsonIgnore

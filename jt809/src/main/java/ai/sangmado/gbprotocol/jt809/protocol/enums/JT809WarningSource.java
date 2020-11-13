@@ -2,6 +2,7 @@ package ai.sangmado.gbprotocol.jt809.protocol.enums;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -18,10 +19,11 @@ public enum JT809WarningSource {
     Others(1, "其他");
 
     @JsonInclude
-    private Integer value;
+    @JsonValue
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     JT809WarningSource(int value, String description) {
         this.value = value;

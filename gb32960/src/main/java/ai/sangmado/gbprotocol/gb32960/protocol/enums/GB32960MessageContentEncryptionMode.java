@@ -1,5 +1,8 @@
 package ai.sangmado.gbprotocol.gb32960.protocol.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -17,9 +20,12 @@ public enum GB32960MessageContentEncryptionMode {
     Invalid(0xFF, "无效"),
     ;
 
-    private Integer value;
+    @JsonInclude
+    @JsonValue
+    private final Integer value;
 
-    private String description;
+    @JsonIgnore
+    private final String description;
 
     GB32960MessageContentEncryptionMode(int value, String description) {
         this.value = value;

@@ -2,6 +2,7 @@ package ai.sangmado.gbprotocol.jt808db51chuanbiao.protocol.enums;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -20,10 +21,11 @@ public enum JT808DB51ChuanBiaoWarningFileType {
     ;
 
     @JsonInclude
+    @JsonValue
     private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     JT808DB51ChuanBiaoWarningFileType(int value, String description) {
         this.value = value;

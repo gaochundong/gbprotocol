@@ -3,6 +3,7 @@ package ai.sangmado.gbprotocol.jt809.protocol.enums;
 import ai.sangmado.gbprotocol.gbcommon.enums.IProtocolVersion;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -49,16 +50,17 @@ public enum JT809WarningType {
     ;
 
     @JsonInclude
-    private Long value;
+    @JsonValue
+    private final Long value;
 
     @JsonIgnore
-    private IProtocolVersion since;
+    private final IProtocolVersion since;
 
     @JsonIgnore
-    private Boolean locationBased;
+    private final Boolean locationBased;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     JT809WarningType(long value, IProtocolVersion since, boolean locationBased, String description) {
         this.value = value;

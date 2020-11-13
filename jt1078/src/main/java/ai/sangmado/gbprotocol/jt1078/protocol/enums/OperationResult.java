@@ -19,10 +19,10 @@ public enum OperationResult {
 
     @JsonInclude
     @JsonValue
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     OperationResult(int value, String description) {
         this.value = value;

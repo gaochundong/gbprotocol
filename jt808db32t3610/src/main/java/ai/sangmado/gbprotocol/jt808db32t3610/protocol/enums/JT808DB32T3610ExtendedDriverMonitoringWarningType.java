@@ -2,6 +2,7 @@ package ai.sangmado.gbprotocol.jt808db32t3610.protocol.enums;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public enum JT808DB32T3610ExtendedDriverMonitoringWarningType {
     ;
 
     @JsonInclude
+    @JsonValue
     private final Integer value;
 
     @JsonIgnore

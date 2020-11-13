@@ -19,10 +19,10 @@ public enum ChannelStreamType {
 
     @JsonInclude
     @JsonValue
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     ChannelStreamType(int value, String description) {
         this.value = value;

@@ -24,10 +24,10 @@ public enum StreamingDataType {
 
     @JsonInclude
     @JsonValue
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     StreamingDataType(int value, String description) {
         this.value = value;

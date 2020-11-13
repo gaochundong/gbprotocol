@@ -1,0 +1,26 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+
+    <mirrors>
+        <mirror>
+            <mirrorOf>central</mirrorOf>
+            <id>aliyun-central</id>
+            <name>Aliyun Maven Repository Mirror</name>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </mirror>
+        <mirror>
+            <mirrorOf>releases</mirrorOf>
+            <id>aliyun-releases</id>
+            <name>Aliyun Maven Repository Mirror</name>
+            <url>https://maven.aliyun.com/repository/releases</url>
+        </mirror>
+        <mirror>
+            <mirrorOf>snapshots</mirrorOf>
+            <id>aliyun-snapshots</id>
+            <name>Aliyun Maven Repository Mirror</name>
+            <url>https://maven.aliyun.com/repository/snapshots</url>
+        </mirror>
+    </mirrors>
+
+</settings>

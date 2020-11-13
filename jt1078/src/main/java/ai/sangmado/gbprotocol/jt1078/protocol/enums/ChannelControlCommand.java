@@ -23,10 +23,10 @@ public enum ChannelControlCommand {
 
     @JsonInclude
     @JsonValue
-    private Integer value;
+    private final Integer value;
 
     @JsonIgnore
-    private String description;
+    private final String description;
 
     ChannelControlCommand(int value, String description) {
         this.value = value;
